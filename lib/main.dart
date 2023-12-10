@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goodproject/login_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,9 +13,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Aakash App',
       theme: ThemeData(
-    
+
       ),
-    
+    home: LoginPage()  ,
     );
   }
 }
