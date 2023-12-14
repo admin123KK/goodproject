@@ -13,8 +13,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Aakash App',
       theme: ThemeData(
-
       ),
+      debugShowCheckedModeBanner: false,
     home: LoginPage()  ,
     );
   }
