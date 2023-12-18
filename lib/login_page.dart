@@ -20,7 +20,7 @@ class _LoginPageState extends State<LoginPage> {
           centerTitle: true,
         ),
         body: Padding(
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -28,6 +28,9 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     Text(
                       'Welcome',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                 ),
@@ -35,10 +38,26 @@ class _LoginPageState extends State<LoginPage> {
                   height: 20,
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       height: 250,
-                      width: 250,
+                      width:  300,
+                      color: Colors.red,
+                      child: const Text('Hello'),
+                        
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 250,
+                      width: 300,
                       color: Colors.red,
                     )
                   ],
@@ -47,34 +66,24 @@ class _LoginPageState extends State<LoginPage> {
                   height: 20,
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       height: 250,
-                      width: 250,
+                      width: 300,
                       color: Colors.red,
                     )
                   ],
                 ),
-                const SizedBox(
+              const   SizedBox(
                   height: 20,
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       height: 250,
-                      width: 250,
-                      color: Colors.red,
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  children: [
-                    Container(
-                      height: 250,
-                      width: 250,
+                      width: 300,
                       color: Colors.red,
                     )
                   ],
