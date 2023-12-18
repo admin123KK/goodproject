@@ -42,10 +42,9 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     Container(
                       height: 250,
-                      width:  300,
+                      width: 300,
                       color: Colors.red,
-                      child: const Text('Hello'),
-                        
+                      child: const Text('Hello Namste Nepal'),
                     ),
                   ],
                 ),
@@ -75,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                     )
                   ],
                 ),
-              const   SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Row(
@@ -91,6 +90,8 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
           ),
-        ));
+        ),
+        drawer: Drawer(),
+        );
   }
 }
