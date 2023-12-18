@@ -20,13 +20,15 @@ class _LoginPageState extends State<LoginPage> {
           centerTitle: true,
         ),
         body: Padding(
-          padding: EdgeInsets.all(9),
+          padding: EdgeInsets.all(15),
           child: SingleChildScrollView(
             child: Column(
               children: [
                 const Column(
                   children: [
-                    Text('Welcome'),
+                    Text(
+                      'Welcome',
+                    ),
                   ],
                 ),
                 const SizedBox(
