@@ -11,11 +11,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Aakash App',
-      theme: ThemeData(
-      ),
-      debugShowCheckedModeBanner: false,
-    home: LoginPage()  ,
-    );
+        title: 'Aakash App',
+        theme: ThemeData(),
+        debugShowCheckedModeBanner: false,
+        initialRoute: 'loginpage/',
+        routes: {
+          'loginpage/': (context) => LoginPage(),
+        });
   }
 }

@@ -132,7 +132,7 @@ class _LoginPageState extends State<LoginPage> {
                     height: 250,
                     width: 350,
                     decoration: BoxDecoration(
-                      image: const  DecorationImage(
+                      image: const DecorationImage(
                           image: NetworkImage(
                               'https://images.unsplash.com/photo-1611516491426-03025e6043c8?q=80&w=1933&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
                           fit: BoxFit.cover),
@@ -155,31 +155,70 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
       drawer: Drawer(
-        child: ListView(
-          children: [
-            UserAccountsDrawerHeader(
-              accountName: const Text('Aakash Karki'),
-              accountEmail: const Text('Skyisgood666@gmail.com'),
-              currentAccountPicture: CircleAvatar(
-                child: ClipOval(
-                  child: Image.asset('image/assets/nice.png',fit: BoxFit.cover,),
+      child: ListView(
+        children: [
+          UserAccountsDrawerHeader(
+            accountName: const Text('Aakash Karki'),
+            accountEmail: const Text('Skyisgood666@gmail.com'),
+            currentAccountPicture: CircleAvatar(
+              child: ClipOval(
+                child: Image.asset(
+                  'image/assets/nice.png',
+                  fit: BoxFit.cover,
                 ),
-              
               ),
-              decoration: BoxDecoration(image: DecorationImage(image: NetworkImage('https://images.unsplash.com/photo-1613425293967-16ae72140466?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),fit: BoxFit.fill)),
-        
             ),
-            ListTile(leading: Icon(Icons.home,color: Colors.black,),title: Text('Home'),),
-            ListTile(leading: Icon(Icons.place_outlined,color: Colors.black,),title: Text('Location'),),
-            ListTile(leading: Icon(Icons.settings,color: Colors.black,),title: Text('Settings'),),
-            ListTile(leading: Icon(Icons.share,color: Colors.black,),title: Text('Share'),),
-            ListTile(leading: Icon(Icons.feedback,color: Colors.black,),title: Text('Feedback'),),
-            ListTile(leading: Icon(Icons.help,color: Colors.black,),title: Text('Help'),),
-
-          ],
-        ),
-      
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: NetworkImage(
+                        'https://images.unsplash.com/photo-1613425293967-16ae72140466?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
+                    fit: BoxFit.fill)),
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.home,
+              color: Colors.black,
+            ),
+            title: Text('Home'),
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.place_outlined,
+              color: Colors.black,
+            ),
+            title: Text('Location'),
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.settings,
+              color: Colors.black,
+            ),
+            title: Text('Settings'),
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.share,
+              color: Colors.black,
+            ),
+            title: Text('Share'),
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.feedback,
+              color: Colors.black,
+            ),
+            title: Text('Feedback'),
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.help,
+              color: Colors.black,
+            ),
+            title: Text('Help'),
+          ),
+        ],
       ),
+    ),
     );
   }
 }
