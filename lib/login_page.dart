@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goodproject/cricket_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -155,70 +156,77 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
       drawer: Drawer(
-      child: ListView(
-        children: [
-          UserAccountsDrawerHeader(
-            accountName: const Text('Aakash Karki'),
-            accountEmail: const Text('Skyisgood666@gmail.com'),
-            currentAccountPicture: CircleAvatar(
-              child: ClipOval(
-                child: Image.asset(
-                  'image/assets/nice.png',
-                  fit: BoxFit.cover,
+        child: ListView(
+          children: [
+            UserAccountsDrawerHeader(
+              accountName: const Text('Aakash Karki'),
+              accountEmail: const Text('Skyisgood666@gmail.com'),
+              currentAccountPicture: CircleAvatar(
+                child: ClipOval(
+                  child: Image.asset(
+                    'image/assets/nice.png',
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: NetworkImage(
+                          'https://images.unsplash.com/photo-1613425293967-16ae72140466?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
+                      fit: BoxFit.fill)),
             ),
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: NetworkImage(
-                        'https://images.unsplash.com/photo-1613425293967-16ae72140466?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
-                    fit: BoxFit.fill)),
-          ),
+            const ListTile(
+              leading: Icon(
+                Icons.home,
+                color: Colors.black,
+              ),
+              title: Text('Home'),
+            ),
+            const ListTile(
+              leading: Icon(
+                Icons.place_outlined,
+                color: Colors.black,
+              ),
+              title: Text('Location'),
+            ),
+            const ListTile(
+              leading: Icon(
+                Icons.settings,
+                color: Colors.black,
+              ),
+              title: Text('Settings'),
+            ),
+            const ListTile(
+              leading: Icon(
+                Icons.share,
+                color: Colors.black,
+              ),
+              title: Text('Share'),
+            ),
+            const ListTile(
+              leading: Icon(
+                Icons.feedback,
+                color: Colors.black,
+              ),
+              title: Text('Feedback'),
+            ),
+            const ListTile(
+              leading: Icon(
+                Icons.help,
+                color: Colors.black,
+              ),
+              title: Text('Help'),
+            ),
           ListTile(
-            leading: Icon(
-              Icons.home,
-              color: Colors.black,
-            ),
-            title: Text('Home'),
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.place_outlined,
-              color: Colors.black,
-            ),
-            title: Text('Location'),
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.settings,
-              color: Colors.black,
-            ),
-            title: Text('Settings'),
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.share,
-              color: Colors.black,
-            ),
-            title: Text('Share'),
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.feedback,
-              color: Colors.black,
-            ),
-            title: Text('Feedback'),
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.help,
-              color: Colors.black,
-            ),
-            title: Text('Help'),
-          ),
-        ],
+              leading: Icon(Icons.sports_cricket_rounded,),
+               title: Text('Score Card'
+          
+              ),
+              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) =>  CricketPage())),
+            )
+          ],
+        ),
       ),
-    ),
     );
   }
 }

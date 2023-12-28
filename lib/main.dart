@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goodproject/cricket_page.dart';
 import 'package:goodproject/login_page.dart';
 
 void main() {
@@ -16,7 +17,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         initialRoute: 'loginpage/',
         routes: {
-          'loginpage/': (context) => LoginPage(),
+          'loginpage/': (context) => const   LoginPage(),
+          'CricketPage/': (context) => CricketPage()
         });
   }
 }
