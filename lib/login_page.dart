@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:goodproject/cricket_page.dart';
-
+import 'package:share_plus/share_plus.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -163,7 +163,12 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       )),
                 ],
-              )
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    Share.share('com.example.goodproject');
+                  },
+                  child: Text('Namste'))
             ],
           ),
         ),
