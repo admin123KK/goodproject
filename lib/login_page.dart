@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:goodproject/cricket_page.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:http/http.dart' as http;
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -9,6 +14,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  String imageUrl = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -165,10 +171,19 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
               ElevatedButton(
-                  onPressed: () {
-                    Share.share('com.example.goodproject');
+                  onPressed: () async {
+                    final imageUrl =
+                        'https://images.unsplash.com/photo-1611516491426-03025e6043c8?q=80&w=1933&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
+                    final url = Uri.parse(imageUrl);
+                    final response = await http.get(url);
+                    final bytes = response.bodyBytes;
+                    final temp = await getTemporaryDirectory();
+                    final path = '${temp.path}/image.jpg';
+                    File(path).writeAsBytes(bytes);
+
+                    await Share.shareFiles([path], text: 'You are cute');
                   },
-                  child: Text('Namste'))
+                  child: Text('Share'))
             ],
           ),
         ),
