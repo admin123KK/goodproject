@@ -1,12 +1,7 @@
-// import 'dart:io';
-
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:goodproject/cricket_page.dart';
-import 'package:goodproject/share_page.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
@@ -146,7 +141,6 @@ class _LoginPageState extends State<LoginPage> {
                 height: 20,
               ),
               Row(
-              
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
@@ -169,31 +163,12 @@ class _LoginPageState extends State<LoginPage> {
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                               fontSize: 20),
-                            
                         ),
-                      
                       ),
-              
                     ),
-                    
                   ),
-                  
                 ],
               ),
-              ElevatedButton(
-                  onPressed: () async {
-                    final urlImage =
-                        'https://images.unsplash.com/photo-1611516491426-03025e6043c8?q=80&w=1933&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
-                    final url = Uri.parse(urlImage);
-                    final response = await http.get(url);
-                    final bytes = response.bodyBytes;
-                    final temp = await getTemporaryDirectory();
-                    final path = '${temp.path}/image.jpg';
-                    File(path).writeAsBytes(bytes);
-
-                    await Share.shareXFiles([XFile(path)]);
-                  },
-                  child: Text('Share'))
             ],
           ),
         ),
@@ -239,13 +214,10 @@ class _LoginPageState extends State<LoginPage> {
               ),
               title: Text('Settings'),
             ),
-             ListTile(
-            onTap:() => Navigator.push(context, MaterialPageRoute(builder: (context) => SharePage(),)),
+            const ListTile(
               leading: Icon(
-            
                 Icons.share,
                 color: Colors.black,
-            
               ),
               title: Text('Share'),
             ),
