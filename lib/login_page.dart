@@ -1,8 +1,4 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:goodproject/cricket_page.dart';
-import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -235,13 +231,11 @@ class _LoginPageState extends State<LoginPage> {
               ),
               title: Text('Help'),
             ),
-            ListTile(
+            const ListTile(
               leading: Icon(
                 Icons.sports_cricket_rounded,
               ),
               title: Text('Score Card'),
-              onTap: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => CricketPage())),
             )
           ],
         ),
