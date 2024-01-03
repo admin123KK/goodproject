@@ -32,7 +32,8 @@ class WelcomePage extends StatelessWidget {
               height: 300,
             ),
             ElevatedButton(
-              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => StartPage())),
+              onPressed: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => StartPage())),
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(
                   Color(0xFF91AD13),
@@ -43,7 +44,7 @@ class WelcomePage extends StatelessWidget {
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Mooli',
-                    color: Colors.black),
+                    color: Colors.black,),
               ),
             ),
           ],
