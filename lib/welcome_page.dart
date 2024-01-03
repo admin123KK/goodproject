@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -7,14 +6,44 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Row(
+        padding: EdgeInsets.all(25),
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'Welcome ',
-              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,fontFamily: 'Mooli')
+            const Text(
+              'Namaste ',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                  fontFamily: 'Mooli'),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            const Image(
+              image: AssetImage(
+                'image/assets/welcome.png',
+              ),
+            ),
+            const SizedBox(
+              height: 300,
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                  Color(0xFF91AD13),
+                ),
+              ),
+              child: const Text(
+                "Get Started",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Mooli',
+                    color: Colors.black),
+              ),
             ),
           ],
         ),
