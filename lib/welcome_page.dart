@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goodproject/start_page.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -31,7 +32,7 @@ class WelcomePage extends StatelessWidget {
               height: 300,
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => StartPage())),
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(
                   Color(0xFF91AD13),
