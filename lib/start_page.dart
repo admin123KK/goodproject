@@ -15,7 +15,7 @@ class StartPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "Let's Enjoy Our Best,",
+                "Let's Enjoy Our Best",
                 style: TextStyle(
                     fontFamily: 'Mooli, ',
                     fontWeight: FontWeight.bold,

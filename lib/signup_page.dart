@@ -8,9 +8,16 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _nameController = TextEditingController();
+  final _paswordController = TextEditingController();
+  bool passToggle = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: SingleChildScrollView(
@@ -36,8 +43,8 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 Container(
-                  height: 300,
-                  width: 300,
+                  height: 260,
+                  width: 400,
                   child: Image.asset('image/assets/signup.png'),
                 ),
                 // const SizedBox(
@@ -49,11 +56,13 @@ class _SignUpState extends State<SignUp> {
                     height: 55,
                     width: 400,
                     child: TextFormField(
+                      controller: _nameController,
                       decoration: const InputDecoration(
                         hintText: " Enter your name",
                         hintStyle: TextStyle(color: Colors.grey),
                         labelText: 'Full Name',
                         labelStyle: TextStyle(color: Colors.black),
+                        prefixIcon: Icon(Icons.person_2_outlined),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Color(0xFF91AD13),
@@ -71,6 +80,12 @@ class _SignUpState extends State<SignUp> {
                           ),
                         ),
                       ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "please enter your name";
+                        }
+                        return null;
+                      },
                     ),
                   ),
                 ),
@@ -80,8 +95,10 @@ class _SignUpState extends State<SignUp> {
                     height: 55,
                     width: 400,
                     child: TextFormField(
+                      controller: _emailController,
                       decoration: const InputDecoration(
                         labelText: 'Email',
+                        prefixIcon: Icon(Icons.email_outlined),
                         labelStyle: TextStyle(color: Colors.black),
                         hintText: 'Enter your email',
                         hintStyle: TextStyle(
@@ -108,20 +125,32 @@ class _SignUpState extends State<SignUp> {
                     height: 55,
                     width: 400,
                     child: TextFormField(
-                      obscureText: true,
-                      decoration: const InputDecoration(
+                      obscureText: passToggle,
+                      controller: _paswordController,
+                      decoration: InputDecoration(
                         labelText: 'New password',
-                        labelStyle: TextStyle(color: Colors.black),
+                        prefixIcon: const Icon(Icons.lock_outlined),
+                        labelStyle: const TextStyle(color: Colors.black),
                         hintText: 'Enter your new passowrd',
-                        hintStyle: TextStyle(
+                        suffix: InkWell(
+                          onTap: () {
+                            setState(() {
+                              passToggle = !passToggle;
+                            });
+                          },
+                          child: Icon(passToggle
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                        ),
+                        hintStyle: const TextStyle(
                           color: Colors.grey,
                         ),
-                        focusedBorder: OutlineInputBorder(
+                        focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Color(0xFF91AD13)),
                             borderRadius: BorderRadius.all(
                               Radius.circular(15),
                             )),
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                           borderSide: BorderSide(color: Color(0xFF91AD13)),
                           borderRadius: BorderRadius.all(
                             Radius.circular(15),
@@ -137,20 +166,30 @@ class _SignUpState extends State<SignUp> {
                     height: 55,
                     width: 400,
                     child: TextFormField(
-                      obscureText: true,
-                      decoration: const InputDecoration(
+                      obscureText: passToggle,
+                      controller: _paswordController,
+                      decoration: InputDecoration(
                         labelText: 'Confirm  password',
-                        labelStyle: TextStyle(color: Colors.black),
+                        labelStyle: const TextStyle(color: Colors.black),
                         hintText: 'Confirm your Password',
-                        hintStyle: TextStyle(
-                          color: Colors.grey,
+                        prefixIcon: const Icon(Icons.lock_outline),
+                        suffix: InkWell(
+                          onTap: () {
+                            setState(() {
+                              passToggle = !passToggle;
+                            });
+                          },
+                          child: Icon(passToggle
+                              ? Icons.visibility
+                              : Icons.visibility_off),
                         ),
-                        focusedBorder: OutlineInputBorder(
+                        hintStyle: const TextStyle(color: Colors.grey),
+                        focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Color(0xFF91AD13)),
                             borderRadius: BorderRadius.all(
                               Radius.circular(15),
                             )),
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                           borderSide: BorderSide(color: Color(0xFF91AD13)),
                           borderRadius: BorderRadius.all(
                             Radius.circular(15),
@@ -160,22 +199,39 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                 ),
-                Container(
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    width: 400,
                     child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text('SignUp'),
-                )),
-                SizedBox(
-                  height: 6,
+                      onPressed: () {
+                        _formKey.currentState!.validate();
+                      },
+                      child: Text('SignUp'),
+                    ),
+                  ),
                 ),
-                Container(
-                  child: Text('I have account ? '),
-                ),
-                Container(
-                  child: Text(
-                    'Login',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Color(0xFF91AD13)),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 70, vertical: 3),
+                  child: Container(
+                    child: Row(children: [
+                      const Text('Already have an account?'),
+                      Row(
+                        children: [
+                          TextButton(
+                              onPressed: () {},
+                              child: const Text(
+                                'Login',
+                                style: TextStyle(
+                                    color: Color(
+                                      0xFF91AD13,
+                                    ),
+                                    fontWeight: FontWeight.bold),
+                              ))
+                        ],
+                      )
+                    ]),
                   ),
                 )
               ],
