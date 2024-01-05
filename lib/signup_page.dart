@@ -39,9 +39,9 @@ class _SignUpState extends State<SignUp> {
                         const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
                     child: Container(
                       alignment: Alignment.topLeft,
-                      child: const Text(
+                      child: Text(
                         'Enter your details to signup',
-                        style: TextStyle(fontSize: 12),
+                        style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                       ),
                     ),
                   ),
@@ -60,6 +60,7 @@ class _SignUpState extends State<SignUp> {
                       // width: 400,
                       child: TextFormField(
                         controller: _nameController,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: const InputDecoration(
                           hintText: " Enter your name",
                           hintStyle: TextStyle(color: Colors.grey),
@@ -100,6 +101,7 @@ class _SignUpState extends State<SignUp> {
                       // width: 400,
                       child: TextFormField(
                         controller: _emailController,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: const InputDecoration(
                           labelText: 'Email',
                           prefixIcon: Icon(Icons.email_outlined),
@@ -123,6 +125,14 @@ class _SignUpState extends State<SignUp> {
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "please enter mail";
+                          } else {
+                            RegExp emailRegExp = RegExp(
+                                r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+                            if (!emailRegExp.hasMatch(value)) {
+                              return "please enter the valid mail  ";
+                            } else {
+                              return null;
+                            }
                           }
                         },
                       ),
@@ -136,6 +146,7 @@ class _SignUpState extends State<SignUp> {
                       child: TextFormField(
                         obscureText: passToggle,
                         controller: _paswordController,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: InputDecoration(
                           labelText: 'New password',
                           prefixIcon: const Icon(Icons.lock_outlined),
@@ -244,31 +255,89 @@ class _SignUpState extends State<SignUp> {
                       ),
                     ),
                   ),
-                  Text('or'),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Divider(
+                          thickness: 0.5,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: Text('or continue with'),
+                      ),
+                      Expanded(
+                          child: Divider(
+                        thickness: 0.5,
+                        color: Colors.grey[600],
+                      ))
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 75,
+                          width: 75,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Image.asset(
+                            'image/assets/facebook.png',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Container(
+                          height: 75,
+                          width: 75,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.grey[200],
+                          ),
+                          child: Image.asset('image/assets/google.png'),
+                        )
+                      ],
+                    ),
+                  ),
                   Padding(
                     padding:
-                        const EdgeInsets.symmetric(horizontal: 70, vertical: 3),
+                        const EdgeInsets.symmetric(horizontal: 70, vertical: 2),
                     child: Container(
-                      child: Row(children: [
-                        const Text('Already have an account?'),
-                        Row(
-                          children: [
-                            TextButton(
-                              onPressed: () {},
-                              child: const Text(
-                                'Login',
-                                style: TextStyle(
-                                    color: Color(
-                                      0xFF91AD13,
-                                    ),
-                                    fontWeight: FontWeight.bold),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Already have an account?',
+                            style: TextStyle(color: Colors.grey[600]),
+                          ),
+                          Row(
+                            children: [
+                              TextButton(
+                                onPressed: () {},
+                                child: const Text(
+                                  'Login',
+                                  style: TextStyle(
+                                      color: Color(
+                                        0xFF91AD13,
+                                      ),
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
-                            ),
-                          ],
-                        )
-                      ]),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
