@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goodproject/login_page.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -244,8 +245,11 @@ class _SignUpState extends State<SignUp> {
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 Color(0xFF91AD13))),
-                        onPressed: () {
+                        onPressed: () async {
                           _formKey.currentState!.validate();
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content:  Text('Completed '),
+                          ));
                         },
                         child: const Text(
                           'Sign Up',
@@ -322,7 +326,12 @@ class _SignUpState extends State<SignUp> {
                           Row(
                             children: [
                               TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => LoginPage()));
+                                },
                                 child: const Text(
                                   'Login',
                                   style: TextStyle(

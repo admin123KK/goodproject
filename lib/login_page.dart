@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/retry.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -8,236 +9,212 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String imageUrl = '';
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool passToggle = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade300,
-      appBar: AppBar(
-        title: const Text(
-          'Pick Up Lines',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        backgroundColor: Color.fromARGB(255, 181, 7, 7),
-        centerTitle: true,
-      ),
+      backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.all(15),
+        padding: EdgeInsets.all(10.0),
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const Column(
-                children: [
-                  Text(
-                    'Welcome',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+          child: SafeArea(
+            child: Form(
+              key: _formKey,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              child: Column(
                 children: [
                   Container(
-                    height: 250,
-                    width: 350,
-                    decoration: BoxDecoration(
-                      image: const DecorationImage(
-                        image: NetworkImage(
-                            'https://images.unsplash.com/photo-1702750722257-6bc38db1267a?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
-                        fit: BoxFit.cover,
-                      ),
-                      color: Colors.green,
-                      borderRadius: BorderRadius.circular(24),
+                    alignment: Alignment.topLeft,
+                    child: const Text(
+                      'Login Account',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
                     ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(11),
-                      child: Center(
-                        child: Text(
-                          '"Do you believe in love at first sight, or should I walk by again?"',
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 4, vertical: 0),
+                    child: Container(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        'Enter your details to login',
+                        style: TextStyle(color: Colors.grey[600]),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: 269,
+                    width: 269,
+                    child: Image.asset('image/assets/signup.png'),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      child: TextFormField(
+                        controller: _emailController,
+                        decoration: InputDecoration(
+                          hintText: 'enter your username ',
+                          labelText: 'Username',
+                          prefixIcon: Icon(Icons.email_outlined),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "please enter username";
+                          } else {
+                            RegExp emailRegExp = RegExp(
+                                r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+                            if (!emailRegExp.hasMatch(value)) {
+                              return 'Invalid username ';
+                            } else {
+                              return null;
+                            }
+                          }
+                        },
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      child: TextFormField(
+                        controller: _passwordController,
+                        obscureText: passToggle,
+                        decoration: InputDecoration(
+                          hintText: 'Enter your password',
+                          labelText: 'Password',
+                          prefixIcon: const Icon(Icons.lock_outline),
+                          suffix: InkWell(
+                            onTap: () {
+                              setState(() {
+                                passToggle = !passToggle;
+                              });
+                            },
+                            child: Icon(passToggle
+                                ? Icons.visibility
+                                : Icons.visibility_off),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'please enter password';
+                          } else if (value.length < 6) {
+                            return 'wrong password';
+                          } else {
+                            return null;
+                          }
+                        },
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                          onPressed: () {},
+                          child: Text('Forgot Password?',
+                              style: TextStyle(
+                                  color: Color(0xFF91AD13), fontSize: 13)))
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: 400,
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                            Color(0xFF91AD13),
+                          ),
+                        ),
+                        onPressed: () {
+                          _formKey.currentState!.validate();
+                        },
+                        child: const Text(
+                          'Login',
                           style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 19),
+                              color: Colors.black, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
                   ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 250,
-                    width: 350,
-                    decoration: BoxDecoration(
-                        image: const DecorationImage(
-                            image: NetworkImage(
-                              'https://images.unsplash.com/photo-1702594369985-163331c12097?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                            ),
-                            fit: BoxFit.cover),
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(24)),
-                    child: const Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Center(
-                        child: Text(
-                          "'If beauty were time, you'd be an eternity'",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Divider(
+                          thickness: 0.5,
+                          color: Colors.grey[600],
                         ),
                       ),
-                    ),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text('Or continue with '),
+                      ),
+                      Expanded(
+                          child: Divider(
+                        thickness: 0.5,
+                        color: Colors.grey[600],
+                      ))
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 75,
+                        width: 75,
+                        decoration: BoxDecoration(
+                            color: Colors.grey[100],
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Image.asset(
+                          'image/assets/facebook.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Container(
+                        height: 75,
+                        width: 75,
+                        decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Image.asset(
+                          'image/assets/google.png',
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                   
+                    ],
+                  ),
+                  SizedBox(height: 10,),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 80,vertical: 2),
+                    child: Container(child: Row(
+                      children: [
+                        Text('Dont have account?'),
+                    TextButton(onPressed: () {}, child: Text('SignUp'))
+                    
+                      ],
+                    )),
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 250,
-                    width: 350,
-                    decoration: BoxDecoration(
-                      image: const DecorationImage(
-                          image: NetworkImage(
-                              'https://images.unsplash.com/photo-1682687218147-9806132dc697?q=80&w=1975&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
-                          fit: BoxFit.cover),
-                      borderRadius: BorderRadius.circular(24),
-                      color: Colors.green,
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Center(
-                        child: Text(
-                          '"Do you have a name, or can I call you mine?"',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 19),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 250,
-                    width: 350,
-                    decoration: BoxDecoration(
-                      image: const DecorationImage(
-                          image: NetworkImage(
-                              'https://images.unsplash.com/photo-1611516491426-03025e6043c8?q=80&w=1933&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
-                          fit: BoxFit.cover),
-                      color: Colors.green,
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Center(
-                        child: Text(
-                          '"Are you a camera? Every time I look at you, I smile."',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 20),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
+            ),
           ),
-        ),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            UserAccountsDrawerHeader(
-              accountName: const Text('Aakash Karki'),
-              accountEmail: const Text('Skyisgood666@gmail.com'),
-              currentAccountPicture: CircleAvatar(
-                child: ClipOval(
-                  child: Image.asset(
-                    'image/assets/nice.png',
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: NetworkImage(
-                          'https://images.unsplash.com/photo-1613425293967-16ae72140466?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
-                      fit: BoxFit.fill)),
-            ),
-            const ListTile(
-              leading: Icon(
-                Icons.home,
-                color: Colors.black,
-              ),
-              title: Text('Home'),
-            ),
-            const ListTile(
-              leading: Icon(
-                Icons.place_outlined,
-                color: Colors.black,
-              ),
-              title: Text('Location'),
-            ),
-            const ListTile(
-              leading: Icon(
-                Icons.settings,
-                color: Colors.black,
-              ),
-              title: Text('Settings'),
-            ),
-            const ListTile(
-              leading: Icon(
-                Icons.share,
-                color: Colors.black,
-              ),
-              title: Text('Share'),
-            ),
-            const ListTile(
-              leading: Icon(
-                Icons.feedback,
-                color: Colors.black,
-              ),
-              title: Text('Feedback'),
-            ),
-            const ListTile(
-              leading: Icon(
-                Icons.help,
-                color: Colors.black,
-              ),
-              title: Text('Help'),
-            ),
-            const ListTile(
-              leading: Icon(
-                Icons.sports_cricket_rounded,
-              ),
-              title: Text('Score Card'),
-            )
-          ],
         ),
       ),
     );
