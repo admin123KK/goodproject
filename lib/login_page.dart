@@ -65,13 +65,13 @@ class _LoginPageState extends State<LoginPage> {
                           focusedBorder: OutlineInputBorder(
                             borderSide:
                                 const BorderSide(color: Color(0xFF91AD13)),
-                            borderRadius: BorderRadius.circular(25),
+                            borderRadius: BorderRadius.circular(15),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
                               color: Color(0xFF91AD13),
                             ),
-                            borderRadius: BorderRadius.circular(25),
+                            borderRadius: BorderRadius.circular(15),
                           ),
                         ),
                         validator: (value) {
@@ -114,11 +114,11 @@ class _LoginPageState extends State<LoginPage> {
                                 : Icons.visibility_off),
                           ),
                           focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(25),
+                              borderRadius: BorderRadius.circular(15),
                               borderSide:
                                   const BorderSide(color: Color(0xFF91AD13))),
                           enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(25),
+                              borderRadius: BorderRadius.circular(15),
                               borderSide:
                                   const BorderSide(color: Color(0xFF91AD13))),
                         ),
@@ -138,10 +138,13 @@ class _LoginPageState extends State<LoginPage> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       TextButton(
-                          onPressed: () {},
-                          child: const Text('Forgot Password?',
-                              style: TextStyle(
-                                  color: Color(0xFF91AD13), fontSize: 13)))
+                        onPressed: () {},
+                        child: const Text(
+                          'Forgot Password?',
+                          style:
+                              TextStyle(color: Color(0xFF91AD13), fontSize: 13),
+                        ),
+                      )
                     ],
                   ),
                   Padding(

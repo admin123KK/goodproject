@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:goodproject/login_page.dart';
+import 'package:goodproject/verifcation_page.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -184,7 +185,7 @@ class _SignUpState extends State<SignUp> {
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'please enter password';
-                          } else if (value!.length < 6) {
+                          } else if (value.length < 6) {
                             return "at least  6 character requried";
                           } else {
                             return null;
@@ -232,7 +233,7 @@ class _SignUpState extends State<SignUp> {
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "please enter your password";
-                          } else if (value!.length < 6) {
+                          } else if (value.length < 6) {
                             return "invalid password";
                           } else {
                             return null;
@@ -249,7 +250,12 @@ class _SignUpState extends State<SignUp> {
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 Color(0xFF91AD13))),
-                        onPressed: () async {
+                        onPressed: ()  {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => VerifictionPage(),
+                              ));
                           _formKey.currentState!.validate();
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: Text('Completed '),
@@ -274,9 +280,12 @@ class _SignUpState extends State<SignUp> {
                           color: Colors.grey[600],
                         ),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Text('or continue with'),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Text(
+                          'or continue with',
+                          style: TextStyle(color: Colors.grey[600]),
+                        ),
                       ),
                       Expanded(
                           child: Divider(
