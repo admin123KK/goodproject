@@ -16,6 +16,7 @@ class _SignUpState extends State<SignUp> {
   final _paswordController = TextEditingController();
   bool passToggle = true;
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
