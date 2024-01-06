@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:http/retry.dart';
+import 'package:goodproject/signup_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -19,12 +19,11 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
-        padding: EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(10.0),
         child: SingleChildScrollView(
           child: SafeArea(
             child: Form(
               key: _formKey,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
               child: Column(
                 children: [
                   Container(
@@ -56,11 +55,22 @@ class _LoginPageState extends State<LoginPage> {
                     child: Container(
                       child: TextFormField(
                         controller: _emailController,
+                        cursorColor: Color(0xFF91AD13),
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: InputDecoration(
                           hintText: 'enter your username ',
                           labelText: 'Username',
-                          prefixIcon: Icon(Icons.email_outlined),
-                          border: OutlineInputBorder(
+                          labelStyle: const TextStyle(color: Colors.grey),
+                          prefixIcon: const Icon(Icons.email_outlined),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(color: Color(0xFF91AD13)),
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Color(0xFF91AD13),
+                            ),
                             borderRadius: BorderRadius.circular(25),
                           ),
                         ),
@@ -84,11 +94,14 @@ class _LoginPageState extends State<LoginPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                       child: TextFormField(
+                        cursorColor: const Color(0xFF91AD13),
                         controller: _passwordController,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         obscureText: passToggle,
                         decoration: InputDecoration(
                           hintText: 'Enter your password',
                           labelText: 'Password',
+                          labelStyle: const TextStyle(color: Colors.grey),
                           prefixIcon: const Icon(Icons.lock_outline),
                           suffix: InkWell(
                             onTap: () {
@@ -100,9 +113,14 @@ class _LoginPageState extends State<LoginPage> {
                                 ? Icons.visibility
                                 : Icons.visibility_off),
                           ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(25),
-                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(25),
+                              borderSide:
+                                  const BorderSide(color: Color(0xFF91AD13))),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(25),
+                              borderSide:
+                                  const BorderSide(color: Color(0xFF91AD13))),
                         ),
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -121,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       TextButton(
                           onPressed: () {},
-                          child: Text('Forgot Password?',
+                          child: const Text('Forgot Password?',
                               style: TextStyle(
                                   color: Color(0xFF91AD13), fontSize: 13)))
                     ],
@@ -133,7 +151,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: ElevatedButton(
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
-                            Color(0xFF91AD13),
+                            const Color(0xFF91AD13),
                           ),
                         ),
                         onPressed: () {
@@ -155,15 +173,19 @@ class _LoginPageState extends State<LoginPage> {
                           color: Colors.grey[600],
                         ),
                       ),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.all(8.0),
-                        child: Text('Or continue with '),
+                        child: Text(
+                          'Or continue with ',
+                          style: TextStyle(color: Colors.grey[600]),
+                        ),
                       ),
                       Expanded(
-                          child: Divider(
-                        thickness: 0.5,
-                        color: Colors.grey[600],
-                      ))
+                        child: Divider(
+                          thickness: 0.5,
+                          color: Colors.grey[600],
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(
@@ -197,19 +219,38 @@ class _LoginPageState extends State<LoginPage> {
                           fit: BoxFit.contain,
                         ),
                       ),
-                   
                     ],
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 80,vertical: 2),
-                    child: Container(child: Row(
-                      children: [
-                        Text('Dont have account?'),
-                    TextButton(onPressed: () {}, child: Text('SignUp'))
-                    
-                      ],
-                    )),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 80, vertical: 2),
+                    child: Container(
+                      child: Row(
+                        children: [
+                          Text(
+                            'Dont have account?',
+                            style: TextStyle(color: Colors.grey[600]),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SignUp(),
+                                ),
+                              );
+                            },
+                            child: const Text(
+                              'SignUp',
+                              style: TextStyle(color: Color(0xFF91AD13)),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),

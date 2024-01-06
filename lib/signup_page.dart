@@ -62,6 +62,7 @@ class _SignUpState extends State<SignUp> {
                       child: TextFormField(
                         controller: _nameController,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
+                        cursorColor: Color(0xFF91AD13),
                         decoration: const InputDecoration(
                           hintText: " Enter your name",
                           hintStyle: TextStyle(color: Colors.grey),
@@ -103,6 +104,7 @@ class _SignUpState extends State<SignUp> {
                       child: TextFormField(
                         controller: _emailController,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
+                        cursorColor: Color(0xFF91AD13),
                         decoration: const InputDecoration(
                           labelText: 'Email',
                           prefixIcon: Icon(Icons.email_outlined),
@@ -148,6 +150,7 @@ class _SignUpState extends State<SignUp> {
                         obscureText: passToggle,
                         controller: _paswordController,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
+                        cursorColor: Color(0xFF91AD13),
                         decoration: InputDecoration(
                           labelText: 'New password',
                           prefixIcon: const Icon(Icons.lock_outlined),
@@ -196,6 +199,7 @@ class _SignUpState extends State<SignUp> {
                       // height: 55,
                       // width: 400,
                       child: TextFormField(
+                        cursorColor: Color(0xFF91AD13),
                         obscureText: passToggle,
                         decoration: InputDecoration(
                           labelText: 'Confirm  password',
@@ -248,7 +252,7 @@ class _SignUpState extends State<SignUp> {
                         onPressed: () async {
                           _formKey.currentState!.validate();
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content:  Text('Completed '),
+                            content: Text('Completed '),
                           ));
                         },
                         child: const Text(
