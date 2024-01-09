@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "627500478888",
+    "project_id": "goodproject-3a698",
+    "storage_bucket": "goodproject-3a698.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:627500478888:android:1ff19c0a448c8afd1eed9d",
+        "android_client_info": {
+          "package_name": "com.example.goodproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnkEPzZ9PJaHuCm6j1rDavemZj3-J4VYU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -12,9 +12,8 @@ class VerifictionPage extends StatefulWidget {
 
 class _VerifictionPageState extends State<VerifictionPage> {
   final _formKey = GlobalKey<FormState>();
-  int _counter = 60;
+  int _counter = 30;
   late Timer _timer;
-  bool _timerActive = true;
 
   @override
   void initState() {
@@ -29,7 +28,6 @@ class _VerifictionPageState extends State<VerifictionPage> {
           _counter--;
         } else {
           _timer.cancel();
-          _timerActive = false;
         }
       });
     });
@@ -38,7 +36,6 @@ class _VerifictionPageState extends State<VerifictionPage> {
   void resetTimer() {
     setState(() {
       _counter = 30;
-      _timerActive = true;
     });
     startTimer();
   }
@@ -275,7 +272,7 @@ class _VerifictionPageState extends State<VerifictionPage> {
                             onTap: () {
                               resetTimer();
                             },
-                            child: Text(
+                            child: const Text(
                               'Resend code',
                               style: TextStyle(
                                 fontSize: 16,
@@ -283,15 +280,6 @@ class _VerifictionPageState extends State<VerifictionPage> {
                               ),
                             ),
                           )
-                    // Container(
-                    //   child: TextButton(
-                    //     onPressed: () {},
-                    //     child: Text(
-                    //       'Resend New ',
-                    //       style: TextStyle(color: Color(0xFF91AD13)),
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 ),
               ],
