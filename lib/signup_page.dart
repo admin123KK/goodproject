@@ -314,14 +314,20 @@ class _SignUpState extends State<SignUp> {
                                       final email = _email.text;
                                       final password = _password.text;
                                       try {
-                                        final userCredential = FirebaseAuth
-                                            .instance
-                                            .createUserWithEmailAndPassword(
-                                                email: email,
-                                                password: password);
+                                        final userCredential =
+                                            await FirebaseAuth.instance
+                                                .createUserWithEmailAndPassword(
+                                                    email: email,
+                                                    password: password);
                                         print(userCredential);
                                       } on FirebaseAuthException catch (e) {
-                                        print(e.code);
+                                        if (e.code == 'email-already-in-use') {
+                                          print('try another email address ');
+                                        } else if (e.code == 'invalid-email') {
+                                          print('Try strog passwored');
+                                        } else {
+                                          print(e.code);
+                                        }
                                       }
                                     },
                                     child: const Text(

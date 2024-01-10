@@ -21,7 +21,6 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     _email = TextEditingController();
     _password = TextEditingController();
-
     super.initState();
   }
 
@@ -209,9 +208,14 @@ class _LoginPageState extends State<LoginPage> {
                                                     email: email,
                                                     password: password);
                                         print(userCredential);
-                                      } on FirebaseAuth catch (e) {
-                                        print(e);
-                                        print('something bad happens');
+                                      } on FirebaseAuthException catch (e) {
+                                        if (e.code == 'email-already-in-use') {
+                                          print('try another email address ');
+                                        } else if (e.code == 'invalid-email') {
+                                          print('Try strog passwored');
+                                        } else {
+                                          print(e.code);
+                                        }
                                       }
                                     },
                                     child: const Text(
