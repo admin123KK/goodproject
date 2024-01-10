@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:goodproject/home_page.dart';
 import 'package:goodproject/login_page.dart';
@@ -22,7 +21,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         initialRoute: 'WelcomePage/',
         routes: {
-          'loginpage/': (context) => const LoginPage(),
+          'Loginpage/': (context) => const LoginPage(),
           'homepage/': (context) => const HomePage(),
           'WelcomePage/': (context) => const WelcomePage(),
           'StartPage/': (context) => const StartPage(),
