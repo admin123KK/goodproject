@@ -325,7 +325,9 @@ class _SignUpState extends State<SignUp> {
                                           print('try another email address ');
                                         } else if (e.code == 'invalid-email') {
                                           print('Try strog passwored');
-                                        } else {
+                                        } else if(e.code =='missing-email'){
+                                          print('Email is missing');
+                                        }else {
                                           print(e.code);
                                         }
                                       }

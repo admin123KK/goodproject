@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:goodproject/home_page.dart';
 import 'package:goodproject/login_page.dart';
@@ -5,7 +6,7 @@ import 'package:goodproject/start_page.dart';
 import 'package:goodproject/verifcation_page.dart';
 import 'package:goodproject/welcome_page.dart';
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }

@@ -16,6 +16,8 @@ class _LoginPageState extends State<LoginPage> {
   late final TextEditingController _email;
   late final TextEditingController _password;
   bool passToggle = true;
+  String email = '';
+  String password = '';
 
   @override
   void initState() {
@@ -198,7 +200,7 @@ class _LoginPageState extends State<LoginPage> {
                                       ),
                                     ),
                                     onPressed: () async {
-                                      _formKey.currentState!.validate();
+                                      // _formKey.currentState!.validate();
                                       final email = _email.text;
                                       final password = _password.text;
                                       try {
@@ -209,10 +211,18 @@ class _LoginPageState extends State<LoginPage> {
                                                     password: password);
                                         print(userCredential);
                                       } on FirebaseAuthException catch (e) {
-                                        if (e.code == 'email-already-in-use') {
-                                          print('try another email address ');
-                                        } else if (e.code == 'invalid-email') {
-                                          print('Try strog passwored');
+                                        if (e.code == 'invalid-email') {
+                                          print(
+                                              'The email address you enter is incorrect');
+                                          print(e.code);
+                                        } else if (e.code ==
+                                            'missing-password') {
+                                          print(e.code);
+                                          print('Password is missing sir');
+                                        } else if (e.code ==
+                                            'invalid-credential') {
+                                          print(e.code);
+                                          print('password is incorrect');
                                         } else {
                                           print(e.code);
                                         }
@@ -268,7 +278,7 @@ class _LoginPageState extends State<LoginPage> {
                                       fit: BoxFit.cover,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 15,
                                   ),
                                   Container(
@@ -285,7 +295,7 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               Padding(
