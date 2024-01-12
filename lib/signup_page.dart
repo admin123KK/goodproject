@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:goodproject/firebase_options.dart';
 import 'package:goodproject/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:goodproject/verifcation_page.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -301,33 +302,25 @@ class _SignUpState extends State<SignUp> {
                                             MaterialStateProperty.all<Color>(
                                                 Color(0xFF91AD13))),
                                     onPressed: () async {
-                                      // Navigator.push(
-                                      //     context,
-                                      //     MaterialPageRoute(
-                                      //       builder: (context) => VerifictionPage(),
-                                      //     ));
                                       // _formKey.currentState!.validate();
-                                      // ScaffoldMessenger.of(context)
-                                      //     .showSnackBar(SnackBar(
-                                      //   content: Text('Completed '),
-                                      // ));
+
                                       final email = _email.text;
                                       final password = _password.text;
                                       try {
-                                        final userCredential =
-                                            await FirebaseAuth.instance
-                                                .createUserWithEmailAndPassword(
-                                                    email: email,
-                                                    password: password);
-                                        print(userCredential);
+                                        await FirebaseAuth.instance
+                                            .createUserWithEmailAndPassword(
+                                                email: email,
+                                                password: password);
+                                        Navigator.of(context)
+                                            .pushNamed('VerifictionPage/');
                                       } on FirebaseAuthException catch (e) {
                                         if (e.code == 'email-already-in-use') {
                                           print('try another email address ');
                                         } else if (e.code == 'invalid-email') {
                                           print('Invalid email address');
-                                        } else if(e.code =='missing-email'){
+                                        } else if (e.code == 'missing-email') {
                                           print('Email is missing');
-                                        }else {
+                                        } else {
                                           print(e.code);
                                         }
                                       }
