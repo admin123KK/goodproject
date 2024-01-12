@@ -272,7 +272,9 @@ class _VerifictionPageState extends State<VerifictionPage> {
                                     backgroundColor:
                                         MaterialStateProperty.all<Color>(
                                             Color(0xFF91AD13))),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushNamed(context, 'MyAppPage/');
+                                },
                                 child: Text(
                                   'Verify ',
                                   style: TextStyle(

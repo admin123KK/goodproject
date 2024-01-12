@@ -203,13 +203,15 @@ class _LoginPageState extends State<LoginPage> {
                                       // _formKey.currentState!.validate();
                                       final email = _email.text;
                                       final password = _password.text;
+                                      Navigator.of(context)
+                                          .pushNamed('homepage/');
                                       try {
-                                        final userCredential =
-                                            await FirebaseAuth.instance
-                                                .signInWithEmailAndPassword(
-                                                    email: email,
-                                                    password: password);
-                                        print(userCredential);
+                                        await FirebaseAuth.instance
+                                            .signInWithEmailAndPassword(
+                                                email: email,
+                                                password: password);
+                                        Navigator.of(context)
+                                            .pushNamed('homepage/');
                                       } on FirebaseAuthException catch (e) {
                                         if (e.code == 'invalid-email') {
                                           print(

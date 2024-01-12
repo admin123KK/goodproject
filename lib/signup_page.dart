@@ -1,9 +1,9 @@
+import 'package:email_auth/email_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:goodproject/firebase_options.dart';
 import 'package:goodproject/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:goodproject/verifcation_page.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -315,11 +315,18 @@ class _SignUpState extends State<SignUp> {
                                             .pushNamed('VerifictionPage/');
                                       } on FirebaseAuthException catch (e) {
                                         if (e.code == 'email-already-in-use') {
+                                          await showErrorDialgo(context,
+                                              'Email already use try another');
                                           print('try another email address ');
                                         } else if (e.code == 'invalid-email') {
-                                          print('Invalid email address');
-                                        } else if (e.code == 'missing-email') {
-                                          print('Email is missing');
+                                          await showErrorDialgo(
+                                              context, 'Invalid email address');
+                                        } else if (e.code == 'weak-password') {
+                                          await showErrorDialgo(
+                                              context, 'Weak Password');
+                                        } else if (e.code == 'channel-error') {
+                                          await showErrorDialgo(
+                                              context, 'Invalid Credential');
                                         } else {
                                           print(e.code);
                                         }
@@ -438,4 +445,37 @@ class _SignUpState extends State<SignUp> {
           }),
     );
   }
+}
+
+Future<void> showErrorDialgo(
+  BuildContext context,
+  String text,
+) {
+  return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text(' Error occured'),
+          icon: Icon(Icons.cancel),
+          content: Text(
+            textAlign: TextAlign.center,
+            text,
+            style: const TextStyle(color: Colors.red),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text(
+                'OK',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF91AD13),
+                ),
+              ),
+            ),
+          ],
+        );
+      });
 }
