@@ -200,12 +200,13 @@ class _LoginPageState extends State<LoginPage> {
                                     // Navigator.of(context)
                                     //     .pushNamed('homepage/');
                                     try {
-                                      await FirebaseAuth.instance
+                                    final userCredential =  await FirebaseAuth.instance
                                           .signInWithEmailAndPassword(
                                               email: email, password: password);
                                       Navigator.of(context)
                                           .pushNamed('homepage/');
-                                      print('sucess');
+
+                                      print(userCredential);
                                     } on FirebaseAuthException catch (e) {
                                       if (e.code == 'invalid-email') {
                                         await showErrorDialgo(
@@ -223,7 +224,7 @@ class _LoginPageState extends State<LoginPage> {
                                         // print(e.code);
                                         // print('password is incorrect');
                                         await showErrorDialgo(
-                                            context, 'Password is incorrect');
+                                            context, 'usernae or password is incorrect');
                                       } else {
                                         print(e.code);
                                       }

@@ -1,4 +1,3 @@
-import 'package:email_auth/email_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:goodproject/firebase_options.dart';
@@ -126,9 +125,10 @@ class _SignUpState extends State<SignUp> {
                                     validator: (value) {
                                       if (value!.isEmpty) {
                                         return "please enter your name";
-                                      } else if (value!.length < 4) {
+                                      } else if (value.length < 4) {
                                         return "character should be more than 5";
                                       }
+                                      return null;
                                     },
                                   ),
                                 ),
