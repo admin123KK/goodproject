@@ -307,10 +307,10 @@ class _SignUpState extends State<SignUp> {
                                           context: context,
                                           builder: (context) {
                                             return Center(
-                                                child:
-                                                    CircularProgressIndicator(
-                                              color: Color(0xFF91AD13),
-                                            ));
+                                              child: CircularProgressIndicator(
+                                                color: Color(0xFF91AD13),
+                                              ),
+                                            );
                                           });
 
                                       final email = _email.text;
@@ -322,10 +322,13 @@ class _SignUpState extends State<SignUp> {
                                                 password: password);
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
-                                        SnackBar(
-                                          backgroundColor: Colors.black,
+                                          SnackBar(
+                                            backgroundColor: Colors.black,
                                             content: const Text(
-                                                'You are registered!!',style: TextStyle(color: Color(0xFF91AD13)),),
+                                              'You are registered!!',
+                                              style: TextStyle(
+                                                  color: Color(0xFF91AD13)),
+                                            ),
                                             behavior: SnackBarBehavior.floating,
                                             shape: RoundedRectangleBorder(
                                               borderRadius:

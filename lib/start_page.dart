@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goodproject/login_page.dart';
 import 'package:goodproject/signup_page.dart';
 
 class StartPage extends StatefulWidget {
@@ -53,9 +54,20 @@ class _StartPageState extends State<StartPage> {
                             fontWeight: FontWeight.bold,
                             fontFamily: 'Mooli'),
                       ),
-                      onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => SignUp()));
+                      onPressed: () async {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  color: Color(0xFF91AD13),
+                                ),
+                              );
+                            });
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(builder: (context) => SignUp()),
+                            (route) => false);
                       },
                     ),
                   ),
@@ -74,9 +86,20 @@ class _StartPageState extends State<StartPage> {
                           color: Color(0xFF91AD13),
                         ),
                         backgroundColor: Color(0xFF91AD13)),
-                    onPressed: () {
-                      Navigator.pushNamed(context, 'Loginpage/');
-                    
+                    onPressed: () async{
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Center(
+                              child: CircularProgressIndicator(
+                                color: Color(0xFF91AD13),
+                              ),
+                            );
+                          });
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => LoginPage()),
+                          (route) => false);
                     },
                     child: const Text(
                       '  Login  ',

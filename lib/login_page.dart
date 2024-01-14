@@ -200,9 +200,10 @@ class _LoginPageState extends State<LoginPage> {
                                         context: context,
                                         builder: (context) {
                                           return const Center(
-                                              child: CircularProgressIndicator(
-                                            color: Color(0xFF91AD13),
-                                          ));
+                                            child: CircularProgressIndicator(
+                                              color: Color(0xFF91AD13),
+                                            ),
+                                          );
                                         });
                                     final email = _email.text;
                                     final password = _password.text;
@@ -213,9 +214,8 @@ class _LoginPageState extends State<LoginPage> {
                                           .instance
                                           .signInWithEmailAndPassword(
                                               email: email, password: password);
-                                      // print(userCredential);
-                                      Navigator.pushAndRemoveUntil(
-                                          context,
+                                      print(userCredential);
+                                      Navigator.of(context).pushAndRemoveUntil(
                                           MaterialPageRoute(
                                             builder: (context) => HomePage(),
                                           ),
