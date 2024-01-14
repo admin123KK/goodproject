@@ -66,7 +66,7 @@ class _LoginPageState extends State<HomePage> {
           'Pick Up Lines',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Color.fromARGB(255, 181, 7, 7),
+        backgroundColor: Color(0xFF91AD13),
         centerTitle: true,
       ),
       body: Padding(

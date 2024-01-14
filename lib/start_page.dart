@@ -86,7 +86,7 @@ class _StartPageState extends State<StartPage> {
                           color: Color(0xFF91AD13),
                         ),
                         backgroundColor: Color(0xFF91AD13)),
-                    onPressed: () async{
+                    onPressed: () async {
                       showDialog(
                           context: context,
                           builder: (context) {
