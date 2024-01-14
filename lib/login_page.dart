@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:goodproject/firebase_options.dart';
+import 'package:goodproject/home_page.dart';
 import 'package:goodproject/signup_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -194,19 +195,31 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                   ),
                                   onPressed: () async {
-                                    _formKey.currentState!.validate();
+                                    // _formKey.currentState!.validate();
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return const Center(
+                                              child: CircularProgressIndicator(
+                                            color: Color(0xFF91AD13),
+                                          ));
+                                        });
                                     final email = _email.text;
                                     final password = _password.text;
                                     // Navigator.of(context)
                                     //     .pushNamed('homepage/');
                                     try {
-                                    final userCredential =  await FirebaseAuth.instance
+                                      final userCredential = await FirebaseAuth
+                                          .instance
                                           .signInWithEmailAndPassword(
                                               email: email, password: password);
-                                      Navigator.of(context)
-                                          .pushNamed('homepage/');
-
-                                      print(userCredential);
+                                      // print(userCredential);
+                                      Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => HomePage(),
+                                          ),
+                                          (route) => false);
                                     } on FirebaseAuthException catch (e) {
                                       if (e.code == 'invalid-email') {
                                         await showErrorDialgo(
@@ -223,11 +236,15 @@ class _LoginPageState extends State<LoginPage> {
                                           'invalid-credential') {
                                         // print(e.code);
                                         // print('password is incorrect');
+                                        await showErrorDialgo(context,
+                                            'username or password is incorrect');
+                                      } else if (e.code == 'channel-error') {
                                         await showErrorDialgo(
-                                            context, 'usernae or password is incorrect');
+                                            context, 'invalid credential');
                                       } else {
                                         print(e.code);
                                       }
+                                      Navigator.pop(context);
                                     }
                                   },
                                   child: const Text(

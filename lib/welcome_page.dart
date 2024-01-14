@@ -39,8 +39,11 @@ class _WelcomePageState extends State<WelcomePage> {
                   height: 300,
                 ),
                 ElevatedButton(
-                  onPressed: () => Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => StartPage())),
+                  onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => StartPage(),
+                      )),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
                       Color(0xFF91AD13),

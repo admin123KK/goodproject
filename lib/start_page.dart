@@ -76,6 +76,7 @@ class _StartPageState extends State<StartPage> {
                         backgroundColor: Color(0xFF91AD13)),
                     onPressed: () {
                       Navigator.pushNamed(context, 'Loginpage/');
+                    
                     },
                     child: const Text(
                       '  Login  ',

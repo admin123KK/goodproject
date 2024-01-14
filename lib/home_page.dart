@@ -22,8 +22,8 @@ class _LoginPageState extends State<HomePage> {
               'Logout',
               style: TextStyle(fontFamily: 'Mooli'),
             ),
-            content: const  Text(
-              'Are you sure want to logout?',
+            content: const Text(
+              'Are you sure you want to logout?',
               style: TextStyle(color: Colors.red, fontFamily: 'Mooli'),
             ),
             actions: <Widget>[
@@ -39,7 +39,8 @@ class _LoginPageState extends State<HomePage> {
                 ),
               ),
               TextButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    await _auth.signOut();
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(

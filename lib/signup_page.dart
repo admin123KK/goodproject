@@ -303,6 +303,15 @@ class _SignUpState extends State<SignUp> {
                                                 Color(0xFF91AD13))),
                                     onPressed: () async {
                                       // _formKey.currentState!.validate();
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                              color: Color(0xFF91AD13),
+                                            ));
+                                          });
 
                                       final email = _email.text;
                                       final password = _password.text;
@@ -311,6 +320,19 @@ class _SignUpState extends State<SignUp> {
                                             .createUserWithEmailAndPassword(
                                                 email: email,
                                                 password: password);
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                        SnackBar(
+                                          backgroundColor: Colors.black,
+                                            content: const Text(
+                                                'You are registered!!',style: TextStyle(color: Color(0xFF91AD13)),),
+                                            behavior: SnackBarBehavior.floating,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(14),
+                                            ),
+                                          ),
+                                        );
                                         Navigator.of(context)
                                             .pushNamed('VerifictionPage/');
                                       } on FirebaseAuthException catch (e) {
@@ -330,6 +352,7 @@ class _SignUpState extends State<SignUp> {
                                         } else {
                                           print(e.code);
                                         }
+                                        Navigator.pop(context);
                                       }
                                     },
                                     child: const Text(
