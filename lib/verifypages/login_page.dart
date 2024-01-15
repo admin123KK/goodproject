@@ -87,10 +87,11 @@ class _LoginPageState extends State<LoginPage> {
                               child: Container(
                                 child: TextFormField(
                                   controller: _email,
-                                  cursorColor: Color(0xFF91AD13),
+                                  cursorColor: const Color(0xFF91AD13),
                                   autovalidateMode:
                                       AutovalidateMode.onUserInteraction,
                                   decoration: InputDecoration(
+                                    focusColor: const Color(0xFF91AD13),
                                     hintText: 'enter your username ',
                                     labelText: 'Username',
                                     labelStyle:

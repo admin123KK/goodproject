@@ -66,25 +66,38 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           child: Container(
                             child: TextFormField(
                               controller: _emailController,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  borderSide: const BorderSide(
-                                    color: Color(0xFF91AD13),
+                                  hintText: 'Enter your email',
+                                  labelText: 'Email ',
+                                  labelStyle: const TextStyle(
+                                    color: Colors.black,
                                   ),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  borderSide: const BorderSide(
-                                    color: Color(0xFF91AD13),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                    borderSide: const BorderSide(
+                                      color: Color(0xFF91AD13),
+                                    ),
                                   ),
-                                ),
-                              ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                    borderSide: const BorderSide(
+                                      color: Color(0xFF91AD13),
+                                    ),
+                                  ),
+                                  prefixIcon: const Icon(Icons.email_outlined)),
                               validator: (value) {
-                                if (value != null) {
-                                  print('something went wrong');
+                                if (value!.isEmpty) {
+                                  return 'Please enter email';
                                 } else {
-                                  return null;
+                                  RegExp emailRegExp = RegExp(
+                                      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+                                  if (!emailRegExp.hasMatch(value)) {
+                                    return 'Invalid email address';
+                                  } else {
+                                    return null;
+                                  }
                                 }
                               },
                             ),
@@ -115,16 +128,40 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             ),
                           ),
                         ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Divider(
+                                thickness: 0.5,
+                                color: Colors.grey,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'Check email for new password',
+                                style: TextStyle(color: Colors.grey[600]),
+                              ),
+                            ),
+                            const Expanded(
+                              child: Divider(
+                                thickness: 0.5,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        ),
                         Container(
-                          alignment: Alignment.topRight,
-                          child: const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              'Check email for new password',
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, 'Loginpage/');
+                            },
+                            child: const Text(
+                              'Success? Back to Login',
                               style: TextStyle(color: Color(0xFF91AD13)),
                             ),
                           ),
-                        ),
+                        )
                       ],
                     ),
                   ),
