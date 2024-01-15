@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:goodproject/login_page.dart';
-import 'package:goodproject/signup_page.dart';
+import 'package:goodproject/verifypages/login_page.dart';
+import 'package:goodproject/verifypages/signup_page.dart';
 
 class StartPage extends StatefulWidget {
   const StartPage({super.key});

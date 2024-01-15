@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:goodproject/firebase_options.dart';
+import 'package:goodproject/verifypages/firebase_options.dart';
 import 'package:goodproject/home_page.dart';
-import 'package:goodproject/signup_page.dart';
+import 'package:goodproject/verifypages/signup_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -175,7 +175,10 @@ class _LoginPageState extends State<LoginPage> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                        context, 'ForgotPassword/');
+                                  },
                                   child: const Text(
                                     'Forgot Password?',
                                     style: TextStyle(
