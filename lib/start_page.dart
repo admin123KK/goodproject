@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:goodproject/verifypages/login_page.dart';
 import 'package:goodproject/verifypages/signup_page.dart';
@@ -64,10 +66,13 @@ class _StartPageState extends State<StartPage> {
                                 ),
                               );
                             });
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(builder: (context) => SignUp()),
-                            (route) => false);
+                        Timer(Duration(seconds: 1), () {
+                          Navigator.of(context).pop();
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(builder: (context) => SignUp()),
+                              (route) => false);
+                        });
                       },
                     ),
                   ),
@@ -96,10 +101,17 @@ class _StartPageState extends State<StartPage> {
                               ),
                             );
                           });
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(builder: (context) => LoginPage()),
-                          (route) => false);
+                      Timer(
+                        Duration(seconds: 1),
+                        () {
+                          Navigator.of(context).pop();
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginPage()),
+                              (route) => false);
+                        },
+                      );
                     },
                     child: const Text(
                       '  Login  ',

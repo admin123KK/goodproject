@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:goodproject/start_page.dart';
 
@@ -14,7 +16,7 @@ class _WelcomePageState extends State<WelcomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
-        padding: EdgeInsets.all(25),
+        padding: const EdgeInsets.all(25),
         child: SingleChildScrollView(
           child: SafeArea(
             child: Column(
@@ -39,11 +41,25 @@ class _WelcomePageState extends State<WelcomePage> {
                   height: 300,
                 ),
                 ElevatedButton(
-                  onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => StartPage(),
-                      )),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return Center(
+                          child: CircularProgressIndicator(
+                            color: Color(0xFF91AD13),
+                          ),
+                        );
+                      },
+                    );
+                    Timer(Duration(seconds: 1), () {
+                      Navigator.of(context).pop();
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (conrext) => StartPage()),
+                          (route) => false);
+                    });
+                  },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
                       Color(0xFF91AD13),
