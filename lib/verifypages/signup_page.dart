@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:goodproject/verifypages/auth_service.dart';
 import 'package:goodproject/verifypages/firebase_options.dart';
 import 'package:goodproject/verifypages/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,7 +15,7 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
-
+  late final Function()? onTap;
   late final TextEditingController _email;
   late final TextEditingController _password;
 
@@ -394,34 +395,42 @@ class _SignUpState extends State<SignUp> {
                                 ],
                               ),
                               Padding(
-                                padding: const EdgeInsets.all(20),
+                                padding: EdgeInsets.all(20),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Container(
-                                      height: 75,
-                                      width: 75,
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey[200],
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: Image.asset(
-                                        'image/assets/facebook.png',
-                                        fit: BoxFit.cover,
+                                    GestureDetector(
+                                      
+                                      child: Container(
+                                        height: 75,
+                                        width: 75,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey[200],
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        child: Image.asset(
+                                          'image/assets/facebook.png',
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
                                     ),
                                     const SizedBox(
                                       width: 20,
                                     ),
-                                    Container(
-                                      height: 75,
-                                      width: 75,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        color: Colors.grey[200],
+                                    GestureDetector(
+                                      onTap: () => AuthService().signInWithGoogle(),
+                                    
+                                      child: Container(
+                                        height: 75,
+                                        width: 75,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(20),
+                                          color: Colors.grey[200],
+                                        ),
+                                        child: Image.asset(
+                                            'image/assets/google.png'),
                                       ),
-                                      child: Image.asset(
-                                          'image/assets/google.png'),
                                     )
                                   ],
                                 ),
