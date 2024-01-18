@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:goodproject/verifypages/firebase_options.dart';
 import 'package:goodproject/home_page.dart';
 import 'package:goodproject/verifypages/signup_page.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -14,11 +15,33 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
+  late final Function()? onTap;
   late final TextEditingController _email;
   late final TextEditingController _password;
   bool passToggle = true;
   String email = '';
   String password = '';
+
+  Future signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    await FirebaseAuth.instance.signInWithCredential(credential);
+
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil('homepage/', (route) => false);
+  }
 
   @override
   void initState() {
@@ -211,6 +234,7 @@ class _LoginPageState extends State<LoginPage> {
                                         });
                                     final email = _email.text;
                                     final password = _password.text;
+
                                     // Navigator.of(context)
                                     //     .pushNamed('homepage/');
                                     try {
@@ -289,29 +313,39 @@ class _LoginPageState extends State<LoginPage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Container(
-                                  height: 75,
-                                  width: 75,
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey[100],
-                                      borderRadius: BorderRadius.circular(20)),
-                                  child: Image.asset(
-                                    'image/assets/facebook.png',
-                                    fit: BoxFit.cover,
+                                GestureDetector(
+                                  onTap: () async {},
+                                  child: Container(
+                                    height: 75,
+                                    width: 75,
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey[100],
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                    child: Image.asset(
+                                      'image/assets/facebook.png',
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(
                                   width: 15,
                                 ),
-                                Container(
-                                  height: 75,
-                                  width: 75,
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey[200],
-                                      borderRadius: BorderRadius.circular(20)),
-                                  child: Image.asset(
-                                    'image/assets/google.png',
-                                    fit: BoxFit.contain,
+                                GestureDetector(
+                                  onTap: () {
+                                    signInWithGoogle();
+                                  },
+                                  child: Container(
+                                    height: 75,
+                                    width: 75,
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey[200],
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                    child: Image.asset(
+                                      'image/assets/google.png',
+                                      fit: BoxFit.contain,
+                                    ),
                                   ),
                                 ),
                               ],

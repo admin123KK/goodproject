@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:goodproject/verifypages/auth_service.dart';
 import 'package:goodproject/verifypages/firebase_options.dart';
 import 'package:goodproject/verifypages/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -20,6 +20,27 @@ class _SignUpState extends State<SignUp> {
   late final TextEditingController _password;
 
   bool passToggle = true;
+
+  Future signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    await FirebaseAuth.instance.signInWithCredential(credential);
+
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil('homepage/', (route) => false);
+  }
 
   @override
   void initState() {
@@ -400,7 +421,6 @@ class _SignUpState extends State<SignUp> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     GestureDetector(
-                                      
                                       child: Container(
                                         height: 75,
                                         width: 75,
@@ -419,13 +439,15 @@ class _SignUpState extends State<SignUp> {
                                       width: 20,
                                     ),
                                     GestureDetector(
-                                      onTap: () => AuthService().signInWithGoogle(),
-                                    
+                                      onTap: () {
+                                        signInWithGoogle();
+                                      },
                                       child: Container(
                                         height: 75,
                                         width: 75,
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(20),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
                                           color: Colors.grey[200],
                                         ),
                                         child: Image.asset(

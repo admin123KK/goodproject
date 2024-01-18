@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:goodproject/verifypages/login_page.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -40,7 +41,10 @@ class _LoginPageState extends State<HomePage> {
               ),
               TextButton(
                   onPressed: () async {
-                    await _auth.signOut();
+                    // await _auth.signOut();
+                    GoogleSignIn googleSignIn = GoogleSignIn();
+                    googleSignIn.disconnect();
+                    await FirebaseAuth.instance.signOut();
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
