@@ -414,13 +414,14 @@ Future<void> showErrorDialog(BuildContext, context, String text) {
           ),
           actions: [
             TextButton(
-                onPressed: () {},
-                child: const Text(
-                  'Ok',
-                  style: TextStyle(
-                    color: Color(0xFF91AD13),
-                  ),
-                ))
+              onPressed: () {},
+              child: const Text(
+                'Ok',
+                style: TextStyle(
+                  color: Color(0xFF91AD13),
+                ),
+              ),
+            ),
           ],
         );
       });
