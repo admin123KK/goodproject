@@ -11,7 +11,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<HomePage> {
-  String imageUrl = '';
   String userEmail = "";
   String userName = "";
   String userPhoto = "";
@@ -28,6 +27,25 @@ class _LoginPageState extends State<HomePage> {
         });
       }
     });
+  }
+
+  Widget foodItem({required String image, required String name}) {
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.only(left: 10),
+          height: 90,
+          width: 90,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.grey,
+              image: DecorationImage(
+                  image: NetworkImage(
+                      'https://i.pinimg.com/originals/c5/43/fe/c543febbf4c3fc6e38f4abc4a1159f64.jpg'),
+                  fit: BoxFit.cover)),
+        ),
+      ],
+    );
   }
 
   Future<void> _showLogOUtDialog(BuildContext, context) {
@@ -85,16 +103,83 @@ class _LoginPageState extends State<HomePage> {
         title: const Text(
           'Khaja Ghar',
           style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Mooli'),
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Mooli',
+          ),
         ),
         backgroundColor: Color(0xFF91AD13),
         centerTitle: true,
       ),
-      body: Text(
-        'Welcome, $userName',
-        style: TextStyle(fontFamily: 'Mooli', fontWeight: FontWeight.bold),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Welcome,  $userName',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Container(
+              height: 50,
+              width: 700,
+              child: TextField(
+                decoration: InputDecoration(
+                    hintText: 'Search Food',
+                    hintStyle: const TextStyle(color: Colors.white),
+                    filled: true,
+                    prefixIcon: const Icon(
+                      Icons.search,
+                      color: Colors.white,
+                    ),
+                    fillColor: Colors.grey[600],
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(15),
+                    )),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    foodItem(
+                        image:
+                            'https://i.pinimg.com/originals/c5/43/fe/c543febbf4c3fc6e38f4abc4a1159f64.jpg',
+                        name: 'SelRoti'),
+                    foodItem(
+                        image:
+                            'https://i.pinimg.com/originals/c5/43/fe/c543febbf4c3fc6e38f4abc4a1159f64.jpg',
+                        name: 'SelRoti'),
+                    foodItem(
+                        image:
+                            'https://i.pinimg.com/originals/c5/43/fe/c543febbf4c3fc6e38f4abc4a1159f64.jpg',
+                        name: 'SelRoti'),
+                    foodItem(
+                        image:
+                            'https://i.pinimg.com/originals/c5/43/fe/c543febbf4c3fc6e38f4abc4a1159f64.jpg',
+                        name: 'SelRoti'),
+                    foodItem(
+                        image:
+                            'https://i.pinimg.com/originals/c5/43/fe/c543febbf4c3fc6e38f4abc4a1159f64.jpg',
+                        name: 'SelRoti'),
+                    foodItem(
+                        image:
+                            'https://i.pinimg.com/originals/c5/43/fe/c543febbf4c3fc6e38f4abc4a1159f64.jpg',
+                        name: 'SelRoti'),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
       drawer: Drawer(
         child: ListView(
