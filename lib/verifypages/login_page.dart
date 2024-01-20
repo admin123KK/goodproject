@@ -333,6 +333,15 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (contex) {
+                                          return Center(
+                                            child: CircularProgressIndicator(
+                                              color: Color(0xFF91AD13),
+                                            ),
+                                          );
+                                        });
                                     signInWithGoogle();
                                   },
                                   child: Container(

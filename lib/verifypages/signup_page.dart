@@ -440,7 +440,18 @@ class _SignUpState extends State<SignUp> {
                                     ),
                                     GestureDetector(
                                       onTap: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return Center(
+                                              child: CircularProgressIndicator(
+                                                color: Color(0xFF91AD13),
+                                              ),
+                                            );
+                                          },
+                                        );
                                         signInWithGoogle();
+                                        // Navigator.pop(context);
                                       },
                                       child: Container(
                                         height: 75,
