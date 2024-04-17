@@ -67,8 +67,8 @@ class _LoginPageState extends State<HomePage> {
             ],
             borderRadius: BorderRadius.circular(20),
             color: Colors.white,
-            image: DecorationImage(
-                image: NetworkImage(image),fit: BoxFit.cover  ),
+            image:
+                DecorationImage(image: NetworkImage(image), fit: BoxFit.cover),
           ),
         ),
         const SizedBox(
@@ -188,14 +188,18 @@ class _LoginPageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        actions: [Icon(Icons.shopping_cart_checkout,color: Colors.black,)],
+        actions: const [
+          Icon(
+            Icons.shopping_cart_checkout_rounded,
+            color: Colors.black,
+          )
+        ],
         title: const Text(
           'Khaja Ghar',
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
             fontFamily: 'Mooli',
-            
           ),
         ),
         backgroundColor: Color(0xFF91AD13),
@@ -210,7 +214,7 @@ class _LoginPageState extends State<HomePage> {
               children: [
                 Text(
                   '$greeting, $userName',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Mooli',
                     fontSize: 12,
@@ -265,37 +269,38 @@ class _LoginPageState extends State<HomePage> {
                   height: 10,
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 2),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 1, vertical: 2),
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
                         foodItem(
                             image:
-                                'https://i.pinimg.com/originals/c5/43/fe/c543febbf4c3fc6e38f4abc4a1159f64.jpg',
+                                'image/assets/selroti.png',
                             name: 'All'),
                         foodItem(
-                            image:
-                                'https://i.pinimg.com/originals/c5/43/fe/c543febbf4c3fc6e38f4abc4a1159f64.jpg',
+                            image:'image/assets/selroti.png',
                             name: 'SelRoti'),
                         foodItem(
                             image:
-                                'https://i.pinimg.com/736x/aa/c9/e3/aac9e3af4fa64b43527cd51df34ec567--nepali-food-roti.jpg',
-                            name: "Fini"),
+                                'image/assets/phini.png',
+                            name: "Phini"),
                         foodItem(
                             image:
-                                'https://assets-cdn.kathmandupost.com/uploads/source/news/2020/lifestyle/batuk-1598575672.jpg',
+                                'image/assets/batuk.png',
                             name: 'Batuk'),
                         foodItem(
                             image:
-                                'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Chukauni.jpg/1280px-Chukauni.jpg',
+                                'image/assets/chukauni.png',
                             name: 'Chukaune'),
                         foodItem(
-                            image: 'https://static.toiimg.com/photo/75146877.cms',
+                            image:
+                                'image/assets/momo.png',
                             name: 'Momo'),
                         foodItem(
                             image:
-                                'https://th.bing.com/th/id/OIP.Yr-FN0t1v6G4mbj50LkLjQAAAA?w=231&h=347&rs=1&pid=ImgDetMain',
+                                'image/assets/Chuwamin',
                             name: 'Chuwamini'),
                       ],
                     ),
@@ -323,22 +328,22 @@ class _LoginPageState extends State<HomePage> {
                         popularItem(
                             name: 'SelRoti',
                             image:
-                                'https://i.pinimg.com/originals/c5/43/fe/c543febbf4c3fc6e38f4abc4a1159f64.jpg',
+                                'image/assets/selroti.png',
                             price: 'Rs.200'),
                         popularItem(
-                            name: 'Fini',
+                            name: 'Phini',
                             image:
-                                'https://i.pinimg.com/736x/aa/c9/e3/aac9e3af4fa64b43527cd51df34ec567--nepali-food-roti.jpg',
+                                'image/assets/phini.png',
                             price: 'Rs.300'),
                         popularItem(
                             name: 'Batuk',
                             image:
-                                'https://assets-cdn.kathmandupost.com/uploads/source/news/2020/lifestyle/batuk-1598575672.jpg',
+                                'image/assets/batuk.png',
                             price: 'Rs.60'),
                         popularItem(
                             name: 'Chukaune',
                             image:
-                                'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Chukauni.jpg/1280px-Chukauni.jpg',
+                                'image/assets/chukaune.png',
                             price: 'Rs.50'),
                       ],
                     ),
