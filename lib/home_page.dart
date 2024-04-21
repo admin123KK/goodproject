@@ -196,7 +196,7 @@ class _LoginPageState extends State<HomePage> {
           )
         ],
         title: const Text(
-          'Khaja Ghar',
+          'Khaja Gharrr',
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -281,7 +281,8 @@ class _LoginPageState extends State<HomePage> {
                                 'https://th.bing.com/th/id/OIP.LjMG97XcCrPNQ692vYkLXwHaHD?rs=1&pid=ImgDetMain',
                             name: 'All'),
                         foodItem(
-                            image: 'assets/images/selroti.png', name: 'SelRoti'),
+                            image: 'assets/images/selroti.png',
+                            name: 'SelRoti'),
                         foodItem(
                             image: 'assets/images/phini.png', name: "Phini"),
                         foodItem(
