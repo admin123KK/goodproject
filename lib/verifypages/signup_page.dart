@@ -105,7 +105,7 @@ class _SignUpState extends State<SignUp> {
                               Container(
                                 height: 260,
                                 width: 400,
-                                child: Image.asset('image/assets/signup.png'),
+                                child: Image.asset('assets/images/signup.png'),
                               ),
                               // const SizedBox(
                               //   height: 10,
@@ -430,7 +430,7 @@ class _SignUpState extends State<SignUp> {
                                               BorderRadius.circular(20),
                                         ),
                                         child: Image.asset(
-                                          'image/assets/facebook.png',
+                                          'assets/images/facebook.png',
                                           fit: BoxFit.cover,
                                         ),
                                       ),
@@ -462,7 +462,7 @@ class _SignUpState extends State<SignUp> {
                                           color: Colors.grey[200],
                                         ),
                                         child: Image.asset(
-                                            'image/assets/google.png'),
+                                            'assets/images/google.png'),
                                       ),
                                     )
                                   ],

@@ -103,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                             Container(
                               height: 269,
                               width: 269,
-                              child: Image.asset('image/assets/signup.png'),
+                              child: Image.asset('assets/images/signup.png'),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -323,7 +323,7 @@ class _LoginPageState extends State<LoginPage> {
                                         borderRadius:
                                             BorderRadius.circular(20)),
                                     child: Image.asset(
-                                      'image/assets/facebook.png',
+                                      'assets/images/facebook.png',
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -352,7 +352,7 @@ class _LoginPageState extends State<LoginPage> {
                                         borderRadius:
                                             BorderRadius.circular(20)),
                                     child: Image.asset(
-                                      'image/assets/google.png',
+                                      'assets/images/google.png',
                                       fit: BoxFit.contain,
                                     ),
                                   ),

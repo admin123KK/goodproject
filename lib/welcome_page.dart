@@ -34,7 +34,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 ),
                 const Image(
                   image: AssetImage(
-                    'image/assets/welcome.png',
+                    'assets/images/welcome.png',
                   ),
                 ),
                 const SizedBox(

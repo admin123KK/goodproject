@@ -34,7 +34,7 @@ class _StartPageState extends State<StartPage> {
                   height: 20,
                 ),
                 Container(
-                  child: Image.asset('image/assets/start.png'),
+                  child: Image.asset('assets/images/start.png'),
                 ),
                 Container(
                   child: const Text(

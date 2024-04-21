@@ -65,7 +65,7 @@ class _LoginPageState extends State<HomePage> {
                 blurRadius: 10,
               )
             ],
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(18),
             color: Colors.white,
             image:
                 DecorationImage(image: NetworkImage(image), fit: BoxFit.cover),
@@ -76,7 +76,8 @@ class _LoginPageState extends State<HomePage> {
         ),
         Text(
           name,
-          style: TextStyle(fontFamily: 'Mooli', fontWeight: FontWeight.bold),
+          style:
+              const TextStyle(fontFamily: 'Mooli', fontWeight: FontWeight.bold),
         ),
       ],
     );
@@ -97,7 +98,7 @@ class _LoginPageState extends State<HomePage> {
                 color: Colors.grey.withOpacity(0.5),
                 spreadRadius: 3,
                 blurRadius: 10,
-                offset: Offset(0, 3),
+                offset: const Offset(0, 3),
               ),
             ]),
         child: Column(
@@ -237,10 +238,10 @@ class _LoginPageState extends State<HomePage> {
                             blurRadius: 10),
                       ]),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Row(
                       children: [
-                        Icon(Icons.search),
+                        const Icon(Icons.search),
                         Container(
                           height: 50,
                           width: 300,
@@ -259,13 +260,13 @@ class _LoginPageState extends State<HomePage> {
                   ),
                 ),
                 const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   child: Text(
                     'Categories',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Padding(
@@ -277,36 +278,26 @@ class _LoginPageState extends State<HomePage> {
                       children: [
                         foodItem(
                             image:
-                                'image/assets/selroti.png',
+                                'https://th.bing.com/th/id/OIP.LjMG97XcCrPNQ692vYkLXwHaHD?rs=1&pid=ImgDetMain',
                             name: 'All'),
                         foodItem(
-                            image:'image/assets/selroti.png',
-                            name: 'SelRoti'),
+                            image: 'assets/images/selroti.png', name: 'SelRoti'),
                         foodItem(
-                            image:
-                                'image/assets/phini.png',
-                            name: "Phini"),
+                            image: 'assets/images/phini.png', name: "Phini"),
                         foodItem(
-                            image:
-                                'image/assets/batuk.png',
-                            name: 'Batuk'),
+                            image: 'assets/images/batuk.png', name: 'Batuk'),
                         foodItem(
-                            image:
-                                'image/assets/chukauni.png',
+                            image: 'assets/images/chukauni.png',
                             name: 'Chukaune'),
+                        foodItem(image: 'assets/images/momo.png', name: 'Momo'),
                         foodItem(
-                            image:
-                                'image/assets/momo.png',
-                            name: 'Momo'),
-                        foodItem(
-                            image:
-                                'image/assets/Chuwamin',
-                            name: 'Chuwamini'),
+                            image: 'assets/images/Chow-mein.png',
+                            name: 'Chow-mein'),
                       ],
                     ),
                   ),
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                   child: Text(
                     'Popular',
@@ -316,7 +307,7 @@ class _LoginPageState extends State<HomePage> {
                 SingleChildScrollView(
                   scrollDirection: Axis.vertical,
                   child: Container(
-                    height: 400,
+                    height: 450,
                     child: GridView.count(
                       shrinkWrap: false,
                       primary: false,
@@ -327,23 +318,19 @@ class _LoginPageState extends State<HomePage> {
                       children: [
                         popularItem(
                             name: 'SelRoti',
-                            image:
-                                'image/assets/selroti.png',
+                            image: 'assets/images/selroti.png',
                             price: 'Rs.200'),
                         popularItem(
                             name: 'Phini',
-                            image:
-                                'image/assets/phini.png',
+                            image: 'assets/images/phini.png',
                             price: 'Rs.300'),
                         popularItem(
                             name: 'Batuk',
-                            image:
-                                'image/assets/batuk.png',
+                            image: 'assets/images/batuk.png',
                             price: 'Rs.60'),
                         popularItem(
                             name: 'Chukaune',
-                            image:
-                                'image/assets/chukaune.png',
+                            image: 'assets/images/chukauni.png',
                             price: 'Rs.50'),
                       ],
                     ),
@@ -370,7 +357,7 @@ class _LoginPageState extends State<HomePage> {
               decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: NetworkImage(
-                          'https://images.unsplash.com/photo-1613425293967-16ae72140466?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
+                          'https://images.unsplash.com/photo-1613425293967-16ae72140466?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8M'),
                       fit: BoxFit.fill)),
             ),
             const ListTile(
