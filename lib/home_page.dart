@@ -1,5 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:goodproject/items/Batuk_page.dart';
+import 'package:goodproject/items/Chukaune_page.dart';
+import 'package:goodproject/items/Phini_page.dart';
+import 'package:goodproject/items/Selroti.dart';
 import 'package:goodproject/verifypages/login_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -67,8 +71,7 @@ class _LoginPageState extends State<HomePage> {
             ],
             borderRadius: BorderRadius.circular(18),
             color: Colors.white,
-            image:
-                DecorationImage(image: NetworkImage(image), fit: BoxFit.cover),
+            image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
           ),
         ),
         const SizedBox(
@@ -84,57 +87,76 @@ class _LoginPageState extends State<HomePage> {
   }
 
   Widget popularItem(
-      {required String name, required String image, required String price}) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        width: 175,
-        height: 255,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(18),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 3,
-                blurRadius: 10,
-                offset: const Offset(0, 3),
-              ),
-            ]),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              backgroundImage: NetworkImage(image),
-              radius: 60,
-            ),
-            ListTile(
-              leading: Text(
-                name,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-              ),
-              trailing: Text(
-                price,
-                style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15,
-                    color: Colors.green),
-              ),
-            ),
-            const Row(
+      {required String name,
+      required String image,
+      required String price,
+      required}) {
+    return InkWell(
+        onTap: () {
+          if (name == 'SelRoti') {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SelRotiPage()));
+          } else if (name == 'Phini') {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => PhiniPage()));
+          } else if (name == 'Batuk') {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => BatukPage()));
+          } else {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ChukauniPage()));
+          }
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            width: 175,
+            height: 255,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(18),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 3,
+                    blurRadius: 10,
+                    offset: const Offset(0, 3),
+                  ),
+                ]),
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.star, color: Colors.orange),
-                Icon(Icons.star, color: Colors.orange),
-                Icon(Icons.star, color: Colors.orange),
-                Icon(Icons.star),
-                Icon(Icons.star),
+                CircleAvatar(
+                  backgroundImage: AssetImage(image),
+                  radius: 60,
+                ),
+                ListTile(
+                  leading: Text(
+                    name,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  ),
+                  trailing: Text(
+                    price,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                        color: Colors.green),
+                  ),
+                ),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.star, color: Colors.orange),
+                    Icon(Icons.star, color: Colors.orange),
+                    Icon(Icons.star, color: Colors.orange),
+                    Icon(Icons.star),
+                    Icon(Icons.star),
+                  ],
+                ),
               ],
             ),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 
   Future<void> _showLogOUtDialog(BuildContext, context) {
@@ -277,9 +299,7 @@ class _LoginPageState extends State<HomePage> {
                     child: Row(
                       children: [
                         foodItem(
-                            image:
-                                'https://th.bing.com/th/id/OIP.LjMG97XcCrPNQ692vYkLXwHaHD?rs=1&pid=ImgDetMain',
-                            name: 'All'),
+                            image: 'assets/images/selroti.png', name: 'All'),
                         foodItem(
                             image: 'assets/images/selroti.png',
                             name: 'SelRoti'),
