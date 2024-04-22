@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class SelRotiPage extends StatefulWidget {
   const SelRotiPage({super.key});
@@ -60,6 +62,48 @@ class _SelRotiPageState extends State<SelRotiPage> {
                 ],
               ),
             ],
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 380),
+            child: Container(
+              height: 300,
+              width: 450,
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30))),
+              child: Padding(
+                padding: EdgeInsets.all(11.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'SelRoti',
+                      style: TextStyle(
+                          fontSize: 30,
+                          fontFamily: 'Mooli',
+                          fontWeight: FontWeight.bold),
+                    ),
+                  Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text('Rs.60',
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.green,
+                                fontWeight: FontWeight.bold)),
+                        // SizedBox(
+                        //   height: 2,
+                        // ),
+                        Text('/per piece')
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
         ],
       ),
