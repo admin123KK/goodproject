@@ -218,7 +218,7 @@ class _LoginPageState extends State<HomePage> {
           )
         ],
         title: const Text(
-          'Khaja Gharrr',
+          'Khaja Ghar',
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
