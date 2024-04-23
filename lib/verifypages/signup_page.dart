@@ -328,7 +328,7 @@ class _SignUpState extends State<SignUp> {
                                       showDialog(
                                           context: context,
                                           builder: (context) {
-                                            return Center(
+                                            return const Center(
                                               child: CircularProgressIndicator(
                                                 color: Color(0xFF91AD13),
                                               ),
