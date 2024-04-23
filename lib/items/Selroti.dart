@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class SelRotiPage extends StatefulWidget {
@@ -17,7 +18,6 @@ class _SelRotiPageState extends State<SelRotiPage> {
     });
   }
 
- 
   void decrementQuantity() {
     if (quantity > 1) {
       setState(() {
@@ -25,7 +25,6 @@ class _SelRotiPageState extends State<SelRotiPage> {
       });
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +72,7 @@ class _SelRotiPageState extends State<SelRotiPage> {
                     onPressed: () {},
                     icon: const Icon(
                       Icons.shopping_cart_checkout,
-                      color: Color(0xFF91AD13),
+                      color: Colors.white,
                       size: 29,
                     ),
                   ),
@@ -151,12 +150,9 @@ class _SelRotiPageState extends State<SelRotiPage> {
                             Text(
                               'Rs.60',
                               style: TextStyle(
-                                  color: Colors.green,
+                                  color: Color.fromARGB(255, 9, 114, 12),
                                   fontSize: 25,
                                   fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 1,
                             ),
                             Text('/per piece')
                           ],
@@ -216,71 +212,129 @@ milk, and a hint of cardamom. Often enjoyed during festivals and special occasio
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                   ),
+                  const SizedBox(
+                    height: 7,
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30),
+                    child: Text('No of piece you want'),
+                  ),
+                  const SizedBox(
+                    height: 6,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Row(
+                      // crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        InkWell(
+                          onTap: decrementQuantity,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: 29,
+                              width: 36,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: const Color(0xFF91AD13)),
+                              child: const Text(
+                                '-',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 22),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 29,
+                          width: 44,
+                          child: TextFormField(
+                            textAlign: TextAlign.center,
+                            decoration: InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color(0xFF91AD13), width: 2.0),
+                                  borderRadius: BorderRadius.circular(15.0),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide: const BorderSide(
+                                        color: Color(0xFF91AD13))),
+                                hintText: quantity.toString(),
+                                contentPadding:
+                                    const EdgeInsets.symmetric(horizontal: 5)),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: incrementQuantity,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: 29,
+                              width: 36,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: const Color(0xFF91AD13)),
+                              child: const Text(
+                                '+',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 22),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       InkWell(
-                        onTap: () => decrementQuantity,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: 29,
-                            width: 36,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                color: Color(0xFF91AD13)),
-                            child: const Text(
-                              '-',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 22),
-                            ),
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text(
+                                    'Order Status',
+                                    style: TextStyle(fontFamily: 'Mooli'),
+                                  ),
+                                  content: const Text(
+                                    'Your order has been placed sucefully',
+                                    style: TextStyle(
+                                      color: Color(0xFF91AD13),
+                                    ),
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text(
+                                          'Ok',
+                                          style: TextStyle(color: Colors.black),
+                                        ))
+                                  ],
+                                );
+                              });
+                        },
+                        child: Container(
+                          height: 30,
+                          width: 100,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: const Color(0xFF91AD13),
                           ),
-                        ),
-                      ),
-                      Container(
-                        height: 29,
-                        width: 44,
-                        child: TextFormField(
-                          textAlign: TextAlign.center,
-                          decoration: InputDecoration(
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: Color(0xFF91AD13), width: 2.0),
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                  borderSide: const BorderSide(
-                                      color: Color(0xFF91AD13))),
-                              hintText: quantity.toString(),
-                              
-                              contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 5)),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: 
-                         incrementQuantity,
-                        
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: 29,
-                            width: 36,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                color: Color(0xFF91AD13)),
-                            child: const Text(
-                              '+',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 22),
-                            ),
-                          ),
+                          child: Center(child: Text('Order Now')),
                         ),
                       ),
                     ],
-                  ),
+                  )
                 ],
               ),
             ),
