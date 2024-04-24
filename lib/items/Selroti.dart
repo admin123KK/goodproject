@@ -150,6 +150,7 @@ class _SelRotiPageState extends State<SelRotiPage> {
                               'Rs.60',
                               style: TextStyle(
                                   color: Color.fromARGB(255, 9, 114, 12),
+                                  // fontFamily: 'Mooli',
                                   fontSize: 25,
                                   fontWeight: FontWeight.bold),
                             ),

@@ -93,7 +93,6 @@ class _PhiniPageState extends State<PhiniPage> {
                                 fontFamily: 'Mooli',
                                 fontWeight: FontWeight.bold,
                                 fontSize: 38),
-                              
                           ),
                         ),
                         Padding(
