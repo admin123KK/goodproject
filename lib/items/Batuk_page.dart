@@ -171,8 +171,17 @@ class _BatukPageState extends State<BatukPage> {
                               ),
                             ],
                           ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 22),
+                                child: Text('8 /piece set '),
+                              ),
+                            ],
+                          ),
                           const SizedBox(
-                            height: 18,
+                            height: 15,
                           ),
                           const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 30),
@@ -219,7 +228,7 @@ class _BatukPageState extends State<BatukPage> {
                         Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: 30, vertical: 10),
-                          child: Text("No of Item's you want"),
+                          child: Text("No of set's you want"),
                         ),
                       ],
                     ),
