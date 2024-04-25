@@ -28,95 +28,96 @@ class _SelRotiPageState extends State<SelRotiPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Stack(children: [
-          Image.asset(
-            'assets/images/selroti.png',
-            fit: BoxFit.cover,
+      body: Stack(children: [
+        Image.asset(
+          'assets/images/selroti.png',
+          fit: BoxFit.cover,
+          height: 340,
+          width: 450,
+        ),
+        Container(
+          height: 340,
+          width: 450,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(colors: [
+              Color.fromARGB(255, 27, 19, 19),
+              Colors.transparent,
+              Color.fromARGB(255, 13, 11, 11)
+            ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
           ),
-          Container(
-            height: 400,
-            width: 450,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color.fromARGB(255, 32, 24, 24),
-                  Colors.transparent,
-                  Color.fromARGB(255, 37, 28, 28)
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 33),
-                child: IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(
-                    Icons.arrow_back,
-                  ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 9),
+              child: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(
+                  Icons.arrow_back_ios,
                   color: Colors.white,
+                  size: 27,
                 ),
               ),
-              Row(
-                children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.shopping_cart_checkout,
-                      color: Colors.white,
-                      size: 29,
-                    ),
+            ),
+            Row(
+              children: [
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.shopping_cart_checkout,
+                    size: 27,
+                    color: Colors.white,
                   ),
-                ],
+                ),
+              ],
+            ),
+          ],
+        ),
+        SafeArea(
+          child: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 23),
+                child: SizedBox(
+                  height: 220,
+                ),
               ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 380),
-            child: Container(
-              // height: 180,
-              // width: 450,
-              decoration: const BoxDecoration(
+              Container(
+                decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30))),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 20,
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 30),
-                    child: Text(
-                      'SelRoti',
-                      style: TextStyle(
-                          fontFamily: 'Mooli',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 36),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 20,
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 30),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            IgnorePointer(
-                              ignoring: false,
-                              child: RatingBar.builder(
-                                initialRating: 4,
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      child: Text(
+                        'SelRoti',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Mooli',
+                            fontSize: 35),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            children: [
+                              RatingBar.builder(
+                                initialRating: 3.5,
                                 minRating: 1,
                                 direction: Axis.horizontal,
                                 allowHalfRating: true,
@@ -124,223 +125,206 @@ class _SelRotiPageState extends State<SelRotiPage> {
                                 itemSize: 20,
                                 itemPadding:
                                     const EdgeInsets.symmetric(horizontal: 1.0),
-                                itemBuilder: (context, _) => Icon(
+                                itemBuilder: (context, _) => const Icon(
                                   Icons.star,
-                                  color: Colors.orange[600],
+                                  color: Colors.orange,
                                 ),
                                 onRatingUpdate: (rating) {
                                   print(rating);
                                 },
                               ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 0),
-                              child: Text(
-                                '  4 Star',
-                                style: TextStyle(color: Colors.orange[600]),
+                              const SizedBox(
+                                height: 4,
                               ),
-                            ),
-                          ],
-                        ),
-                        const Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              'Rs.60',
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 9, 114, 12),
-                                  // fontFamily: 'Mooli',
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Text('/per piece')
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 11,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 33),
-                    child: Text(
-                      'Description',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                              const Text(
+                                '3 Star Ratings',
+                                style: TextStyle(color: Colors.orange),
+                              ),
+                            ],
+                          ),
+                          const Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                'Rs.60',
+                                style: TextStyle(
+                                    fontSize: 27,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromARGB(255, 2, 99, 6)),
+                              ),
+                              Text("/per piece")
+                            ],
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 9,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 33),
-                    child: Text(
-                      '''SelRoti is a traditional Nepalese delicacy,  deep-frie
-bread made from rice flour batter mixed with sugar, 
-milk, and a hint of cardamom. Often enjoyed during festivals and special occasions,SelRoti embodies the warmth of  Nepalese hospitality and the richness of  culinary  heritage.''',
-                      maxLines: 6,
-                      style: TextStyle(fontSize: 13.5),
+                    const SizedBox(
+                      height: 14,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Padding(
+                    const Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 33,
+                      ),
+                      child: Text(
+                        "Description",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 13,
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 33),
+                      child: Text(
+                        "Selroti is a traditional Nepali snack that holds a special place in the hearts and taste buds of many.This golden-brown, ring-shaped delicacy is made from rice flour batter mixed with sugar, milk, and sometimes spices like cardamom. The batter is deep-fried until it forms a crispy exterior while remaining soft and fluffy inside. Selroti is often enjoyed during festivals, celebrations, or as a tea-time treat.",
+                        textAlign: TextAlign.justify,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 27),
+                child: Divider(
+                  color: Colors.grey,
+                  thickness: 1.5,
+                ),
+              ),
+              const Row(
+                children: [
+                  Padding(
                     padding: EdgeInsets.symmetric(horizontal: 30),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Divider(
-                            thickness: 2,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 9,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 28),
                     child: Text(
-                      'Customize you Order',
+                      'Customize your Order',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                   ),
-                  const SizedBox(
-                    height: 7,
-                  ),
-                  const Padding(
+                ],
+              ),
+              const Row(
+                children: [
+                  Padding(
                     padding: EdgeInsets.symmetric(horizontal: 30),
                     child: Text('No of piece you want'),
                   ),
-                  const SizedBox(
-                    height: 6,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Row(
-                      // crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        InkWell(
-                          onTap: decrementQuantity,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: 29,
-                              width: 36,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  color: const Color(0xFF91AD13)),
-                              child: const Text(
-                                '-',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 22),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          height: 29,
-                          width: 44,
-                          child: TextFormField(
-                            textAlign: TextAlign.center,
-                            decoration: InputDecoration(
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      color: Color(0xFF91AD13), width: 2.0),
-                                  borderRadius: BorderRadius.circular(15.0),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                    borderSide: const BorderSide(
-                                        color: Color(0xFF91AD13))),
-                                hintText: quantity.toString(),
-                                contentPadding:
-                                    const EdgeInsets.symmetric(horizontal: 5)),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: incrementQuantity,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: 29,
-                              width: 36,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  color: const Color(0xFF91AD13)),
-                              child: const Text(
-                                '+',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 22),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: const Text(
-                                    'Order Status',
-                                    style: TextStyle(fontFamily: 'Mooli'),
-                                  ),
-                                  content: const Text(
-                                    'Your order has been placed sucefully',
-                                    style: TextStyle(
-                                      color: Color(0xFF91AD13),
-                                    ),
-                                  ),
-                                  actions: <Widget>[
-                                    TextButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: const Text(
-                                          'Ok',
-                                          style: TextStyle(color: Colors.black),
-                                        ))
-                                  ],
-                                );
-                              });
-                        },
-                        child: Container(
-                          height: 30,
-                          width: 100,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: const Color(0xFF91AD13),
-                          ),
-                          child: Center(child: Text('Order Now')),
-                        ),
-                      ),
-                    ],
-                  )
                 ],
               ),
-            ),
+              const SizedBox(
+                height: 18,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    InkWell(
+                      onTap: decrementQuantity,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: 29,
+                          width: 36,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: const Color(0xFF91AD13)),
+                          child: const Text(
+                            '-',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 22),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 29,
+                      width: 44,
+                      child: TextFormField(
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xFF91AD13), width: 2.0),
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide:
+                                    const BorderSide(color: Color(0xFF91AD13))),
+                            hintText: quantity.toString(),
+                            contentPadding:
+                                const EdgeInsets.symmetric(horizontal: 5)),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: incrementQuantity,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: 29,
+                          width: 36,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: const Color(0xFF91AD13)),
+                          child: const Text(
+                            '+',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 22),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              InkWell(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Order Status'),
+                          content: const Text(
+                            'You order has been placed sucessuflly !!',
+                            style: TextStyle(color: Colors.green),
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text(
+                                  'Ok',
+                                  style: TextStyle(color: Colors.black),
+                                ))
+                          ],
+                        );
+                      });
+                },
+                child: Container(
+                  height: 36,
+                  width: 100,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF91AD13),
+                    borderRadius: BorderRadius.circular(27),
+                  ),
+                  child: const Center(
+                      child: Text(
+                    'Order Now',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  )),
+                ),
+              ),
+            ],
           ),
-        ]),
-      ),
+        )
+      ]),
     );
   }
 }

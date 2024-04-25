@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ChukauniPage extends StatefulWidget {
   const ChukauniPage({super.key});
@@ -40,9 +39,9 @@ class _ChukauniPageState extends State<ChukauniPage> {
               Navigator.pop(context);
             },
             icon: const Padding(
-              padding: EdgeInsets.symmetric(vertical: 28),
+              padding: EdgeInsets.symmetric(vertical: 28, horizontal: 9),
               child: Icon(
-                Icons.arrow_back,
+                Icons.arrow_back_ios,
                 color: Colors.white,
                 size: 30,
               ),
@@ -66,7 +65,7 @@ class _ChukauniPageState extends State<ChukauniPage> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 57),
+              padding: const EdgeInsets.symmetric(vertical: 48),
               child: Column(
                 children: [
                   const SizedBox(
@@ -78,14 +77,14 @@ class _ChukauniPageState extends State<ChukauniPage> {
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(30),
                             topRight: Radius.circular(30))),
-                    child: const Column(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 25),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 25),
                           child: Text(
                             'Chukaune',
                             style: TextStyle(
@@ -94,7 +93,30 @@ class _ChukauniPageState extends State<ChukauniPage> {
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
-                        Row()
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 27),
+                              child: RatingBar.builder(
+                                initialRating: 4.5,
+                                minRating: 1,
+                                direction: Axis.horizontal,
+                                allowHalfRating: true,
+                                itemCount: 5,
+                                itemSize: 18,
+                                itemPadding:
+                                    const EdgeInsets.symmetric(horizontal: 1.0),
+                                itemBuilder: (context, _) => const Icon(
+                                  Icons.star,
+                                  color: Colors.orange,
+                                ),
+                                onRatingUpdate: (rating) {
+                                  print(rating);
+                                },
+                              ),
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   )

@@ -52,7 +52,8 @@ class _BatukPageState extends State<BatukPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 30),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 30, horizontal: 7),
                   child: InkWell(
                     child: IconButton(
                       iconSize: 30,
@@ -60,7 +61,7 @@ class _BatukPageState extends State<BatukPage> {
                         Navigator.pop(context);
                       },
                       icon: const Icon(
-                        Icons.arrow_back,
+                        Icons.arrow_back_ios,
                         color: Colors.white,
                       ),
                     ),
@@ -171,12 +172,11 @@ class _BatukPageState extends State<BatukPage> {
                               ),
                             ],
                           ),
-                       const    Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 22),
+                                padding: EdgeInsets.symmetric(horizontal: 22),
                                 child: Text('8 /piece set '),
                               ),
                             ],
