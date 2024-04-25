@@ -171,11 +171,12 @@ class _BatukPageState extends State<BatukPage> {
                               ),
                             ],
                           ),
-                          Row(
+                       const    Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 22),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 22),
                                 child: Text('8 /piece set '),
                               ),
                             ],
