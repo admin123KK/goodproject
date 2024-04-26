@@ -309,11 +309,11 @@ class _LoginPageState extends State<HomePage> {
                             image: 'assets/images/batuk.png', name: 'Batuk'),
                         foodItem(
                             image: 'assets/images/chukauni.png',
-                            name: 'Chukaune'),
+                            name: 'Chukauni'),
                         foodItem(image: 'assets/images/momo.png', name: 'Momo'),
                         foodItem(
                             image: 'assets/images/Chow-mein.png',
-                            name: 'Chow-mein'),
+                            name: 'Chowmein'),
                       ],
                     ),
                   ),
@@ -350,7 +350,7 @@ class _LoginPageState extends State<HomePage> {
                             image: 'assets/images/batuk.png',
                             price: 'Rs.60'),
                         popularItem(
-                            name: 'Chukaune',
+                            name: 'Chukauni',
                             image: 'assets/images/chukauni.png',
                             price: 'Rs.50'),
                       ],

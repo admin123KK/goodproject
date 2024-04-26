@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class BatukPage extends StatefulWidget {
@@ -112,7 +113,8 @@ class _BatukPageState extends State<BatukPage> {
                                   fontSize: 38),
                             ),
                           ),
-                          Padding(
+                          SingleChildScrollView(
+                            child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 25),
                               child: Row(
@@ -122,7 +124,7 @@ class _BatukPageState extends State<BatukPage> {
                                   Column(
                                     children: [
                                       RatingBar.builder(
-                                        initialRating: 3,
+                                        initialRating: 3.5,
                                         minRating: 1,
                                         direction: Axis.horizontal,
                                         allowHalfRating: true,
@@ -141,9 +143,8 @@ class _BatukPageState extends State<BatukPage> {
                                     ],
                                   ),
                                 ],
-                              )),
-                          const SizedBox(
-                            height: 5,
+                              ),
+                            ),
                           ),
                           const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -151,7 +152,7 @@ class _BatukPageState extends State<BatukPage> {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 30),
                                 child: Text(
-                                  '3 star',
+                                  '3 star Rating',
                                   style: TextStyle(color: Colors.orange),
                                 ),
                               ),
@@ -198,7 +199,9 @@ class _BatukPageState extends State<BatukPage> {
                           const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 30),
                             child: Text(
-                                "It's a crispy, layered pastry made from refined wheat flour, sugar, ghee (clarified butter), and spices like cardamom and nutmeg.  After frying, it's dipped in sugar syrup flavored with cardamom and rose water to add sweetness and aroma. Batuk Khaja is often enjoyed during festivals, celebrations, and special occasions as a delightful treat symbolizing happiness and festivity in Nepali culture. "),
+                              "It's a crispy, layered pastry made from refined wheat flour, sugar, ghee (clarified butter), and spices like cardamom and nutmeg.  After frying, it's dipped in sugar syrup flavored with cardamom and rose water to add sweetness and aroma. Batuk Khaja is often enjoyed during festivals, celebrations, and special occasions as a delightful treat symbolizing happiness and festivity in Nepali culture. ",
+                              textAlign: TextAlign.justify,
+                            ),
                           ),
                         ],
                       ),
@@ -229,7 +232,9 @@ class _BatukPageState extends State<BatukPage> {
                         Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: 30, vertical: 10),
-                          child: Text("No of set's you want"),
+                          child: Text(
+                            "No of set you want",
+                          ),
                         ),
                       ],
                     ),
