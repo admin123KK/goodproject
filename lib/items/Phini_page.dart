@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class PhiniPage extends StatefulWidget {
@@ -156,7 +155,7 @@ class _PhiniPageState extends State<PhiniPage> {
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color:
-                                                  Color.fromARGB(255, 5, 98, 8),
+                                                  Color.fromARGB(255, 2, 99, 6),
                                               fontSize: 27),
                                         ),
                                       ),

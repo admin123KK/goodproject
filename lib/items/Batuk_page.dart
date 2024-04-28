@@ -166,7 +166,7 @@ class _BatukPageState extends State<BatukPage> {
                                           fontWeight: FontWeight.bold,
                                           fontSize: 25,
                                           color:
-                                              Color.fromARGB(255, 9, 114, 12)),
+                                              Color.fromARGB(255, 2, 99, 6)),
                                     ),
                                   ],
                                 ),

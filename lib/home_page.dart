@@ -4,6 +4,7 @@ import 'package:goodproject/items/Batuk_page.dart';
 import 'package:goodproject/items/Chukaune_page.dart';
 import 'package:goodproject/items/Phini_page.dart';
 import 'package:goodproject/items/Selroti.dart';
+import 'package:goodproject/verifypages/location_page.dart';
 import 'package:goodproject/verifypages/login_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -388,12 +389,16 @@ class _LoginPageState extends State<HomePage> {
               ),
               title: Text('Home'),
             ),
-            const ListTile(
-              leading: Icon(
+            ListTile(
+              leading: const Icon(
                 Icons.place_outlined,
                 color: Colors.black,
               ),
-              title: Text('Location'),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => LocationPage()));
+              },
+              title: const Text('Location'),
             ),
             const ListTile(
               leading: Icon(
