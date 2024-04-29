@@ -11,22 +11,12 @@ class LocationPage extends StatefulWidget {
   State<LocationPage> createState() => _LocationPageState();
 }
 
-List<LatLng> polyLinesCoordinates = [];
-LocationData? currentLocation;
-
-void getCurrentLocation() {
-  Location location = Location();
-  location.getLocation().then((location) {
-    currentLocation = location;
-  });
-}
-
 BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
 BitmapDescriptor destinationIcon = BitmapDescriptor.defaultMarker;
-BitmapDescriptor current = BitmapDescriptor.defaultMarker;
+BitmapDescriptor currentIcon = BitmapDescriptor.defaultMarker;
 
 class _LocationPageState extends State<LocationPage> {
-  final Completer<GoogleMapController> _controller = Completer();
+  final Completer<GoogleMapController> _mapController = Completer();
 
   static LatLng sourceLocation = LatLng(27.69242341891831, 83.46309766111746);
   static LatLng destinationLocation =
@@ -47,6 +37,21 @@ class _LocationPageState extends State<LocationPage> {
     }
   }
 
+  List<LatLng> polyLinesCoordinates = [];
+  LocationData? currentLocation;
+
+  void getCurrentLocation() {
+    Location location = Location();
+    location.getLocation().then((location) {
+      currentLocation = location;
+    });
+
+    location.onLocationChanged.listen((newLoc) {
+      currentLocation = newLoc;
+      setState(() {});
+    });
+  }
+
   @override
   void initState() {
     getPolyPoints();
@@ -61,6 +66,17 @@ class _LocationPageState extends State<LocationPage> {
       'assets/images/store.png',
     ).then((icon) {
       sourceIcon = icon;
+    });
+    BitmapDescriptor.fromAssetImage(
+      ImageConfiguration.empty,
+      'assets/images/home.png',
+    ).then((icons) {
+      destinationIcon = icons;
+    });
+    BitmapDescriptor.fromAssetImage(
+            ImageConfiguration.empty, 'assets/images/deliverybike.png')
+        .then((icons) {
+      currentIcon = icons;
     });
   }
 
@@ -78,7 +94,7 @@ class _LocationPageState extends State<LocationPage> {
       body: currentLocation == null
           ? const Center(
               child: Text(
-              'Loading',
+              'Loading....',
             ))
           : GoogleMap(
               initialCameraPosition: CameraPosition(
@@ -94,7 +110,7 @@ class _LocationPageState extends State<LocationPage> {
               },
               markers: {
                 Marker(
-                  markerId: MarkerId('currentLocation'),
+                  markerId: MarkerId('sourceLocation'),
                   position: LatLng(
                       currentLocation!.latitude!, currentLocation!.longitude!),
                   infoWindow: InfoWindow(title: 'Khaja on the way'),
@@ -109,6 +125,7 @@ class _LocationPageState extends State<LocationPage> {
                 Marker(
                   markerId: MarkerId('destinationLocation'),
                   position: destinationLocation,
+                  icon: destinationIcon,
                   infoWindow: InfoWindow(title: "Delivery Location"),
                 ),
               },
