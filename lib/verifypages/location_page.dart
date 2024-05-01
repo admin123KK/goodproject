@@ -1,6 +1,5 @@
-import 'dart:async';
+// import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
@@ -16,26 +15,26 @@ BitmapDescriptor destinationIcon = BitmapDescriptor.defaultMarker;
 BitmapDescriptor currentIcon = BitmapDescriptor.defaultMarker;
 
 class _LocationPageState extends State<LocationPage> {
-  final Completer<GoogleMapController> _mapController = Completer();
+  // final Completer<GoogleMapController> _mapController = Completer();
 
   static LatLng sourceLocation = LatLng(27.69242341891831, 83.46309766111746);
   static LatLng destinationLocation =
       LatLng(27.6798201836189, 83.46561867425898);
 
-  void getPolyPoints() async {
-    PolylinePoints polylinePoints = PolylinePoints();
+  // void getPolyPoints() async {
+  //   PolylinePoints polylinePoints = PolylinePoints();
 
-    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      AutofillHints.addressCity,
-      PointLatLng(sourceLocation.latitude, destinationLocation.longitude),
-      PointLatLng(destinationLocation.latitude, destinationLocation.longitude),
-    );
-    if (result.points.isNotEmpty) {
-      result.points.forEach((PointLatLng point) =>
-          polyLinesCoordinates.add(LatLng(point.latitude, point.longitude)));
-      setState(() {});
-    }
-  }
+  //   PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+  //     AutofillHints.addressCity,
+  //     PointLatLng(sourceLocation.latitude, destinationLocation.longitude),
+  //     PointLatLng(destinationLocation.latitude, destinationLocation.longitude),
+  //   );
+  //   if (result.points.isNotEmpty) {
+  //     result.points.forEach((PointLatLng point) =>
+  //         polyLinesCoordinates.add(LatLng(point.latitude, point.longitude)));
+  //     setState(() {});
+  //   }
+  // }
 
   List<LatLng> polyLinesCoordinates = [];
   LocationData? currentLocation;
@@ -54,7 +53,7 @@ class _LocationPageState extends State<LocationPage> {
 
   @override
   void initState() {
-    getPolyPoints();
+    // getPolyPoints();
     getCurrentLocation();
     setCustomMarkerIcon();
     super.initState();
@@ -65,18 +64,18 @@ class _LocationPageState extends State<LocationPage> {
       ImageConfiguration.empty,
       'assets/images/store.png',
     ).then((icon) {
-      sourceIcon = icon;
+      // sourceIcon = icon;
     });
     BitmapDescriptor.fromAssetImage(
       ImageConfiguration.empty,
       'assets/images/home.png',
     ).then((icons) {
-      destinationIcon = icons;
+      // destinationIcon = icons;
     });
     BitmapDescriptor.fromAssetImage(
             ImageConfiguration.empty, 'assets/images/deliverybike.png')
         .then((icons) {
-      currentIcon = icons;
+      // currentIcon = icons;
     });
   }
 
