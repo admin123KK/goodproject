@@ -64,18 +64,18 @@ class _LocationPageState extends State<LocationPage> {
       ImageConfiguration.empty,
       'assets/images/store.png',
     ).then((icon) {
-      // sourceIcon = icon;
+      sourceIcon = icon;
     });
     BitmapDescriptor.fromAssetImage(
       ImageConfiguration.empty,
       'assets/images/home.png',
     ).then((icons) {
-      // destinationIcon = icons;
+      destinationIcon = icons;
     });
     BitmapDescriptor.fromAssetImage(
             ImageConfiguration.empty, 'assets/images/deliverybike.png')
         .then((icons) {
-      // currentIcon = icons;
+      currentIcon = icons;
     });
   }
 
