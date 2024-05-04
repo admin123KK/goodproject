@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:goodproject/home_page.dart';
+import 'package:goodproject/start_page.dart';
 import 'package:goodproject/verifypages/login_page.dart';
 import 'package:goodproject/verifypages/reset_page.dart';
 import 'package:goodproject/verifypages/signup_page.dart';
-import 'package:goodproject/start_page.dart';
 import 'package:goodproject/verifypages/verifcation_page.dart';
 import 'package:goodproject/welcome_page.dart';
 

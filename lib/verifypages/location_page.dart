@@ -113,7 +113,7 @@ class _LocationPageState extends State<LocationPage> {
                   position: LatLng(
                       currentLocation!.latitude!, currentLocation!.longitude!),
                   infoWindow: InfoWindow(title: 'Khaja on the way'),
-                  icon: sourceIcon,
+                  icon: currentIcon,
                 ),
                 Marker(
                   markerId: MarkerId('currentLocation'),
