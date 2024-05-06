@@ -301,9 +301,10 @@ class _SelRotiPageState extends State<SelRotiPage> {
                         builder: (BuildContext context) {
                           return AlertDialog(
                             title: const Text(
-                              'Payement Total ',
+                              'Payement Status ',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
+                                  fontSize: 27,
                                   fontFamily: 'Mooli'),
                             ),
                             content: Column(
@@ -312,18 +313,20 @@ class _SelRotiPageState extends State<SelRotiPage> {
                                 Text(
                                   'Total amount : Rs.${_calculateTotalAmount()}',
                                   style: const TextStyle(
-                                      color: Colors.green, fontSize: 22),
+                                      color: Color.fromARGB(255, 28, 139, 31),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                Text('Pay with'),
-                                const Row(
+                                const Text('Pay with'),
+                                Row(
                                   children: [
                                     Expanded(
                                       child: Divider(
                                         thickness: 0.5,
-                                        color: Colors.grey,
+                                        color: Colors.grey[600],
                                       ),
                                     ),
                                   ],
@@ -368,7 +371,9 @@ class _SelRotiPageState extends State<SelRotiPage> {
                                 },
                                 child: const Text(
                                   'Confirm Cash on Delivery',
-                                  style: TextStyle(color: Colors.green),
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 28, 139, 31),
+                                  ),
                                 ),
                               ),
                               TextButton(

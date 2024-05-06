@@ -9,18 +9,27 @@ class PhiniPage extends StatefulWidget {
 }
 
 class _PhiniPageState extends State<PhiniPage> {
-  int qunatity = 1;
+  int _quantity = 1;
+  double Item_price = 95;
+
+  double _calculateAmountTotal() {
+    double totalAmount = Item_price * _quantity;
+    if (_quantity >= 10) {
+      totalAmount -= 40;
+    }
+    return totalAmount;
+  }
 
   void incrementQuantity() {
     setState(() {
-      qunatity++;
+      _quantity++;
     });
   }
 
   void decrementQuantity() {
-    if (qunatity > 1) {
+    if (_quantity > 1) {
       setState(() {
-        qunatity--;
+        _quantity--;
       });
     }
   }
@@ -265,7 +274,7 @@ class _PhiniPageState extends State<PhiniPage> {
                                             color: Color(0xFF91AD13),
                                           ),
                                         ),
-                                        hintText: qunatity.toString(),
+                                        hintText: _quantity.toString(),
                                         contentPadding:
                                             const EdgeInsets.symmetric(
                                                 horizontal: 7)),
@@ -311,24 +320,85 @@ class _PhiniPageState extends State<PhiniPage> {
                                       context: context,
                                       builder: (BuildContext context) {
                                         return AlertDialog(
-                                          title: const Text('Order Status'),
-                                          content: const Text(
-                                            'Your order has been placed sucessufully',
-                                            style:
-                                                TextStyle(color: Colors.green),
+                                          title: const Text(
+                                            'Payement Status',
+                                            style: TextStyle(
+                                                fontSize: 27,
+                                                fontFamily: 'Mooli',
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          content: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text(
+                                                'Total amounts: Rs.${_calculateAmountTotal()}',
+                                                style: const TextStyle(
+                                                    color: Color.fromARGB(
+                                                        255, 28, 139, 31),
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                              const SizedBox(
+                                                height: 20,
+                                              ),
+                                              const Text('Pay with'),
+                                              Divider(
+                                                thickness: 0.5,
+                                                color: Colors.grey[600],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  GestureDetector(
+                                                    child: ClipOval(
+                                                      child: Image.asset(
+                                                        'assets/images/esewa.png',
+                                                        height: 45,
+                                                        width: 45,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 20,
+                                                  ),
+                                                  GestureDetector(
+                                                    child: ClipOval(
+                                                      child: Image.asset(
+                                                        'assets/images/khalti.png',
+                                                        height: 65,
+                                                        width: 65,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Text('OR'),
+                                            ],
                                           ),
                                           actions: <Widget>[
                                             TextButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                child: const Text(
-                                                  'OK',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.black),
-                                                ))
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text(
+                                                'Confirm on Cash on delivery',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Color.fromARGB(
+                                                        255, 28, 139, 31)),
+                                              ),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text(
+                                                'Cancel',
+                                                style: TextStyle(
+                                                    color: Colors.black),
+                                              ),
+                                            )
                                           ],
                                         );
                                       });
