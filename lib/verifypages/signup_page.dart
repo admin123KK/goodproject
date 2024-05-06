@@ -1,8 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:goodproject/verifypages/firebase_options.dart';
 import 'package:goodproject/verifypages/login_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class SignUp extends StatefulWidget {
@@ -408,11 +408,16 @@ class _SignUpState extends State<SignUp> {
                                       style: TextStyle(color: Colors.grey[600]),
                                     ),
                                   ),
-                                  Expanded(
-                                      child: Divider(
-                                    thickness: 0.5,
-                                    color: Colors.grey[600],
-                                  ))
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Divider(
+                                          thickness: 0.5,
+                                          color: Colors.grey[600],
+                                        ),
+                                      )
+                                    ],
+                                  )
                                 ],
                               ),
                               Padding(

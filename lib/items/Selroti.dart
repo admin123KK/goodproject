@@ -9,18 +9,27 @@ class SelRotiPage extends StatefulWidget {
 }
 
 class _SelRotiPageState extends State<SelRotiPage> {
-  int quantity = 1;
+  int _quantity = 1;
+  double Item_Price = 60;
+
+  double _calculateTotalAmount() {
+    double totalAmount = _quantity * Item_Price;
+    if (_quantity >= 10) {
+      totalAmount -= 30;
+    }
+    return totalAmount;
+  }
 
   void incrementQuantity() {
     setState(() {
-      quantity++;
+      _quantity++;
     });
   }
 
   void decrementQuantity() {
-    if (quantity > 1) {
+    if (_quantity > 1) {
       setState(() {
-        quantity--;
+        _quantity--;
       });
     }
   }
@@ -255,7 +264,7 @@ class _SelRotiPageState extends State<SelRotiPage> {
                                   borderRadius: BorderRadius.circular(20),
                                   borderSide: const BorderSide(
                                       color: Color(0xFF91AD13))),
-                              hintText: quantity.toString(),
+                              hintText: _quantity.toString(),
                               contentPadding:
                                   const EdgeInsets.symmetric(horizontal: 5)),
                         ),
@@ -291,18 +300,83 @@ class _SelRotiPageState extends State<SelRotiPage> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: const Text('Order Status'),
-                            content: const Text(
-                              'You order has been placed sucessuflly !!',
-                              style: TextStyle(color: Colors.green),
+                            title: const Text(
+                              'Payement Total ',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Mooli'),
+                            ),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  'Total amount : Rs.${_calculateTotalAmount()}',
+                                  style: const TextStyle(
+                                      color: Colors.green, fontSize: 22),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Text('Pay with'),
+                                const Row(
+                                  children: [
+                                    Expanded(
+                                      child: Divider(
+                                        thickness: 0.5,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ClipOval(
+                                      child: Image.asset(
+                                        'assets/images/esewa.png',
+                                        width: 45,
+                                        height: 45,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                    GestureDetector(
+                                      child: ClipOval(
+                                        child: Image.asset(
+                                          'assets/images/khalti.png',
+                                          height: 65,
+                                          width: 65,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                const Text('OR'),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                              ],
                             ),
                             actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text(
+                                  'Confirm Cash on Delivery',
+                                  style: TextStyle(color: Colors.green),
+                                ),
+                              ),
                               TextButton(
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
                                   child: const Text(
-                                    'Ok',
+                                    'Cancel',
                                     style: TextStyle(color: Colors.black),
                                   ))
                             ],
@@ -317,10 +391,11 @@ class _SelRotiPageState extends State<SelRotiPage> {
                       borderRadius: BorderRadius.circular(27),
                     ),
                     child: const Center(
-                        child: Text(
-                      'Order Now',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    )),
+                      child: Text(
+                        'Order Now',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   ),
                 ),
               ],

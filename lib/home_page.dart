@@ -59,7 +59,7 @@ class _LoginPageState extends State<HomePage> {
       children: [
         Container(
           margin: EdgeInsets.only(left: 10),
-          height: 90,
+          height: 110,
           width: 90,
           decoration: BoxDecoration(
             boxShadow: [
