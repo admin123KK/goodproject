@@ -8,7 +8,6 @@ import 'package:goodproject/verifypages/verifcation_page.dart';
 import 'package:goodproject/welcome_page.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
