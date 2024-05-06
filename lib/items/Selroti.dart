@@ -297,6 +297,18 @@ class _SelRotiPageState extends State<SelRotiPage> {
                 InkWell(
                   onTap: () {
                     showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            color: Color(0xFF91AD13),
+                          ),
+                        );
+                      },
+                    );
+                    Future.delayed(Duration(seconds: 1), () {
+                      Navigator.pop(context);
+                      showDialog(
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
@@ -377,16 +389,19 @@ class _SelRotiPageState extends State<SelRotiPage> {
                                 ),
                               ),
                               TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text(
-                                    'Cancel',
-                                    style: TextStyle(color: Colors.black),
-                                  ))
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text(
+                                  'Cancel',
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
                             ],
                           );
-                        });
+                        },
+                      );
+                    });
                   },
                   child: Container(
                     height: 36,

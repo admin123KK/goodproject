@@ -4,6 +4,7 @@ import 'package:goodproject/items/Batuk_page.dart';
 import 'package:goodproject/items/Chukaune_page.dart';
 import 'package:goodproject/items/Phini_page.dart';
 import 'package:goodproject/items/Selroti.dart';
+import 'package:goodproject/items/cart.dart';
 import 'package:goodproject/verifypages/location_page.dart';
 import 'package:goodproject/verifypages/login_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -212,11 +213,14 @@ class _LoginPageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        actions: const [
-          Icon(
-            Icons.shopping_cart_checkout_rounded,
-            color: Colors.black,
-          )
+        actions: [
+          GestureDetector(
+            onTap: () => CartPage(),
+            child: Icon(
+              Icons.shopping_cart_checkout_rounded,
+              color: Colors.black,
+            ),
+          ),
         ],
         title: const Text(
           'Khaja Ghar',
@@ -226,7 +230,7 @@ class _LoginPageState extends State<HomePage> {
             fontFamily: 'Mooli',
           ),
         ),
-        backgroundColor: Color(0xFF91AD13),
+        backgroundColor: const Color(0xFF91AD13),
         centerTitle: true,
       ),
       body: SingleChildScrollView(

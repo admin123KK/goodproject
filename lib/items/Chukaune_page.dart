@@ -9,18 +9,27 @@ class ChukauniPage extends StatefulWidget {
 }
 
 class _ChukauniPageState extends State<ChukauniPage> {
-  int quantity = 1;
+  int _quantity = 1;
+  double Item_price = 50;
+
+  double _calculateAmountTotal() {
+    double totalAmount = Item_price * _quantity;
+    if (_quantity >= 10) {
+      totalAmount -= 20;
+    }
+    return totalAmount;
+  }
 
   void incrementQuantity() {
     setState(() {
-      quantity++;
+      _quantity++;
     });
   }
 
   void decrementQuantity() {
-    if (quantity > 1) {
+    if (_quantity > 1) {
       setState(() {
-        quantity--;
+        _quantity--;
       });
     }
   }
@@ -254,9 +263,10 @@ class _ChukauniPageState extends State<ChukauniPage> {
                                           color: Color(0xFF91AD13),
                                         ),
                                       ),
-                                      hintText: quantity.toString(),
+                                      hintText: _quantity.toString(),
                                       contentPadding:
-                                          EdgeInsets.symmetric(horizontal: 5)),
+                                          const EdgeInsets.symmetric(
+                                              horizontal: 5)),
                                 ),
                               ),
                               const SizedBox(
@@ -298,11 +308,58 @@ class _ChukauniPageState extends State<ChukauniPage> {
                                       context: context,
                                       builder: (BuildContext context) {
                                         return AlertDialog(
-                                          title: const Text('Order Status'),
-                                          content: const Text(
-                                            'Your order has been placed sucessufully',
-                                            style:
-                                                TextStyle(color: Colors.green),
+                                          title: const Text(
+                                            'Payement Status',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 27,
+                                                fontFamily: 'Mooli'),
+                                          ),
+                                          content: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text(
+                                                'Total amounts: Rs.${_calculateAmountTotal()}',
+                                                style: const TextStyle(
+                                                    color: Color.fromARGB(
+                                                        255, 28, 139, 31),
+                                                    fontSize: 20,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              const SizedBox(
+                                                height: 20,
+                                              ),
+                                              Text('Pay with'),
+                                              Divider(
+                                                thickness: 0.5,
+                                                color: Colors.grey[600],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  ClipOval(
+                                                    child: Image.asset(
+                                                      'assets/images/esewa.png',
+                                                      width: 45,
+                                                      height: 35,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 20,
+                                                  ),
+                                                  ClipOval(
+                                                    child: Image.asset(
+                                                      'assets/images/khalti.png',
+                                                      height: 65,
+                                                      width: 65,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              const Text('OR')
+                                            ],
                                           ),
                                           actions: <Widget>[
                                             TextButton(
@@ -310,9 +367,20 @@ class _ChukauniPageState extends State<ChukauniPage> {
                                                 Navigator.pop(context);
                                               },
                                               child: const Text(
-                                                'OK',
+                                                'Confirm Cash on delivery',
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
+                                                    color: Color.fromARGB(
+                                                        255, 28, 139, 31)),
+                                              ),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text(
+                                                'Cancel',
+                                                style: TextStyle(
                                                     color: Colors.black),
                                               ),
                                             ),
@@ -325,7 +393,7 @@ class _ChukauniPageState extends State<ChukauniPage> {
                                   height: 33,
                                   width: 100,
                                   decoration: BoxDecoration(
-                                    color: Color(0xFF91AD13),
+                                    color: const Color(0xFF91AD13),
                                     borderRadius: BorderRadius.circular(27),
                                   ),
                                   child: const Text(
