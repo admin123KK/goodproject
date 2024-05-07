@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:goodproject/items/cart.dart';
@@ -342,89 +343,103 @@ class _PhiniPageState extends State<PhiniPage> {
                                   showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: const Text(
-                                            'Payement Status',
-                                            style: TextStyle(
-                                                fontSize: 27,
-                                                fontFamily: 'Mooli',
-                                                fontWeight: FontWeight.bold),
+                                        return const Center(
+                                          child: CircularProgressIndicator(
+                                            color: Color(0xFF91AD13),
                                           ),
-                                          content: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Text(
-                                                'Total amounts: Rs.${_calculateAmountTotal()}',
-                                                style: const TextStyle(
-                                                    color: Color.fromARGB(
-                                                        255, 28, 139, 31),
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 20),
-                                              ),
-                                              const SizedBox(
-                                                height: 20,
-                                              ),
-                                              const Text('Pay with'),
-                                              Divider(
-                                                thickness: 0.5,
-                                                color: Colors.grey[600],
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  GestureDetector(
-                                                    child: ClipOval(
-                                                      child: Image.asset(
-                                                        'assets/images/esewa.png',
-                                                        height: 45,
-                                                        width: 45,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 20,
-                                                  ),
-                                                  GestureDetector(
-                                                    child: ClipOval(
-                                                      child: Image.asset(
-                                                        'assets/images/khalti.png',
-                                                        height: 65,
-                                                        width: 65,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Text('OR'),
-                                            ],
-                                          ),
-                                          actions: <Widget>[
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text(
-                                                'Confirm on Cash on delivery',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Color.fromARGB(
-                                                        255, 28, 139, 31)),
-                                              ),
-                                            ),
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text(
-                                                'Cancel',
-                                                style: TextStyle(
-                                                    color: Colors.black),
-                                              ),
-                                            )
-                                          ],
                                         );
                                       });
+                                  Timer(Duration(seconds: 2), () {
+                                    Navigator.pop(context);
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title: const Text(
+                                              'Payement Status',
+                                              style: TextStyle(
+                                                  fontSize: 27,
+                                                  fontFamily: 'Mooli',
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            content: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Text(
+                                                  'Total amounts: Rs.${_calculateAmountTotal()}',
+                                                  style: const TextStyle(
+                                                      color: Color.fromARGB(
+                                                          255, 28, 139, 31),
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 20),
+                                                ),
+                                                const SizedBox(
+                                                  height: 20,
+                                                ),
+                                                const Text('Pay with'),
+                                                Divider(
+                                                  thickness: 0.5,
+                                                  color: Colors.grey[600],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    GestureDetector(
+                                                      child: ClipOval(
+                                                        child: Image.asset(
+                                                          'assets/images/esewa.png',
+                                                          height: 45,
+                                                          width: 45,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 20,
+                                                    ),
+                                                    GestureDetector(
+                                                      child: ClipOval(
+                                                        child: Image.asset(
+                                                          'assets/images/khalti.png',
+                                                          height: 65,
+                                                          width: 65,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Text('OR'),
+                                              ],
+                                            ),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: const Text(
+                                                  'Confirm  Cash on delivery',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Color.fromARGB(
+                                                          255, 28, 139, 31)),
+                                                ),
+                                              ),
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: const Text(
+                                                  'Cancel',
+                                                  style: TextStyle(
+                                                      color: Colors.black),
+                                                ),
+                                              )
+                                            ],
+                                          );
+                                        });
+                                  });
                                 },
                                 child: Container(
                                   alignment: Alignment.center,

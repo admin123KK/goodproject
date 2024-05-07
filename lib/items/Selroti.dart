@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:goodproject/items/cart.dart';
 
@@ -369,11 +370,13 @@ class _SelRotiPageState extends State<SelRotiPage> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    ClipOval(
-                                      child: Image.asset(
-                                        'assets/images/esewa.png',
-                                        width: 45,
-                                        height: 45,
+                                    GestureDetector(
+                                      child: ClipOval(
+                                        child: Image.asset(
+                                          'assets/images/esewa.png',
+                                          width: 45,
+                                          height: 45,
+                                        ),
                                       ),
                                     ),
                                     const SizedBox(
