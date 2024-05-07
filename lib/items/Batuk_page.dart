@@ -12,18 +12,29 @@ class BatukPage extends StatefulWidget {
 }
 
 class _BatukPageState extends State<BatukPage> {
-  int quantity = 1;
+  int _quantity = 1;
+  double Item_price = 60;
+
+  double _calculateAmountTotal() {
+    double toalAmount = Item_price * _quantity;
+    if (_quantity >= 10) {
+      toalAmount -= 30;
+    } else if (_quantity >= 5) {
+      toalAmount -= 15;
+    }
+    return toalAmount;
+  }
 
   void incrementQuantity() {
     setState(() {
-      quantity++;
+      _quantity++;
     });
   }
 
   void decermentQuantitiy() {
-    if (quantity > 1) {
+    if (_quantity > 1) {
       setState(() {});
-      quantity--;
+      _quantity--;
     }
   }
 
@@ -304,7 +315,7 @@ class _BatukPageState extends State<BatukPage> {
                                       borderRadius: BorderRadius.circular(20),
                                       borderSide: const BorderSide(
                                           color: Color(0xFF91AD13))),
-                                  hintText: quantity.toString(),
+                                  hintText: _quantity.toString(),
                                   contentPadding: const EdgeInsets.symmetric(
                                       horizontal: 5)),
                             ),
@@ -340,25 +351,99 @@ class _BatukPageState extends State<BatukPage> {
                       onTap: () {
                         showDialog(
                             context: context,
-                            builder: (BuildContext) {
-                              return AlertDialog(
-                                title: const Text('Order Status'),
-                                content: const Text(
-                                  'You order has been places sucessfully',
-                                  style: TextStyle(color: Colors.green),
-                                ),
-                                actions: <Widget>[
-                                  TextButton(
+                            builder: (BuildContext context) {
+                              return const Center(
+                                  child: CircularProgressIndicator(
+                                color: Color(0xFF91AD13),
+                              ));
+                            });
+                        Timer(Duration(seconds: 2), () {
+                          Navigator.pop(context);
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext) {
+                                return AlertDialog(
+                                  title: const Text(
+                                    'Payement Status',
+                                    style: TextStyle(
+                                        fontFamily: 'Mooli',
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        'Total amounts : Rs.${_calculateAmountTotal()}',
+                                        style: const TextStyle(
+                                          color:
+                                              Color.fromARGB(255, 28, 139, 31),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      const Text('Pay with'),
+                                      Divider(
+                                        thickness: 0.5,
+                                        color: Colors.grey[600],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          GestureDetector(
+                                            child: ClipOval(
+                                              child: Image.asset(
+                                                'assets/images/esewa.png',
+                                                height: 45,
+                                                width: 45,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 20,
+                                          ),
+                                          GestureDetector(
+                                            child: ClipOval(
+                                              child: Image.asset(
+                                                'assets/images/khalti.png',
+                                                height: 65,
+                                                width: 65,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const Text('OR')
+                                    ],
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
                                       onPressed: () {
                                         Navigator.pop(context);
                                       },
                                       child: const Text(
-                                        'OK',
-                                        style: TextStyle(color: Colors.black),
-                                      ))
-                                ],
-                              );
-                            });
+                                        'Confirm Cash on Delivery ',
+                                        style: TextStyle(
+                                            color: Color.fromARGB(
+                                                255, 28, 139, 31),
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text(
+                                          'Cancel',
+                                          style: TextStyle(color: Colors.black),
+                                        ))
+                                  ],
+                                );
+                              });
+                        });
                       },
                       child: Container(
                         height: 33,

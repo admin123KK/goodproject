@@ -390,13 +390,7 @@ class _SelRotiPageState extends State<SelRotiPage> {
                                     ),
                                   ],
                                 ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
                                 const Text('OR'),
-                                const SizedBox(
-                                  height: 20,
-                                ),
                               ],
                             ),
                             actions: <Widget>[

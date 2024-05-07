@@ -364,7 +364,7 @@ class _ChukauniPageState extends State<ChukauniPage> {
                                                     child: Image.asset(
                                                       'assets/images/esewa.png',
                                                       width: 45,
-                                                      height: 35,
+                                                      height: 45,
                                                     ),
                                                   ),
                                                   const SizedBox(
