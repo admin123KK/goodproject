@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:goodproject/items/cart.dart';
 
 class ChukauniPage extends StatefulWidget {
   const ChukauniPage({super.key});
@@ -47,7 +50,7 @@ class _ChukauniPageState extends State<ChukauniPage> {
       ),
       Container(
         height: 340,
-        width: 420,
+        width: 460,
         decoration: const BoxDecoration(
           gradient: LinearGradient(colors: [
             Color.fromARGB(255, 26, 22, 22),
@@ -64,7 +67,7 @@ class _ChukauniPageState extends State<ChukauniPage> {
               Navigator.pop(context);
             },
             icon: const Padding(
-              padding: EdgeInsets.symmetric(vertical: 28, horizontal: 9),
+              padding: EdgeInsets.symmetric(vertical: 33, horizontal: 9),
               child: Icon(
                 Icons.arrow_back_ios,
                 color: Colors.white,
@@ -72,17 +75,35 @@ class _ChukauniPageState extends State<ChukauniPage> {
               ),
             ),
           ),
-          Row(
-            children: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.shopping_cart_checkout,
-                  color: Colors.white,
-                  size: 30,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: Row(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return const CircularProgressIndicator(
+                            color: Color(0xFF91AD13),
+                          );
+                        });
+                    Timer(Duration(seconds: 1), () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const CartPage()));
+                    });
+                  },
+                  icon: const Icon(
+                    Icons.shopping_cart_checkout,
+                    color: Colors.white,
+                    size: 30,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
@@ -330,7 +351,7 @@ class _ChukauniPageState extends State<ChukauniPage> {
                                               const SizedBox(
                                                 height: 20,
                                               ),
-                                              Text('Pay with'),
+                                              const Text('Pay with'),
                                               Divider(
                                                 thickness: 0.5,
                                                 color: Colors.grey[600],

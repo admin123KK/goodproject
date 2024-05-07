@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:goodproject/items/cart.dart';
 
 class PhiniPage extends StatefulWidget {
   const PhiniPage({super.key});
@@ -47,7 +50,7 @@ class _PhiniPageState extends State<PhiniPage> {
             ),
             Container(
               height: 350,
-              width: 420,
+              width: 460,
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
@@ -77,17 +80,38 @@ class _PhiniPageState extends State<PhiniPage> {
                     iconSize: 30,
                   ),
                 ),
-                Row(
-                  children: [
-                    InkWell(
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.shopping_cart_checkout_outlined),
-                        color: Colors.white,
-                        iconSize: 30,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: Row(
+                    children: [
+                      InkWell(
+                        child: IconButton(
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return const Center(
+                                    child: CircularProgressIndicator(
+                                      color: Color(0xFF91AD13),
+                                    ),
+                                  );
+                                });
+                            Timer(Duration(seconds: 1), () {
+                              Navigator.pop(context);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CartPage()));
+                            });
+                          },
+                          icon:
+                              const Icon(Icons.shopping_cart_checkout_outlined),
+                          color: Colors.white,
+                          iconSize: 30,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),

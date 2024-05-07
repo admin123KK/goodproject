@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:goodproject/items/cart.dart';
 
 class SelRotiPage extends StatefulWidget {
   const SelRotiPage({super.key});
@@ -47,7 +50,7 @@ class _SelRotiPageState extends State<SelRotiPage> {
           ),
           Container(
             height: 340,
-            width: 450,
+            width: 470,
             decoration: const BoxDecoration(
               gradient: LinearGradient(colors: [
                 Color.fromARGB(255, 27, 19, 19),
@@ -61,7 +64,7 @@ class _SelRotiPageState extends State<SelRotiPage> {
             children: [
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 30, horizontal: 9),
+                    const EdgeInsets.symmetric(vertical: 33, horizontal: 9),
                 child: IconButton(
                   onPressed: () {
                     Navigator.pop(context);
@@ -69,21 +72,41 @@ class _SelRotiPageState extends State<SelRotiPage> {
                   icon: const Icon(
                     Icons.arrow_back_ios,
                     color: Colors.white,
-                    size: 27,
+                    size: 30,
                   ),
                 ),
               ),
-              Row(
-                children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.shopping_cart_checkout,
-                      size: 27,
-                      color: Colors.white,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return const Center(
+                                child: CircularProgressIndicator(
+                                  color: Color(0xFF91AD13),
+                                ),
+                              );
+                            });
+                        Timer(Duration(seconds: 1), () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const CartPage()));
+                        });
+                      },
+                      icon: const Icon(
+                        Icons.shopping_cart_checkout,
+                        size: 27,
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),
@@ -407,7 +430,7 @@ class _SelRotiPageState extends State<SelRotiPage> {
                     height: 36,
                     width: 100,
                     decoration: BoxDecoration(
-                      color: Color(0xFF91AD13),
+                      color: const Color(0xFF91AD13),
                       borderRadius: BorderRadius.circular(27),
                     ),
                     child: const Center(

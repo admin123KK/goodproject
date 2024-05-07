@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:goodproject/home_page.dart';
+import 'package:goodproject/items/cart.dart';
 import 'package:goodproject/start_page.dart';
 import 'package:goodproject/verifypages/login_page.dart';
 import 'package:goodproject/verifypages/reset_page.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
           'SignUpPage/': (context) => const SignUp(),
           'VerifictionPage/': (context) => const VerifictionPage(),
           'ForgotPassword/': (context) => const ForgotPassword(),
+          'CartPage/': (context) => const CartPage(),
         });
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:goodproject/items/Batuk_page.dart';
@@ -215,10 +217,31 @@ class _LoginPageState extends State<HomePage> {
       appBar: AppBar(
         actions: [
           GestureDetector(
-            onTap: () => CartPage(),
-            child: Icon(
-              Icons.shopping_cart_checkout_rounded,
-              color: Colors.black,
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        color: Color(0xFF91AD13),
+                      ),
+                    );
+                  });
+              Timer(Duration(seconds: 1), () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CartPage()),
+                );
+              });
+            },
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 18),
+              child: Icon(
+                Icons.shopping_cart_checkout_rounded,
+                color: Colors.black,
+                size: 27,
+              ),
             ),
           ),
         ],

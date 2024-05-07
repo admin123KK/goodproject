@@ -56,7 +56,7 @@ class _WelcomePageState extends State<WelcomePage> {
                       Navigator.of(context).pop();
                       Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(builder: (conrext) => StartPage()),
+                          MaterialPageRoute(builder: (conext) => StartPage()),
                           (route) => false);
                     });
                   },

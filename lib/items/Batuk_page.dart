@@ -1,6 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:goodproject/items/cart.dart';
 
 class BatukPage extends StatefulWidget {
   const BatukPage({super.key});
@@ -40,7 +42,7 @@ class _BatukPageState extends State<BatukPage> {
             ),
             Container(
               height: 350,
-              width: 420,
+              width: 460,
               decoration: const BoxDecoration(
                 gradient: LinearGradient(colors: [
                   Color.fromARGB(255, 26, 22, 22),
@@ -54,7 +56,7 @@ class _BatukPageState extends State<BatukPage> {
               children: [
                 Padding(
                   padding:
-                      const EdgeInsets.symmetric(vertical: 30, horizontal: 7),
+                      const EdgeInsets.symmetric(vertical: 33, horizontal: 7),
                   child: InkWell(
                     child: IconButton(
                       iconSize: 30,
@@ -68,18 +70,40 @@ class _BatukPageState extends State<BatukPage> {
                     ),
                   ),
                 ),
-                Row(
-                  children: [
-                    IconButton(
-                      iconSize: 30,
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.shopping_cart_checkout_outlined,
-                        color: Colors.white,
-                        size: 30,
-                      ),
-                    )
-                  ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: Row(
+                    children: [
+                      IconButton(
+                        iconSize: 30,
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return const Center(
+                                  child: Center(
+                                    child: CircularProgressIndicator(
+                                      color: Color(0xFF91AD13),
+                                    ),
+                                  ),
+                                );
+                              });
+                          Timer(Duration(seconds: 1), () {
+                            Navigator.pop(context);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const CartPage()));
+                          });
+                        },
+                        icon: const Icon(
+                          Icons.shopping_cart_checkout_outlined,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                      )
+                    ],
+                  ),
                 )
               ],
             ),
@@ -165,8 +189,7 @@ class _BatukPageState extends State<BatukPage> {
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 25,
-                                          color:
-                                              Color.fromARGB(255, 2, 99, 6)),
+                                          color: Color.fromARGB(255, 2, 99, 6)),
                                     ),
                                   ],
                                 ),
