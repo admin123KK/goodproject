@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:goodproject/items/cart.dart';
 
@@ -252,7 +251,6 @@ class _SelRotiPageState extends State<SelRotiPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Row(
-                    // mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       InkWell(
                         onTap: decrementQuantity,
