@@ -84,8 +84,10 @@ class _ChukauniPageState extends State<ChukauniPage> {
                     showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return const CircularProgressIndicator(
-                            color: Color(0xFF91AD13),
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              color: Color(0xFF91AD13),
+                            ),
                           );
                         });
                     Timer(Duration(seconds: 1), () {
@@ -272,7 +274,7 @@ class _ChukauniPageState extends State<ChukauniPage> {
                                 child: TextFormField(
                                   textAlign: TextAlign.center,
                                   decoration: InputDecoration(
-                                      focusColor: Color(0xFF91AD13),
+                                      focusColor: const Color(0xFF91AD13),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: const BorderSide(
                                             color: Color(0xFF91AD13), width: 2),

@@ -12,6 +12,8 @@ class BatukPage extends StatefulWidget {
 }
 
 class _BatukPageState extends State<BatukPage> {
+  Stream? EmplyoeeStream;
+
   int _quantity = 1;
   double Item_price = 60;
 

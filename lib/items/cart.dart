@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,52 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+  Stream? EmployeeStream;
+  Widget allEmployeeDetatils() {
+    return StreamBuilder(stream: EmployeeStream, builder: (context ,AsyncSnapshot snapshot){
+      return snapshot.hasData? ListView.builder(itemCount: snapshot.data.docs.length,
+        itemBuilder: (context, index){DocumentSnapshot ds = snapshot.data.docs[index];
+        return   Padding(
+            padding: const EdgeInsets.symmetric(vertical: 70),
+            child: ListView.builder(
+                itemCount: cartItems.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: ListTile(
+                      title: Text(
+                        cartItems[index]['name'] ?? '',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text(cartItems[index]['email'] ?? ''),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          IconButton(
+                            onPressed: () {},
+                            icon: Icon(Icons.edit),
+                          ),
+                          IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  cartItems.removeAt(index);
+                                });
+                              },
+                              icon: const Icon(Icons.delete))
+                        ],
+                      ),
+                    ),
+                  );
+                }),
+        );
+      });
+    });
+  }
+
+  List<Map<String, String>> cartItems = [
+    {'name': "Aakash", 'email': 'Karkiaku000@gmail.com'},
+    {'name': "Manju", 'email': 'mamjuisgood444@gmail.com'},
+    {'name': "Alish", 'email': 'alish@gmail.com'}
+  ];
   String userName = "";
 
   @override
@@ -59,6 +106,7 @@ class _CartPageState extends State<CartPage> {
               ),
             ),
           ),
+
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 30, vertical: 40),
             child: Row(
@@ -75,18 +123,19 @@ class _CartPageState extends State<CartPage> {
               ],
             ),
           ),
-          Center(
-              child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Your Cart is Empty $userName',
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),
-              // Text(userName),
-            ],
-          )),
+          // Center(
+          //     child: Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     Text(
+          //       'Your Cart is Empty $userName',
+          //       style:
+          //           const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          //     ),
+          //     // Text(userName),
+          //   ],
+          // )),
+        
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
