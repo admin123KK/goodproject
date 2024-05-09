@@ -1,6 +1,7 @@
 import 'dart:async';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:goodproject/verifypages/firebase_options.dart';
@@ -262,7 +263,7 @@ class _VerifictionPageState extends State<VerifictionPage> {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 30,
                             ),
                             Container(
@@ -275,7 +276,7 @@ class _VerifictionPageState extends State<VerifictionPage> {
                                 onPressed: () {
                                   Navigator.pushNamed(context, 'MyAppPage/');
                                 },
-                                child: Text(
+                                child: const Text(
                                   'Verify ',
                                   style: TextStyle(
                                       color: Colors.black,
@@ -295,13 +296,13 @@ class _VerifictionPageState extends State<VerifictionPage> {
                                     style: TextStyle(color: Colors.grey[600]),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 6,
                                 ),
                                 _counter > 0
                                     ? Text(
                                         ' $_counter seconds',
-                                        style: TextStyle(fontSize: 13),
+                                        style: const TextStyle(fontSize: 13),
                                       )
                                     : GestureDetector(
                                         onTap: () {

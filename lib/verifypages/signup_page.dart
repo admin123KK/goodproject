@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:goodproject/database.dart';
 import 'package:goodproject/verifypages/firebase_options.dart';
 import 'package:goodproject/verifypages/login_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:random_string/random_string.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -324,7 +326,14 @@ class _SignUpState extends State<SignUp> {
                                             MaterialStateProperty.all<Color>(
                                                 Color(0xFF91AD13))),
                                     onPressed: () async {
-                                      // _formKey.currentState!.validate();
+                                      String Id = randomAlphaNumeric(10);
+                                      Map<String, dynamic> employeeInfoMap = {
+                                        "Name": _nameController.text,
+                                        "Email": _email.text,
+                                      };
+                                      await DatabaseMethods()
+                                          .addEmployeeDetails(
+                                              employeeInfoMap, Id);
                                       showDialog(
                                           context: context,
                                           builder: (context) {
@@ -342,6 +351,9 @@ class _SignUpState extends State<SignUp> {
                                             .createUserWithEmailAndPassword(
                                                 email: email,
                                                 password: password);
+                                        final user =
+                                            FirebaseAuth.instance.currentUser;
+                                        await user?.sendEmailVerification();
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                           SnackBar(
@@ -408,15 +420,11 @@ class _SignUpState extends State<SignUp> {
                                       style: TextStyle(color: Colors.grey[600]),
                                     ),
                                   ),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Divider(
-                                          thickness: 0.5,
-                                          color: Colors.grey[600],
-                                        ),
-                                      )
-                                    ],
+                                  Expanded(
+                                    child: Divider(
+                                      thickness: 0.5,
+                                      color: Colors.grey[600],
+                                    ),
                                   )
                                 ],
                               ),
@@ -448,7 +456,7 @@ class _SignUpState extends State<SignUp> {
                                         showDialog(
                                           context: context,
                                           builder: (context) {
-                                            return Center(
+                                            return const Center(
                                               child: CircularProgressIndicator(
                                                 color: Color(0xFF91AD13),
                                               ),

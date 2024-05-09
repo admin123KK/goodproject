@@ -60,7 +60,7 @@ class _CartPageState extends State<CartPage> {
             ),
           ),
           const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 50),
+            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 40),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
