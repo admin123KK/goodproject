@@ -29,6 +29,50 @@ class _CartPageState extends State<CartPage> {
     }
   }
 
+  Future<void> _editUser(String userId) async {
+    String newName = "";
+    String newEmail = "";
+    await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Edit USer'),
+            content: Column(
+              children: [
+                TextField(
+                  onChanged: (value) {
+                    newName = value;
+                  },
+                  decoration: InputDecoration(labelText: 'New Name'),
+                ),
+                TextField(
+                  onChanged: (value) {
+                    newEmail = value;
+                  },
+                  decoration: InputDecoration(labelText: 'New Email'),
+                )
+              ],
+            ),
+            actions: <Widget>[
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('Cancel')),
+              TextButton(
+                  onPressed: () async {
+                    await firestore
+                        .collection("Employee")
+                        .doc(userId)
+                        .update({'Name': newName, "Email": newEmail});
+                    Navigator.pop(context);
+                  },
+                  child: Text('Save'))
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +84,7 @@ class _CartPageState extends State<CartPage> {
               stream: firestore.collection("Employee").snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (!snapshot.hasData) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else {
@@ -59,7 +103,9 @@ class _CartPageState extends State<CartPage> {
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  _editUser(user.id);
+                                },
                                 icon: Icon(Icons.edit),
                               ),
                               IconButton(
