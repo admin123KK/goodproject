@@ -36,8 +36,13 @@ class _CartPageState extends State<CartPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Edit USer'),
+            title: const Text(
+              'Update Cart',
+              style:
+                  TextStyle(fontFamily: "Mooli", fontWeight: FontWeight.bold),
+            ),
             content: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
                   onChanged: (value) {
@@ -58,7 +63,10 @@ class _CartPageState extends State<CartPage> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text('Cancel')),
+                  child: const Text(
+                    'Cancel',
+                    style: TextStyle(color: Colors.black),
+                  )),
               TextButton(
                   onPressed: () async {
                     await firestore
@@ -67,7 +75,11 @@ class _CartPageState extends State<CartPage> {
                         .update({'Name': newName, "Email": newEmail});
                     Navigator.pop(context);
                   },
-                  child: Text('Save'))
+                  child: const Text(
+                    'Save',
+                    style: TextStyle(
+                        color: Color(0xFF91AD13), fontWeight: FontWeight.bold),
+                  ))
             ],
           );
         });
@@ -84,8 +96,10 @@ class _CartPageState extends State<CartPage> {
               stream: firestore.collection("Employee").snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (!snapshot.hasData) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: Color(0xFF91AD13),
+                    ),
                   );
                 } else {
                   return ListView.builder(
@@ -107,6 +121,7 @@ class _CartPageState extends State<CartPage> {
                                   _editUser(user.id);
                                 },
                                 icon: Icon(Icons.edit),
+                                color: Colors.black,
                               ),
                               IconButton(
                                 onPressed: () {
@@ -119,6 +134,7 @@ class _CartPageState extends State<CartPage> {
                                   });
                                 },
                                 icon: const Icon(Icons.delete),
+                                color: Colors.red,
                               ),
                             ],
                           ),

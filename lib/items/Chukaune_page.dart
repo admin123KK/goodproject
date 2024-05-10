@@ -12,7 +12,7 @@ class ChukauniPage extends StatefulWidget {
 }
 
 class _ChukauniPageState extends State<ChukauniPage> {
-  int _quantity = 1;
+  int _quantity = 0;
   double Item_price = 50;
 
   double _calculateAmountTotal() {
@@ -313,12 +313,70 @@ class _ChukauniPageState extends State<ChukauniPage> {
                                   ),
                                 ),
                               ),
+                              const SizedBox(
+                                width: 60,
+                              ),
+                              Container(
+                                height: 30,
+                                width: 130,
+                                child: TextField(
+                                  textAlign: TextAlign.center,
+                                  decoration: InputDecoration(
+                                      focusColor: const Color(0xFF91AD13),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0xFF91AD13),
+                                        ),
+                                        borderRadius: BorderRadius.circular(13),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Color(0xFF91AD13)),
+                                      ),
+                                      labelText: 'Share Location',
+                                      labelStyle: const TextStyle(
+                                          fontSize: 14, color: Colors.black)),
+                                ),
+                              ),
                             ],
                           ),
                         ),
-                        const SizedBox(
-                          height: 30,
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 30, vertical: 20),
+                              child: Text(
+                                'Total costs: Rs.${_calculateAmountTotal()} ',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 60,
+                            ),
+                            InkWell(
+                              child: Container(
+                                height: 30,
+                                width: 100,
+                                decoration: BoxDecoration(
+                                    color: Color(0xFF91AD13),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: const Center(
+                                  child: Text(
+                                    '+ Add to Cart',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
                         ),
+
+                        // const SizedBox(
+                        //   height: 30,
+                        // ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -424,18 +482,22 @@ class _ChukauniPageState extends State<ChukauniPage> {
                                         });
                                   });
                                 },
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  height: 33,
-                                  width: 100,
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xFF91AD13),
-                                    borderRadius: BorderRadius.circular(27),
-                                  ),
-                                  child: const Text(
-                                    'Order Now',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 40),
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    height: 33,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xFF91AD13),
+                                      borderRadius: BorderRadius.circular(27),
+                                    ),
+                                    child: const Text(
+                                      'Order Now',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                   ),
                                 ),
                               ),

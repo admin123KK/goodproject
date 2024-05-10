@@ -96,71 +96,72 @@ class _LoginPageState extends State<HomePage> {
       required String price,
       required}) {
     return InkWell(
-        onTap: () {
-          if (name == 'SelRoti') {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SelRotiPage()));
-          } else if (name == 'Phini') {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => PhiniPage()));
-          } else if (name == 'Batuk') {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => BatukPage()));
-          } else {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => ChukauniPage()));
-          }
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            width: 175,
-            height: 255,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(18),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 3,
-                    blurRadius: 10,
-                    offset: const Offset(0, 3),
-                  ),
-                ]),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                  backgroundImage: AssetImage(image),
-                  radius: 60,
+      onTap: () {
+        if (name == 'SelRoti') {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => SelRotiPage()));
+        } else if (name == 'Phini') {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => PhiniPage()));
+        } else if (name == 'Batuk') {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => BatukPage()));
+        } else {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => ChukauniPage()));
+        }
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          width: 175,
+          height: 255,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(18),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 3,
+                  blurRadius: 10,
+                  offset: const Offset(0, 3),
                 ),
-                ListTile(
-                  leading: Text(
-                    name,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                  ),
-                  trailing: Text(
-                    price,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                        color: Colors.green),
-                  ),
+              ]),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                backgroundImage: AssetImage(image),
+                radius: 60,
+              ),
+              ListTile(
+                leading: Text(
+                  name,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                 ),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.star, color: Colors.orange),
-                    Icon(Icons.star, color: Colors.orange),
-                    Icon(Icons.star, color: Colors.orange),
-                    Icon(Icons.star),
-                    Icon(Icons.star),
-                  ],
+                trailing: Text(
+                  price,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                      color: Colors.green),
                 ),
-              ],
-            ),
+              ),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.star, color: Colors.orange),
+                  Icon(Icons.star, color: Colors.orange),
+                  Icon(Icons.star, color: Colors.orange),
+                  Icon(Icons.star),
+                  Icon(Icons.star),
+                ],
+              ),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   Future<void> _showLogOUtDialog(BuildContext, context) {
