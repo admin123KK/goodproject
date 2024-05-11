@@ -14,7 +14,7 @@ class BatukPage extends StatefulWidget {
 class _BatukPageState extends State<BatukPage> {
   Stream? EmplyoeeStream;
 
-  int _quantity = 1;
+  int _quantity = 0;
   double Item_price = 60;
 
   double _calculateAmountTotal() {
@@ -343,11 +343,70 @@ class _BatukPageState extends State<BatukPage> {
                               ),
                             ),
                           ),
+                          const SizedBox(
+                            width: 65,
+                          ),
+                          Container(
+                            height: 35,
+                            width: 130,
+                            child: TextFormField(
+                              textAlign: TextAlign.center,
+                              decoration: InputDecoration(
+                                  focusColor: const Color(0xFF91AD13),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(9),
+                                      borderSide: const BorderSide(
+                                          color: Color(0xFF91AD13))),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color: Color(0xFF91AD13)),
+                                    borderRadius: BorderRadius.circular(9),
+                                  ),
+                                  labelText: 'Share Location',
+                                  labelStyle: TextStyle(
+                                      color: Colors.grey[800], fontSize: 14)),
+                            ),
+                          ),
                         ],
                       ),
                     ),
                     const SizedBox(
-                      height: 30,
+                      height: 13,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 33),
+                          child: Text(
+                            'Total costs: ${_calculateAmountTotal()}',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          child: InkWell(
+                            onTap: () {},
+                            child: Container(
+                              height: 30,
+                              width: 99,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF91AD13),
+                                borderRadius: BorderRadius.circular(9),
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  '+Add to Cart',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 17,
                     ),
                     InkWell(
                       onTap: () {

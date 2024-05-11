@@ -12,7 +12,7 @@ class PhiniPage extends StatefulWidget {
 }
 
 class _PhiniPageState extends State<PhiniPage> {
-  int _quantity = 1;
+  int _quantity = 0;
   double Item_price = 95;
 
   double _calculateAmountTotal() {
@@ -329,11 +329,75 @@ class _PhiniPageState extends State<PhiniPage> {
                                     ),
                                   ],
                                 ),
+                                const SizedBox(
+                                  width: 75,
+                                ),
+                                Container(
+                                  height: 35,
+                                  width: 130,
+                                  child: TextFormField(
+                                    textAlign: TextAlign.center,
+                                    decoration: InputDecoration(
+                                        focusColor: const Color(0xFF91AD13),
+                                        focusedBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                                color: Color(0xFF91AD13)),
+                                            borderRadius:
+                                                BorderRadius.circular(9)),
+                                        enabledBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                                color: Color(0xFF91AD13)),
+                                            borderRadius:
+                                                BorderRadius.circular(9)),
+                                        labelText: 'Share Location',
+                                        labelStyle: TextStyle(
+                                            color: Colors.grey[800],
+                                            fontSize: 15)),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
                           const SizedBox(
-                            height: 27,
+                            height: 13,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 33),
+                                child: Text(
+                                  'Total costs: ${_calculateAmountTotal()}',
+                                  style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 30),
+                                child: InkWell(
+                                  onTap: () {},
+                                  child: Container(
+                                    height: 30,
+                                    width: 99,
+                                    decoration: BoxDecoration(
+                                        color: Color(0xFF91AD13),
+                                        borderRadius: BorderRadius.circular(9)),
+                                    child: const Center(
+                                        child: Text(
+                                      '+ Add to Cart',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 50,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -409,7 +473,7 @@ class _PhiniPageState extends State<PhiniPage> {
                                                     ),
                                                   ],
                                                 ),
-                                                Text('OR'),
+                                                const Text('OR'),
                                               ],
                                             ),
                                             actions: <Widget>[

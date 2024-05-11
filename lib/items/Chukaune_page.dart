@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:goodproject/items/cart.dart';
@@ -34,6 +35,19 @@ class _ChukauniPageState extends State<ChukauniPage> {
       setState(() {
         _quantity--;
       });
+    }
+  }
+
+  Future<void> addToCart() async {
+    try {
+      FirebaseFirestore.instance.collection('cart').add({
+        'itemName': 'Chukaune',
+        'quantity': _quantity,
+        'totalCost': _calculateAmountTotal()
+      });
+      print('add to cart sucessufuely');
+    } catch (e) {
+      print('Error adding item:$e');
     }
   }
 
@@ -324,12 +338,12 @@ class _ChukauniPageState extends State<ChukauniPage> {
                                   decoration: InputDecoration(
                                       focusColor: const Color(0xFF91AD13),
                                       focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Color(0xFF91AD13),
                                         ),
                                         borderRadius: BorderRadius.circular(13),
                                       ),
-                                      enabledBorder: OutlineInputBorder(
+                                      enabledBorder: const OutlineInputBorder(
                                         borderSide: BorderSide(
                                             color: Color(0xFF91AD13)),
                                       ),
@@ -342,31 +356,36 @@ class _ChukauniPageState extends State<ChukauniPage> {
                           ),
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 30, vertical: 20),
                               child: Text(
                                 'Total costs: Rs.${_calculateAmountTotal()} ',
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 15),
                               ),
                             ),
-                            const SizedBox(
-                              width: 60,
-                            ),
-                            InkWell(
-                              child: Container(
-                                height: 30,
-                                width: 100,
-                                decoration: BoxDecoration(
-                                    color: Color(0xFF91AD13),
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: const Center(
-                                  child: Text(
-                                    '+ Add to Cart',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 35),
+                              child: InkWell(
+                                onTap: () {
+                                  addToCart();
+                                },
+                                child: Container(
+                                  height: 30,
+                                  width: 99,
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xFF91AD13),
+                                      borderRadius: BorderRadius.circular(9)),
+                                  child: const Center(
+                                    child: Text(
+                                      '+ Add to Cart',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                   ),
                                 ),
                               ),

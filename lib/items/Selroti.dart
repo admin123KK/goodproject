@@ -12,7 +12,7 @@ class SelRotiPage extends StatefulWidget {
 }
 
 class _SelRotiPageState extends State<SelRotiPage> {
-  int _quantity = 1;
+  int _quantity = 0;
   double Item_Price = 60;
 
   double _calculateTotalAmount() {
@@ -310,11 +310,74 @@ class _SelRotiPageState extends State<SelRotiPage> {
                           ),
                         ),
                       ),
+                      const SizedBox(
+                        width: 53,
+                      ),
+                      Container(
+                        height: 35,
+                        width: 130,
+                        child: TextFormField(
+                          textAlign: TextAlign.center,
+                          decoration: InputDecoration(
+                              focusColor: const Color(0xFF91AD13),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(color: Color(0xFF91AD13)),
+                                borderRadius: BorderRadius.circular(9),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                    color: Color(0xFF91AD13),
+                                  ),
+                                  borderRadius: BorderRadius.circular(7)),
+                              labelText: 'Share Location',
+                              labelStyle: TextStyle(
+                                  color: Colors.grey[900], fontSize: 14)),
+                        ),
+                      )
                     ],
                   ),
                 ),
                 const SizedBox(
-                  height: 25,
+                  height: 14,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 33),
+                      child: Text(
+                        'Total costs: ${_calculateTotalAmount()}',
+                        style: const TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    // const SizedBox(
+                    //   width: 90,
+                    // ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: InkWell(
+                        onTap: () {},
+                        child: Container(
+                          height: 30,
+                          width: 100,
+                          decoration: BoxDecoration(
+                            color: Color(0xFF91AD13),
+                            borderRadius: BorderRadius.circular(9),
+                          ),
+                          child: const Center(
+                              child: Text(
+                            '+ Add to Cart',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          )),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 45,
                 ),
                 InkWell(
                   onTap: () {
