@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class OrderPage extends StatefulWidget {
@@ -8,7 +10,40 @@ class OrderPage extends StatefulWidget {
 }
 
 class _OrderPageState extends State<OrderPage> {
+  bool orderReceived = true;
+  bool orderPacked = false;
+  bool orderOnWay = false;
+  bool orderDeliverd = false;
+
   @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+
+  void startTimer() {
+    Timer(Duration(seconds: 5), () {
+      setState(() {
+        orderReceived = false;
+        orderPacked = true;
+      });
+
+      Timer(Duration(seconds: 3), () {
+        setState(() {
+          orderPacked = false;
+          orderOnWay = true;
+        });
+
+        Timer(Duration(seconds: 6), () {
+          setState(() {
+            orderOnWay = false;
+            orderDeliverd = true;
+          });
+        });
+      });
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
@@ -23,7 +58,7 @@ class _OrderPageState extends State<OrderPage> {
                       onTap: () {
                         Navigator.pop(context);
                       },
-                      child: Icon(
+                      child: const Icon(
                         Icons.arrow_back_ios,
                         size: 24,
                         color: Colors.black,
@@ -36,7 +71,7 @@ class _OrderPageState extends State<OrderPage> {
                     child: const Text(
                       'Delivery Status',
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 33),
                     ),
                   ),
                 ),
@@ -46,8 +81,9 @@ class _OrderPageState extends State<OrderPage> {
                   child: Container(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      'Serving simple and fast',
-                      style: TextStyle(color: Colors.grey[700]),
+                      '"Serving simple and fast"',
+                      style: TextStyle(
+                          color: Colors.grey[600], fontFamily: 'Mooli'),
                     ),
                   ),
                 ),
@@ -65,9 +101,54 @@ class _OrderPageState extends State<OrderPage> {
                     ),
                   ),
                 ),
+                Expanded(
+                  child: Container(
+                    height: 150,
+                    width: 300,
+                    child: Column(
+                      children: [
+                        _buildIcon(Icons.receipt_long_sharp, 'Received',
+                            orderReceived),
+                        Container(
+                          height: 30,
+                          child: const VerticalDivider(
+                              thickness: 2, color: Colors.grey),
+                        ),
+                        _buildIcon(
+                            Icons.assignment_turned_in, 'Packed', orderPacked),
+                        Container(
+                          height: 30,
+                          child: const VerticalDivider(
+                              color: Colors.grey, thickness: 2),
+                        ),
+                        _buildIcon(Icons.delivery_dining_rounded, 'On the way',
+                            orderOnWay),
+                        Container(
+                          height: 30,
+                          child: const VerticalDivider(
+                              thickness: 2, color: Colors.grey),
+                        ),
+                        _buildIcon(Icons.done, 'Deliverd', orderDeliverd),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
         ));
   }
+}
+
+Widget _buildIcon(IconData icon, String status, bool isCurrent) {
+  return Column(
+    children: [
+      Icon(icon, size: 50, color: isCurrent ? Color(0xFF91AD13) : Colors.black),
+      Text(
+        status,
+        style: const TextStyle(
+            fontSize: 20, fontWeight: FontWeight.bold, fontFamily: 'MOoli'),
+      )
+    ],
+  );
 }

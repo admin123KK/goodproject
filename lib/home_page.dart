@@ -7,7 +7,6 @@ import 'package:goodproject/items/Chukaune_page.dart';
 import 'package:goodproject/items/Phini_page.dart';
 import 'package:goodproject/items/Selroti.dart';
 import 'package:goodproject/items/cart.dart';
-import 'package:goodproject/items/testpage.dart';
 import 'package:goodproject/my_orderpage.dart';
 import 'package:goodproject/verifypages/location_page.dart';
 import 'package:goodproject/verifypages/login_page.dart';
@@ -452,10 +451,7 @@ class _LoginPageState extends State<HomePage> {
               },
             ),
             ListTile(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => TestPage()));
-              },
+              onTap: () {},
               leading: Icon(
                 Icons.feedback,
                 color: Colors.black,
