@@ -46,9 +46,9 @@ class _CartPageState extends State<CartPage> {
             children: [
               TextField(
                 onChanged: (value) {
-                  editItems = value;
+                  editItems = value; 
                 },
-                decoration: InputDecoration(labelText: 'No of Items'),
+                decoration: InputDecoration(labelText: 'No of Items'),//firestore deals
               )
             ],
           ),

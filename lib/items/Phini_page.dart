@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:goodproject/items/cart.dart';
@@ -34,6 +35,19 @@ class _PhiniPageState extends State<PhiniPage> {
       setState(() {
         _quantity--;
       });
+    }
+  }
+
+  Future<void> addToCart() async {
+    try {
+      FirebaseFirestore.instance.collection('cart').add({
+        'itemName': 'Phini',
+        'quantity': _quantity,
+        'totalCost': _calculateAmountTotal(),
+      });
+      print('added to the card successfuly');
+    } catch (e) {
+      print('Error adding item  $e');
     }
   }
 
@@ -378,7 +392,9 @@ class _PhiniPageState extends State<PhiniPage> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 30),
                                 child: InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    addToCart();
+                                  },
                                   child: Container(
                                     height: 30,
                                     width: 99,

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:goodproject/items/cart.dart';
@@ -34,6 +35,19 @@ class _SelRotiPageState extends State<SelRotiPage> {
       setState(() {
         _quantity--;
       });
+    }
+  }
+
+  Future<void> addToCart() async {
+    try {
+      FirebaseFirestore.instance.collection('cart').add({
+        'itemName': 'SelRoti',
+        'quantity': _quantity,
+        'totalCost': _calculateTotalAmount()
+      });
+      print('added to cart sucessufly');
+    } catch (e) {
+      print('Error add item $e');
     }
   }
 
@@ -358,7 +372,9 @@ class _SelRotiPageState extends State<SelRotiPage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          addToCart();
+                        },
                         child: Container(
                           height: 30,
                           width: 100,

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:goodproject/items/cart.dart';
@@ -37,6 +38,19 @@ class _BatukPageState extends State<BatukPage> {
     if (_quantity > 1) {
       setState(() {});
       _quantity--;
+    }
+  }
+
+  Future<void> addToCart() async {
+    try {
+      FirebaseFirestore.instance.collection('cart').add({
+        'itemName': 'Batuk',
+        'quantity': _quantity,
+        'totalCost': _calculateAmountTotal(),
+      });
+      print('added to cart successfully');
+    } catch (e) {
+      print('Error adding in cart $e');
     }
   }
 
@@ -386,7 +400,9 @@ class _BatukPageState extends State<BatukPage> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 30),
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              addToCart();
+                            },
                             child: Container(
                               height: 30,
                               width: 99,
