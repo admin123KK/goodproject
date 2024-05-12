@@ -7,6 +7,7 @@ import 'package:goodproject/items/Chukaune_page.dart';
 import 'package:goodproject/items/Phini_page.dart';
 import 'package:goodproject/items/Selroti.dart';
 import 'package:goodproject/items/cart.dart';
+import 'package:goodproject/my_orderpage.dart';
 import 'package:goodproject/verifypages/location_page.dart';
 import 'package:goodproject/verifypages/login_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -435,12 +436,19 @@ class _LoginPageState extends State<HomePage> {
               ),
               title: Text('Settings'),
             ),
-            const ListTile(
-              leading: Icon(
-                Icons.share,
+            ListTile(
+              leading: const Icon(
+                Icons.delivery_dining_rounded,
                 color: Colors.black,
               ),
-              title: Text('Share'),
+              title: const Text(
+                'My order',
+                style: TextStyle(color: Colors.black),
+              ),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => OrderPage()));
+              },
             ),
             const ListTile(
               leading: Icon(
@@ -458,9 +466,13 @@ class _LoginPageState extends State<HomePage> {
             ),
             const ListTile(
               leading: Icon(
-                Icons.sports_cricket_rounded,
+                Icons.share,
+                color: Colors.black,
               ),
-              title: Text('Score Card'),
+              title: Text(
+                'Share',
+                style: TextStyle(color: Colors.black),
+              ),
             ),
             ListTile(
               leading: const Icon(
