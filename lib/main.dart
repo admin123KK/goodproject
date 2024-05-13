@@ -10,8 +10,8 @@ import 'package:goodproject/verifypages/verifcation_page.dart';
 import 'package:goodproject/welcome_page.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
