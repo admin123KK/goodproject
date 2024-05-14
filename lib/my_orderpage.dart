@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:goodproject/verifypages/location_page.dart';
 
 class OrderPage extends StatefulWidget {
   const OrderPage({super.key});
@@ -88,26 +89,33 @@ class _OrderPageState extends State<OrderPage> {
                   ),
                 ),
                 Container(
-                  height: 230,
+                  height: 200,
                   width: 400,
                   child: Image.asset('assets/images/delivery.png'),
                 ),
-                Container(
-                  child: const Text(
-                    'TimeLine of Your Order',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 22,
+                Row(
+                  children: [
+                    Container(
+                      child: const Text(
+                        'TimeLine of Your Order',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
                 Expanded(
                   child: Container(
-                    height: 150,
+                    height: 70,
                     width: 300,
                     child: Column(
                       children: [
-                        _buildIcon(Icons.receipt_long_sharp, 'Received',
+                        _buildIcon(Icons.receipt_long_sharp, 'Received ',
                             orderReceived),
                         Container(
                           height: 30,
@@ -133,6 +141,43 @@ class _OrderPageState extends State<OrderPage> {
                     ),
                   ),
                 ),
+                const Text('OR'),
+                const SizedBox(
+                  height: 10,
+                ),
+                InkWell(
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              color: Color(0xFF91AD13),
+                            ),
+                          );
+                        });
+                    Timer(Duration(seconds: 2), () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LocationPage()));
+                    });
+                  },
+                  child: Container(
+                    height: 27,
+                    width: 150,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(27),
+                      color: const Color(0xFF91AD13),
+                    ),
+                    child: Center(
+                        child: Text(
+                      'Check Live Location ',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    )),
+                  ),
+                )
               ],
             ),
           ),
@@ -146,8 +191,11 @@ Widget _buildIcon(IconData icon, String status, bool isCurrent) {
       Icon(icon, size: 50, color: isCurrent ? Color(0xFF91AD13) : Colors.black),
       Text(
         status,
-        style: const TextStyle(
-            fontSize: 20, fontWeight: FontWeight.bold, fontFamily: 'MOoli'),
+        style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'MOoli',
+            color: isCurrent ? Color(0xFF91AD13) : Colors.black),
       )
     ],
   );
