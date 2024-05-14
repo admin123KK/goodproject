@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:goodproject/functions/esea_page.dart';
 import 'package:goodproject/items/cart.dart';
 
 class ChukauniPage extends StatefulWidget {
@@ -450,11 +452,17 @@ class _ChukauniPageState extends State<ChukauniPage> {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
-                                                    ClipOval(
-                                                      child: Image.asset(
-                                                        'assets/images/esewa.png',
-                                                        width: 45,
-                                                        height: 45,
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        Esewa esewa = Esewa();
+                                                        esewa.pay();
+                                                      },
+                                                      child: ClipOval(
+                                                        child: Image.asset(
+                                                          'assets/images/esewa.png',
+                                                          width: 45,
+                                                          height: 45,
+                                                        ),
                                                       ),
                                                     ),
                                                     const SizedBox(
