@@ -1,8 +1,9 @@
 import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:goodproject/items/Batuk_page.dart';
-import 'package:goodproject/items/Chukaune_page.dart';
+import 'package:goodproject/items/Chukauni_page.dart';
 import 'package:goodproject/items/Phini_page.dart';
 import 'package:goodproject/items/Selroti.dart';
 import 'package:goodproject/items/cart.dart';
@@ -292,17 +293,29 @@ class _LoginPageState extends State<HomePage> {
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Row(
                       children: [
-                        const Icon(Icons.search),
-                        Container(
-                          height: 50,
-                          width: 300,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: TextFormField(
-                              cursorColor: Colors.grey,
-                              decoration: const InputDecoration(
-                                  hintText: 'What  you like to have?',
-                                  border: InputBorder.none),
+                        const Icon(
+                          Icons.search,
+                        ),
+                        Expanded(
+                          child: Container(
+                            height: 50,
+                            width: 300,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: TextFormField(
+                                cursorColor: Colors.grey,
+                                // focusNode: _foucusNode,
+                                readOnly: true,
+                                decoration: const InputDecoration(
+                                    hintText: 'What  you like to have?',
+                                    border: InputBorder.none),
+                                onTap: () {
+                                  showSearch(
+                                      context: context,
+                                      delegate: CustomSearch());
+                                },
+                              ),
                             ),
                           ),
                         )
@@ -492,5 +505,75 @@ class _LoginPageState extends State<HomePage> {
         ),
       ),
     );
+  }
+}
+
+class CustomSearch extends SearchDelegate {
+  List<String> allData = ['SelRoti', 'Phini', 'Batuk', 'Chukauni'];
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+          onPressed: () {
+            query = '';
+          },
+          icon: const Icon(Icons.clear))
+    ];
+  }
+
+  @override
+  Widget? buildLeading(BuildContext context) {
+    return IconButton(
+        onPressed: () {
+          close(context, null);
+        },
+        icon: Icon(Icons.arrow_back_ios));
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    List<String> matchQuery = [];
+    for (var item in allData) {
+      if (item.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(item);
+      }
+    }
+    return ListView.builder(
+        itemCount: matchQuery.length,
+        itemBuilder: (context, index) {
+          var result = matchQuery[index];
+          return ListTile(
+            title: Text(result),
+            onTap: () {
+              if (result == 'SelRoti') {
+                Navigator.pushNamed(context, 'SelRoti/');
+              } else if (result == 'Phini') {
+                Navigator.pushNamed(context, 'PhiniPage/');
+              } else if (result == 'Batuk') {
+                Navigator.pushNamed(context, 'BatukPage/');
+              } else if (result == 'Chukauni') {
+                Navigator.pushNamed(context, 'ChukauniPage/');
+              }
+            },
+          );
+        });
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    List<String> matchQuery = [];
+    for (var item in allData) {
+      if (item.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(item);
+      }
+    }
+    return ListView.builder(
+        itemCount: matchQuery.length,
+        itemBuilder: (context, index) {
+          var result = matchQuery[index];
+          return ListTile(
+            title: Text(result),
+          );
+        });
   }
 }

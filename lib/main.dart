@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:goodproject/home_page.dart';
+import 'package:goodproject/items/Batuk_page.dart';
+import 'package:goodproject/items/Chukauni_page.dart';
+import 'package:goodproject/items/Phini_page.dart';
+import 'package:goodproject/items/Selroti.dart';
 import 'package:goodproject/items/cart.dart';
 import 'package:goodproject/start_page.dart';
 import 'package:goodproject/verifypages/login_page.dart';
@@ -33,6 +37,10 @@ class MyApp extends StatelessWidget {
           'VerifictionPage/': (context) => const VerifictionPage(),
           'ForgotPassword/': (context) => const ForgotPassword(),
           'CartPage/': (context) => const CartPage(),
+          'SelRoti/': (context) => const SelRotiPage(),
+          'PhiniPage/': (context) => const PhiniPage(),
+          'BatukPage/': (context) => const BatukPage(),
+          'ChukauniPage/': (context) => const ChukauniPage(),
         });
   }
 }
