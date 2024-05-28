@@ -4,23 +4,55 @@
   "signup": "SignUp",
   "login": "Login",
   "or": "or",
+
   "creates": "Create Account",
+  "LoginAccount" :"Login Account",
+
   "details": "Enter your details to SignUp",
+   "detailsLogin": "Enter your details to login",
+
   "fullName": "Full Name",
   "pleaseEnterName": "please enter your name",
   "characterShould" :"character should be more than 5",
   "enterfullName": "Enter your name",
+  "enterValidName": "enter a correct name",
+
   "email": "Email",
   "enterYourMail": "Enter your email",
   "enterEmail" : "please enter mail",
   "enterValidMail" : "please enter a valid mail",
+
+  "password": "password",
   "newPassword": "New Password",
   "enterYourNewPass": "enter new Password",
   "pleaseEnterPassword": "enter a Password",
   "pleaseEnter6Character": "cat least  6 character requried",
+  "invalidPassword": "wrong Password",
+  "forgotPassword": "Forgot Password?",
+
   "confirmPassword": "Confirm Password",
+
   "orContinueWith": "or Continue With",
   "alreadyHaveAccount": "Already have an account?",
-  "register": "You are registered!!"
+  "DontHaveAccount" :"DontHaveAccount?",
+
+  "register": "You are registered!!",
   
+  "username": "username",
+  "enterUserName": "enter username",
+  "pleaseEnterUserName": "please enter username",
+  "invalidUserName": "invalid username",
+  
+  
+  "userNameOrPassword"   :"username or password is incorrect",
+  "invalidCredential" : "invalid Credential",
+  "emailAlready": "Email already use try another",
+  "weakPassword": "Weak Password",
+
+  "restPassword" : "Reset Password",
+  "enterPassword": "Enter email to rest password",
+  "checkEmail" :"Check email for new password",
+  "sucessBack": "Success? Back to Login"
+
+
 }

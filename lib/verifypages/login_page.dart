@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:goodproject/verifypages/firebase_options.dart';
+import 'package:goodproject/app_localization.dart';
 import 'package:goodproject/home_page.dart';
+import 'package:goodproject/verifypages/firebase_options.dart';
 import 'package:goodproject/verifypages/signup_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -83,9 +84,10 @@ class _LoginPageState extends State<LoginPage> {
                           children: [
                             Container(
                               alignment: Alignment.topLeft,
-                              child: const Text(
-                                'Login Account',
-                                style: TextStyle(
+                              child: Text(
+                                AppLocalizations.of(context)
+                                    .translate("LoginAccount"),
+                                style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 30),
                               ),
                             ),
@@ -95,7 +97,8 @@ class _LoginPageState extends State<LoginPage> {
                               child: Container(
                                 alignment: Alignment.topLeft,
                                 child: Text(
-                                  'Enter your details to login',
+                                  AppLocalizations.of(context)
+                                      .translate('detailsLogin'),
                                   style: TextStyle(color: Colors.grey[600]),
                                 ),
                               ),
@@ -115,8 +118,10 @@ class _LoginPageState extends State<LoginPage> {
                                       AutovalidateMode.onUserInteraction,
                                   decoration: InputDecoration(
                                     focusColor: const Color(0xFF91AD13),
-                                    hintText: 'enter your username ',
-                                    labelText: 'Username',
+                                    hintText: AppLocalizations.of(context)
+                                        .translate('enterUserName'),
+                                    labelText: AppLocalizations.of(context)
+                                        .translate('username'),
                                     labelStyle:
                                         const TextStyle(color: Colors.grey),
                                     prefixIcon:
@@ -135,12 +140,14 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                   validator: (value) {
                                     if (value!.isEmpty) {
-                                      return "please enter username";
+                                      return AppLocalizations.of(context)
+                                          .translate('pleaseEnterUserName');
                                     } else {
                                       RegExp emailRegExp = RegExp(
                                           r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
                                       if (!emailRegExp.hasMatch(value)) {
-                                        return 'Invalid username ';
+                                        return AppLocalizations.of(context)
+                                            .translate('invalidUserName');
                                       } else {
                                         return null;
                                       }
@@ -159,8 +166,10 @@ class _LoginPageState extends State<LoginPage> {
                                       AutovalidateMode.onUserInteraction,
                                   obscureText: passToggle,
                                   decoration: InputDecoration(
-                                    hintText: 'Enter your password',
-                                    labelText: 'Password',
+                                    hintText: AppLocalizations.of(context)
+                                        .translate('pleaseEnterPassword'),
+                                    labelText: AppLocalizations.of(context)
+                                        .translate('password'),
                                     labelStyle:
                                         const TextStyle(color: Colors.grey),
                                     prefixIcon: const Icon(Icons.lock_outline),
@@ -185,9 +194,11 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                   validator: (value) {
                                     if (value!.isEmpty) {
-                                      return 'please enter password';
+                                      return AppLocalizations.of(context)
+                                          .translate('pleaseEnterPassword');
                                     } else if (value.length < 6) {
-                                      return 'wrong password';
+                                      return AppLocalizations.of(context)
+                                          .translate('invalidPassword');
                                     } else {
                                       return null;
                                     }
@@ -203,9 +214,10 @@ class _LoginPageState extends State<LoginPage> {
                                     Navigator.pushNamed(
                                         context, 'ForgotPassword/');
                                   },
-                                  child: const Text(
-                                    'Forgot Password?',
-                                    style: TextStyle(
+                                  child: Text(
+                                    AppLocalizations.of(context)
+                                        .translate('forgotPassword'),
+                                    style: const TextStyle(
                                         color: Color(0xFF91AD13), fontSize: 13),
                                   ),
                                 )
@@ -264,20 +276,27 @@ class _LoginPageState extends State<LoginPage> {
                                           'invalid-credential') {
                                         // print(e.code);
                                         // print('password is incorrect');
-                                        await showErrorDialgo(context,
-                                            'username or password is incorrect');
+                                        await showErrorDialgo(
+                                            context,
+                                            AppLocalizations.of(context)
+                                                .translate(
+                                                    'invalidCredential'));
                                       } else if (e.code == 'channel-error') {
                                         await showErrorDialgo(
-                                            context, 'invalid credential');
+                                            context,
+                                            AppLocalizations.of(context)
+                                                .translate(
+                                                    'invalidCredential'));
                                       } else {
                                         print(e.code);
                                       }
                                       Navigator.pop(context);
                                     }
                                   },
-                                  child: const Text(
-                                    'Login',
-                                    style: TextStyle(
+                                  child: Text(
+                                    AppLocalizations.of(context)
+                                        .translate('login'),
+                                    style: const TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -293,9 +312,10 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    'Or continue with ',
+                                    AppLocalizations.of(context)
+                                        .translate('orContinueWith'),
                                     style: TextStyle(color: Colors.grey[600]),
                                   ),
                                 ),
@@ -336,7 +356,7 @@ class _LoginPageState extends State<LoginPage> {
                                     showDialog(
                                         context: context,
                                         builder: (contex) {
-                                          return Center(
+                                          return const Center(
                                             child: CircularProgressIndicator(
                                               color: Color(0xFF91AD13),
                                             ),
@@ -369,7 +389,8 @@ class _LoginPageState extends State<LoginPage> {
                                 child: Row(
                                   children: [
                                     Text(
-                                      'Dont have account?',
+                                      AppLocalizations.of(context)
+                                          .translate('DontHaveAccount'),
                                       style: TextStyle(color: Colors.grey[600]),
                                     ),
                                     TextButton(
@@ -381,10 +402,11 @@ class _LoginPageState extends State<LoginPage> {
                                           ),
                                         );
                                       },
-                                      child: const Text(
-                                        'SignUp',
-                                        style:
-                                            TextStyle(color: Color(0xFF91AD13)),
+                                      child: Text(
+                                        AppLocalizations.of(context)
+                                            .translate('signup'),
+                                        style: const TextStyle(
+                                            color: Color(0xFF91AD13)),
                                       ),
                                     )
                                   ],
@@ -408,14 +430,14 @@ Future<void> showErrorDialog(BuildContext, context, String text) {
       context: context,
       builder: (context) {
         return AlertDialog(
-          icon: Icon(
+          icon: const Icon(
             Icons.cancel,
             color: Colors.red,
           ),
           alignment: Alignment.center,
-          title: const Text(
-            'Error occured',
-            style: TextStyle(fontWeight: FontWeight.bold),
+          title: Text(
+            AppLocalizations.of(context).translate('Error Occured'),
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           content: Text(
             text,
@@ -424,9 +446,9 @@ Future<void> showErrorDialog(BuildContext, context, String text) {
           actions: [
             TextButton(
               onPressed: () {},
-              child: const Text(
-                'Ok',
-                style: TextStyle(
+              child: Text(
+                AppLocalizations.of(context).translate('OK'),
+                style: const TextStyle(
                   color: Color(0xFF91AD13),
                 ),
               ),

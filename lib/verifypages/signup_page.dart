@@ -88,7 +88,7 @@ class _SignUpState extends State<SignUp> {
                                 child: Text(
                                   AppLocalizations.of(context)!
                                       .translate('creates'),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 30),
                                 ),
@@ -154,7 +154,7 @@ class _SignUpState extends State<SignUp> {
                                     validator: (value) {
                                       if (value!.isEmpty) {
                                         return AppLocalizations.of(context)
-                                            .translate('enterName');
+                                            .translate('enterfullName');
                                       } else if (value.length < 4) {
                                         return AppLocalizations.of(context)
                                             .translate('enterValidName');
@@ -376,9 +376,10 @@ class _SignUpState extends State<SignUp> {
                                             .showSnackBar(
                                           SnackBar(
                                             backgroundColor: Colors.black,
-                                            content: const Text(
-                                              'You are registered!!',
-                                              style: TextStyle(
+                                            content: Text(
+                                              AppLocalizations.of(context)
+                                                  .translate('register'),
+                                              style: const TextStyle(
                                                   color: Color(0xFF91AD13)),
                                             ),
                                             behavior: SnackBarBehavior.floating,
@@ -392,18 +393,27 @@ class _SignUpState extends State<SignUp> {
                                             .pushNamed('VerifictionPage/');
                                       } on FirebaseAuthException catch (e) {
                                         if (e.code == 'email-already-in-use') {
-                                          await showErrorDialgo(context,
-                                              'Email already use try another');
+                                          await showErrorDialgo(
+                                              context,
+                                              AppLocalizations.of(context)
+                                                  .translate('emailAlready'));
                                           print('try another email address ');
                                         } else if (e.code == 'invalid-email') {
                                           await showErrorDialgo(
-                                              context, 'Invalid email address');
+                                              context,
+                                              AppLocalizations.of(context)
+                                                  .translate('invaliEmail'));
                                         } else if (e.code == 'weak-password') {
                                           await showErrorDialgo(
-                                              context, 'Weak Password');
+                                              context,
+                                              AppLocalizations.of(context)
+                                                  .translate('weakPassword'));
                                         } else if (e.code == 'channel-error') {
                                           await showErrorDialgo(
-                                              context, 'Invalid Credential');
+                                              context,
+                                              AppLocalizations.of(context)
+                                                  .translate(
+                                                      'invalidCredential'));
                                         } else {
                                           print(e.code);
                                         }

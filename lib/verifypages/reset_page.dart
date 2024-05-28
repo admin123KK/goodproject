@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:goodproject/app_localization.dart';
 import 'package:goodproject/verifypages/firebase_options.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -40,8 +41,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       children: [
                         Container(
                           alignment: Alignment.topLeft,
-                          child: const Text(
-                            ('Reset Password'),
+                          child: Text(
+                            AppLocalizations.of(context)
+                                .translate('resetPassword'),
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 30),
                           ),
@@ -52,7 +54,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           child: Container(
                             alignment: Alignment.topLeft,
                             child: Text(
-                              'Enter email to reset the password',
+                              AppLocalizations.of(context)
+                                  .translate('emailEnter'),
                               style: TextStyle(
                                   color: Colors.grey[600], fontSize: 13.5),
                             ),
@@ -69,8 +72,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
                               decoration: InputDecoration(
-                                  hintText: 'Enter your email',
-                                  labelText: 'Email ',
+                                  hintText: AppLocalizations.of(context)
+                                      .translate('enterYourMail'),
+                                  labelText: AppLocalizations.of(context)
+                                      .translate('email'),
                                   labelStyle: const TextStyle(
                                     color: Colors.black,
                                   ),
@@ -89,12 +94,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                   prefixIcon: const Icon(Icons.email_outlined)),
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Please enter email';
+                                  return AppLocalizations.of(context)
+                                      .translate('enterMail');
                                 } else {
                                   RegExp emailRegExp = RegExp(
                                       r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
                                   if (!emailRegExp.hasMatch(value)) {
-                                    return 'Invalid email address';
+                                    return AppLocalizations.of(context)
+                                        .translate('enterValidMail');
                                   } else {
                                     return null;
                                   }
@@ -117,7 +124,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                     .sendPasswordResetEmail(email: email);
                               },
                               child: Text(
-                                'Reset Password',
+                                AppLocalizations.of(context)
+                                    .translate('resetPassword'),
                                 style: TextStyle(color: Colors.black),
                               ),
                               style: ButtonStyle(
@@ -139,7 +147,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                'Check email for new password',
+                                AppLocalizations.of(context)
+                                    .translate('checkEmail'),
                                 style: TextStyle(color: Colors.grey[600]),
                               ),
                             ),
@@ -156,9 +165,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             onPressed: () {
                               Navigator.pushNamed(context, 'Loginpage/');
                             },
-                            child: const Text(
-                              'Success? Back to Login',
-                              style: TextStyle(color: Color(0xFF91AD13)),
+                            child: Text(
+                              AppLocalizations.of(context)
+                                  .translate('successBack'),
+                              style: const TextStyle(
+                                  color: Color.fromARGB(255, 188, 229, 6)),
                             ),
                           ),
                         )
