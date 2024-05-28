@@ -1,11 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:goodproject/app_localization.dart';
 import 'package:goodproject/verifypages/login_page.dart';
-import 'package:goodproject/verifypages/signup_page.dart';
+import 'package:provider/provider.dart';
+
+import 'langugages_provider.dart';
+import 'verifypages/signup_page.dart'; // Import Provider
 
 class StartPage extends StatefulWidget {
-  const StartPage({super.key});
+  const StartPage({Key? key});
 
   @override
   State<StartPage> createState() => _StartPageState();
@@ -14,6 +18,9 @@ class StartPage extends StatefulWidget {
 class _StartPageState extends State<StartPage> {
   @override
   Widget build(BuildContext context) {
+    final languageProvider =
+        Provider.of<LanguageProvider>(context); // Access LanguageProvider
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -23,105 +30,134 @@ class _StartPageState extends State<StartPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "Let's Enjoy Our Best",
+                Text(
+                  AppLocalizations.of(context)!
+                      .translate('title'), // Access AppLocalizations directly
                   style: TextStyle(
-                      fontFamily: 'Mooli, ',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 23),
+                    fontFamily: 'Mooli',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 23,
+                  ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 Container(
                   child: Image.asset('assets/images/start.png'),
                 ),
                 Container(
-                  child: const Text(
-                      "Authentic food is not just a feast for the palate; it's a journey that whispers the tales of tradition, history, and the timeless artistry of flavors. "),
+                  child: Text(
+                    AppLocalizations.of(context)!.translate(
+                        'description'), // Access AppLocalizations directly
+                    style: TextStyle(fontSize: 15),
+                  ),
                 ),
-                const SizedBox(
-                  height: 45,
-                ),
+                const SizedBox(height: 45),
                 Center(
                   child: Container(
                     child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
                         side: const BorderSide(color: Color(0xFF91AD13)),
                       ),
-                      child: const Text(
-                        ' SignUp ',
+                      child: Text(
+                        AppLocalizations.of(context)!.translate(
+                            'signup'), // Access AppLocalizations directly
                         style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Mooli'),
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Mooli',
+                        ),
                       ),
                       onPressed: () async {
                         showDialog(
-                            context: context,
-                            builder: (context) {
-                              return const Center(
-                                child: CircularProgressIndicator(
-                                  color: Color(0xFF91AD13),
-                                ),
-                              );
-                            });
+                          context: context,
+                          builder: (context) {
+                            return const Center(
+                              child: CircularProgressIndicator(
+                                  color: Color(0xFF91AD13)),
+                            );
+                          },
+                        );
                         Timer(Duration(seconds: 1), () {
                           Navigator.of(context).pop();
                           Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(builder: (context) => SignUp()),
-                              (route) => false);
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const SignUp()),
+                            (route) => false,
+                          );
                         });
                       },
                     ),
                   ),
                 ),
-                const Center(
+                Center(
                   child: Text(
-                    'or',
+                    AppLocalizations.of(context)!
+                        .translate('or'), // Access AppLocalizations directly
                     style: TextStyle(fontSize: 17),
                   ),
                 ),
                 Center(
                   child: Container(
-                      child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                        side: const BorderSide(
-                          color: Color(0xFF91AD13),
-                        ),
-                        backgroundColor: Color(0xFF91AD13)),
-                    onPressed: () async {
-                      showDialog(
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(color: Color(0xFF91AD13)),
+                        backgroundColor: Color(0xFF91AD13),
+                      ),
+                      onPressed: () async {
+                        showDialog(
                           context: context,
                           builder: (context) {
-                            return Center(
+                            return const Center(
                               child: CircularProgressIndicator(
-                                color: Color(0xFF91AD13),
-                              ),
+                                  color: Color(0xFF91AD13)),
                             );
-                          });
-                      Timer(
-                        Duration(seconds: 1),
-                        () {
+                          },
+                        );
+                        Timer(Duration(seconds: 1), () {
                           Navigator.of(context).pop();
                           Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LoginPage()),
-                              (route) => false);
-                        },
-                      );
-                    },
-                    child: const Text(
-                      '  Login  ',
-                      style: TextStyle(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const LoginPage()),
+                            (route) => false,
+                          );
+                        });
+                      },
+                      child: Text(
+                        AppLocalizations.of(context)!.translate(
+                            'login'), // Access AppLocalizations directly
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontFamily: 'Mooli',
-                          color: Colors.black),
+                          color: Colors.black,
+                        ),
+                      ),
                     ),
-                  )),
-                )
+                  ),
+                ),
+                const SizedBox(height: 108),
+                Center(
+                  child: DropdownButton<Locale>(
+                    value: languageProvider
+                        .locale, // Use the locale from LanguageProvider
+                    onChanged: (Locale? newLocale) {
+                      if (newLocale != null) {
+                        languageProvider.setLocale(
+                            newLocale); // Update the locale using LanguageProvider
+                      }
+                    },
+                    items: const [
+                      DropdownMenuItem(
+                        value: Locale('en'),
+                        child: Text('English'),
+                      ),
+                      DropdownMenuItem(
+                        value: Locale('ne'),
+                        child: Text('नेपाली'),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

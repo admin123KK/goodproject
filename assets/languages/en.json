@@ -1,0 +1,26 @@
+{
+  "title": "Let's Enjoy Our Best",
+  "description": "Authentic food is not just a feast for the palate; it's a journey that whispers the tales of tradition, history, and the timeless artistry of flavors.",
+  "signup": "SignUp",
+  "login": "Login",
+  "or": "or",
+  "creates": "Create Account",
+  "details": "Enter your details to SignUp",
+  "fullName": "Full Name",
+  "pleaseEnterName": "please enter your name",
+  "characterShould" :"character should be more than 5",
+  "enterfullName": "Enter your name",
+  "email": "Email",
+  "enterYourMail": "Enter your email",
+  "enterEmail" : "please enter mail",
+  "enterValidMail" : "please enter a valid mail",
+  "newPassword": "New Password",
+  "enterYourNewPass": "enter new Password",
+  "pleaseEnterPassword": "enter a Password",
+  "pleaseEnter6Character": "cat least  6 character requried",
+  "confirmPassword": "Confirm Password",
+  "orContinueWith": "or Continue With",
+  "alreadyHaveAccount": "Already have an account?",
+  "register": "You are registered!!"
+  
+}

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:goodproject/app_localization.dart';
 import 'package:goodproject/database.dart';
 import 'package:goodproject/verifypages/firebase_options.dart';
 import 'package:goodproject/verifypages/login_page.dart';
@@ -9,7 +10,6 @@ import 'package:random_string/random_string.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
-
   @override
   State<SignUp> createState() => _SignUpState();
 }
@@ -85,8 +85,9 @@ class _SignUpState extends State<SignUp> {
                             children: [
                               Container(
                                 alignment: Alignment.topLeft,
-                                child: const Text(
-                                  'Create Account ',
+                                child: Text(
+                                  AppLocalizations.of(context)!
+                                      .translate('creates'),
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 30),
@@ -98,9 +99,10 @@ class _SignUpState extends State<SignUp> {
                                 child: Container(
                                   alignment: Alignment.topLeft,
                                   child: Text(
-                                    'Enter your details to signup',
+                                    AppLocalizations.of(context)!
+                                        .translate('details'),
                                     style: TextStyle(
-                                        fontSize: 12, color: Colors.grey[600]),
+                                        fontSize: 13, color: Colors.grey[600]),
                                   ),
                                 ),
                               ),
@@ -122,14 +124,17 @@ class _SignUpState extends State<SignUp> {
                                     autovalidateMode:
                                         AutovalidateMode.onUserInteraction,
                                     cursorColor: Color(0xFF91AD13),
-                                    decoration: const InputDecoration(
-                                      hintText: " Enter your name",
+                                    decoration: InputDecoration(
+                                      hintText: AppLocalizations.of(context)
+                                          .translate('enterfullName'),
                                       hintStyle: TextStyle(color: Colors.grey),
-                                      labelText: 'Full Name',
+                                      labelText: AppLocalizations.of(context)
+                                          .translate('fullName'),
                                       labelStyle:
-                                          TextStyle(color: Colors.black),
-                                      prefixIcon: Icon(Icons.person_2_outlined),
-                                      focusedBorder: OutlineInputBorder(
+                                          const TextStyle(color: Colors.black),
+                                      prefixIcon:
+                                          const Icon(Icons.person_2_outlined),
+                                      focusedBorder: const OutlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Color(0xFF91AD13),
                                         ),
@@ -137,7 +142,7 @@ class _SignUpState extends State<SignUp> {
                                           Radius.circular(15),
                                         ),
                                       ),
-                                      enabledBorder: OutlineInputBorder(
+                                      enabledBorder: const OutlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Color(0xFF91AD13),
                                         ),
@@ -148,9 +153,11 @@ class _SignUpState extends State<SignUp> {
                                     ),
                                     validator: (value) {
                                       if (value!.isEmpty) {
-                                        return "please enter your name";
+                                        return AppLocalizations.of(context)
+                                            .translate('enterName');
                                       } else if (value.length < 4) {
-                                        return "character should be more than 5";
+                                        return AppLocalizations.of(context)
+                                            .translate('enterValidName');
                                       }
                                       return null;
                                     },
@@ -167,22 +174,25 @@ class _SignUpState extends State<SignUp> {
                                     autovalidateMode:
                                         AutovalidateMode.onUserInteraction,
                                     cursorColor: Color(0xFF91AD13),
-                                    decoration: const InputDecoration(
-                                      labelText: 'Email',
-                                      prefixIcon: Icon(Icons.email_outlined),
+                                    decoration: InputDecoration(
+                                      labelText: AppLocalizations.of(context)
+                                          .translate('email'),
+                                      prefixIcon:
+                                          const Icon(Icons.email_outlined),
                                       labelStyle:
-                                          TextStyle(color: Colors.black),
-                                      hintText: 'Enter your email',
-                                      hintStyle: TextStyle(
+                                          const TextStyle(color: Colors.black),
+                                      hintText: AppLocalizations.of(context)
+                                          .translate('enterYourMail'),
+                                      hintStyle: const TextStyle(
                                         color: Colors.grey,
                                       ),
-                                      focusedBorder: OutlineInputBorder(
+                                      focusedBorder: const OutlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Color(0xFF91AD13)),
                                           borderRadius: BorderRadius.all(
                                             Radius.circular(15),
                                           )),
-                                      enabledBorder: OutlineInputBorder(
+                                      enabledBorder: const OutlineInputBorder(
                                         borderSide: BorderSide(
                                             color: Color(0xFF91AD13)),
                                         borderRadius: BorderRadius.all(
@@ -192,12 +202,14 @@ class _SignUpState extends State<SignUp> {
                                     ),
                                     validator: (value) {
                                       if (value!.isEmpty) {
-                                        return "please enter mail";
+                                        return AppLocalizations.of(context)
+                                            .translate('enterMail');
                                       } else {
                                         RegExp emailRegExp = RegExp(
                                             r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
                                         if (!emailRegExp.hasMatch(value)) {
-                                          return "please enter the valid mail  ";
+                                          return AppLocalizations.of(context)
+                                              .translate('enterValidMail');
                                         } else {
                                           return null;
                                         }
@@ -218,12 +230,14 @@ class _SignUpState extends State<SignUp> {
                                         AutovalidateMode.onUserInteraction,
                                     cursorColor: Color(0xFF91AD13),
                                     decoration: InputDecoration(
-                                      labelText: 'New password',
+                                      labelText: AppLocalizations.of(context)
+                                          .translate('newPassword'),
                                       prefixIcon:
                                           const Icon(Icons.lock_outlined),
                                       labelStyle:
                                           const TextStyle(color: Colors.black),
-                                      hintText: 'Enter your new passowrd',
+                                      hintText: AppLocalizations.of(context)
+                                          .translate('enterYourNewPass'),
                                       suffix: InkWell(
                                         onTap: () {
                                           setState(() {
@@ -253,9 +267,11 @@ class _SignUpState extends State<SignUp> {
                                     ),
                                     validator: (value) {
                                       if (value!.isEmpty) {
-                                        return 'please enter password';
+                                        return AppLocalizations.of(context)
+                                            .translate('pleaseEnterPassword');
                                       } else if (value.length < 6) {
-                                        return "at least  6 character requried";
+                                        return AppLocalizations.of(context)
+                                            .translate('pleaseEnter6Character');
                                       } else {
                                         return null;
                                       }
@@ -272,10 +288,12 @@ class _SignUpState extends State<SignUp> {
                                     cursorColor: Color(0xFF91AD13),
                                     obscureText: passToggle,
                                     decoration: InputDecoration(
-                                      labelText: 'Confirm  password',
+                                      labelText: AppLocalizations.of(context)
+                                          .translate('confirmPassword'),
                                       labelStyle:
                                           const TextStyle(color: Colors.black),
-                                      hintText: 'Confirm your Password',
+                                      hintText: AppLocalizations.of(context)
+                                          .translate('confirmPassword'),
                                       prefixIcon:
                                           const Icon(Icons.lock_outline),
                                       suffix: InkWell(
@@ -392,9 +410,10 @@ class _SignUpState extends State<SignUp> {
                                         Navigator.pop(context);
                                       }
                                     },
-                                    child: const Text(
-                                      'Sign Up',
-                                      style: TextStyle(
+                                    child: Text(
+                                      AppLocalizations.of(context)
+                                          .translate('signup'),
+                                      style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black),
                                     ),
@@ -416,7 +435,8 @@ class _SignUpState extends State<SignUp> {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 10),
                                     child: Text(
-                                      'or continue with',
+                                      AppLocalizations.of(context)
+                                          .translate('orContinueWith'),
                                       style: TextStyle(color: Colors.grey[600]),
                                     ),
                                   ),
@@ -483,12 +503,13 @@ class _SignUpState extends State<SignUp> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 70, vertical: 2),
+                                    horizontal: 60, vertical: 2),
                                 child: Container(
                                   child: Row(
                                     children: [
                                       Text(
-                                        'Already have an account?',
+                                        AppLocalizations.of(context)
+                                            .translate('alreadyHaveAccount'),
                                         style:
                                             TextStyle(color: Colors.grey[600]),
                                       ),
@@ -502,9 +523,10 @@ class _SignUpState extends State<SignUp> {
                                                       builder: (context) =>
                                                           LoginPage()));
                                             },
-                                            child: const Text(
-                                              'Login',
-                                              style: TextStyle(
+                                            child: Text(
+                                              AppLocalizations.of(context)
+                                                  .translate('login'),
+                                              style: const TextStyle(
                                                   color: Color(
                                                     0xFF91AD13,
                                                   ),

@@ -1,29 +1,63 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:goodproject/app_localization.dart';
 import 'package:goodproject/home_page.dart';
 import 'package:goodproject/items/Batuk_page.dart';
 import 'package:goodproject/items/Chukauni_page.dart';
 import 'package:goodproject/items/Phini_page.dart';
 import 'package:goodproject/items/Selroti.dart';
 import 'package:goodproject/items/cart.dart';
+import 'package:goodproject/langugages_provider.dart';
 import 'package:goodproject/start_page.dart';
 import 'package:goodproject/verifypages/login_page.dart';
 import 'package:goodproject/verifypages/reset_page.dart';
 import 'package:goodproject/verifypages/signup_page.dart';
 import 'package:goodproject/verifypages/verifcation_page.dart';
 import 'package:goodproject/welcome_page.dart';
+import 'package:provider/provider.dart';
 
-void main() async {
+void main() {
   // WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => LanguageProvider(),
+    child: const MyApp(),
+  ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+  static _MyAppState? of(BuildContext context) =>
+      context.findAncestorStateOfType<_MyAppState>();
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Locale _locale = Locale('en');
+
+  void setLocale(Locale value) {
+    setState(() {
+      _locale = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context);
+
     return MaterialApp(
+        locale: languageProvider.locale,
+        supportedLocales: [
+          Locale('en'),
+          Locale('ne'),
+        ],
+        localizationsDelegates: [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
         title: 'Aakash App',
         theme: ThemeData(),
         debugShowCheckedModeBanner: false,
