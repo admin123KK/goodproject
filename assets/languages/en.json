@@ -52,7 +52,30 @@
   "restPassword" : "Reset Password",
   "enterPassword": "Enter email to rest password",
   "checkEmail" :"Check email for new password",
-  "sucessBack": "Success? Back to Login"
+  "sucessBack": "Success? Back to Login",
 
+  "verificationCode" :  "Verification Code",
+  "OTP": "We have sent OTP to your email address",
+  "verify":"Verify",
+  "didn't" :"Didn't receive any code?",
+  "send":"OR Send Email Verification",
+  "doneBack": "Done?   Back to Login Page ",
+  "resendCode": "Resend Code",
+  
+   "GoodMorning":"Good Morning",
+   "GoodAfternoon":"Good Afternoon",
+   "GoodEvening": "Good Evening",
+
+  "khajaGhar" :"Khaja Ghar",
+  "wyouLike": "What you like to have?",
+  "categories": "Categoires",
+  "Popular":"Popular",
+  "all": "All",
+  "SelRoti": "SelRoti",
+  "Phini": "Phini",
+  "Batuk":"Batuk",
+  "Chukauni":"Chukauni",
+  "Momo": "Momo",
+  "Chowmein": "Chowmein"
 
 }

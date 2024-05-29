@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:goodproject/app_localization.dart';
 import 'package:goodproject/verifypages/firebase_options.dart';
 
 class VerifictionPage extends StatefulWidget {
@@ -75,8 +76,9 @@ class _VerifictionPageState extends State<VerifictionPage> {
                           children: [
                             Container(
                               alignment: Alignment.topLeft,
-                              child: const Text(
-                                'Verification Code',
+                              child: Text(
+                                AppLocalizations.of(context)
+                                    .translate('verificationCode'),
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 30),
                               ),
@@ -87,7 +89,7 @@ class _VerifictionPageState extends State<VerifictionPage> {
                               child: Container(
                                 alignment: Alignment.topLeft,
                                 child: Text(
-                                  "We have sent OTP to your email address",
+                                  AppLocalizations.of(context).translate('OTP'),
                                   style: TextStyle(
                                       fontSize: 11, color: Colors.grey[700]),
                                 ),
@@ -276,9 +278,10 @@ class _VerifictionPageState extends State<VerifictionPage> {
                                 onPressed: () {
                                   Navigator.pushNamed(context, 'MyAppPage/');
                                 },
-                                child: const Text(
-                                  'Verify ',
-                                  style: TextStyle(
+                                child: Text(
+                                  AppLocalizations.of(context)
+                                      .translate('verify'),
+                                  style: const TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -292,7 +295,8 @@ class _VerifictionPageState extends State<VerifictionPage> {
                               children: [
                                 Container(
                                   child: Text(
-                                    "Didn't  receive any code?",
+                                    AppLocalizations.of(context)
+                                        .translate("didn't"),
                                     style: TextStyle(color: Colors.grey[600]),
                                   ),
                                 ),
@@ -308,9 +312,10 @@ class _VerifictionPageState extends State<VerifictionPage> {
                                         onTap: () {
                                           resetTimer();
                                         },
-                                        child: const Text(
-                                          'Resend code',
-                                          style: TextStyle(
+                                        child: Text(
+                                          AppLocalizations.of(context)
+                                              .translate('resendCode'),
+                                          style: const TextStyle(
                                             fontSize: 16,
                                             color: Color(0xFF91AD13),
                                           ),
@@ -323,16 +328,18 @@ class _VerifictionPageState extends State<VerifictionPage> {
                                 final user = FirebaseAuth.instance.currentUser;
                                 await user?.sendEmailVerification();
                               },
-                              child: const Text(
-                                'OR Send Email Verification',
-                                style: TextStyle(color: Color(0xFF91AD13)),
+                              child: Text(
+                                AppLocalizations.of(context).translate('send'),
+                                style:
+                                    const TextStyle(color: Color(0xFF91AD13)),
                               ),
                             ),
                             TextButton(
                               onPressed: () async {
                                 Navigator.of(context).pushNamed('Loginpage/');
                               },
-                              child: const Text('Done?   Back to Login Page '),
+                              child: Text(AppLocalizations.of(context)
+                                  .translate('doneBack')),
                             )
                           ],
                         ),

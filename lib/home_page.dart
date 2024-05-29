@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:goodproject/app_localization.dart';
 import 'package:goodproject/items/Batuk_page.dart';
 import 'package:goodproject/items/Chukauni_page.dart';
 import 'package:goodproject/items/Phini_page.dart';
@@ -45,15 +46,15 @@ class _LoginPageState extends State<HomePage> {
     int hour = now.hour;
     if (hour < 12) {
       setState(() {
-        greeting = 'Good Morning';
+        greeting = AppLocalizations.of(context).translate('GoodMorning');
       });
     } else if (hour < 17) {
       setState(() {
-        greeting = 'Good Afternoon';
+        greeting = AppLocalizations.of(context).translate('GoodAfternoon');
       });
     } else {
       setState(() {
-        greeting = 'Good Evening';
+        greeting = AppLocalizations.of(context).translate('GoodEvening');
       });
     }
   }
@@ -98,13 +99,13 @@ class _LoginPageState extends State<HomePage> {
       required}) {
     return InkWell(
       onTap: () {
-        if (name == 'SelRoti') {
+        if (name == AppLocalizations.of(context).translate('SelRoti')) {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => SelRotiPage()));
-        } else if (name == 'Phini') {
+        } else if (name == AppLocalizations.of(context).translate('Phini')) {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => PhiniPage()));
-        } else if (name == 'Batuk') {
+        } else if (name == AppLocalizations.of(context).translate('Batuk')) {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => BatukPage()));
         } else {
@@ -247,8 +248,8 @@ class _LoginPageState extends State<HomePage> {
             ),
           ),
         ],
-        title: const Text(
-          'Khaja Ghar',
+        title: Text(
+          AppLocalizations.of(context).translate('khajaGhar'),
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -307,8 +308,9 @@ class _LoginPageState extends State<HomePage> {
                                 cursorColor: Colors.grey,
                                 // focusNode: _foucusNode,
                                 readOnly: true,
-                                decoration: const InputDecoration(
-                                    hintText: 'What  you like to have?',
+                                decoration: InputDecoration(
+                                    hintText: AppLocalizations.of(context)
+                                        .translate('wyouLike'),
                                     border: InputBorder.none),
                                 onTap: () {
                                   showSearch(
@@ -323,11 +325,13 @@ class _LoginPageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   child: Text(
-                    'Categories',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                    AppLocalizations.of(context).translate('categories'),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 17),
                   ),
                 ),
                 const SizedBox(
@@ -341,30 +345,44 @@ class _LoginPageState extends State<HomePage> {
                     child: Row(
                       children: [
                         foodItem(
-                            image: 'assets/images/selroti.png', name: 'All'),
+                            image: 'assets/images/selroti.png',
+                            name:
+                                AppLocalizations.of(context).translate('all')),
                         foodItem(
                             image: 'assets/images/selroti.png',
-                            name: 'SelRoti'),
+                            name: AppLocalizations.of(context)
+                                .translate('SelRoti')),
                         foodItem(
-                            image: 'assets/images/phini.png', name: "Phini"),
+                            image: 'assets/images/phini.png',
+                            name: AppLocalizations.of(context)
+                                .translate('Phini')),
                         foodItem(
-                            image: 'assets/images/batuk.png', name: 'Batuk'),
+                            image: 'assets/images/batuk.png',
+                            name: AppLocalizations.of(context)
+                                .translate('Batuk')),
                         foodItem(
                             image: 'assets/images/chukauni.png',
-                            name: 'Chukauni'),
-                        foodItem(image: 'assets/images/momo.png', name: 'Momo'),
+                            name: AppLocalizations.of(context)
+                                .translate('Chukauni')),
+                        foodItem(
+                            image: 'assets/images/momo.png',
+                            name:
+                                AppLocalizations.of(context).translate('Momo')),
                         foodItem(
                             image: 'assets/images/Chow-mein.png',
-                            name: 'Chowmein'),
+                            name: AppLocalizations.of(context)
+                                .translate('Chowmein')),
                       ],
                     ),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                   child: Text(
-                    'Popular',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    AppLocalizations.of(context).translate('Popular'),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                 ),
                 SingleChildScrollView(
@@ -380,19 +398,23 @@ class _LoginPageState extends State<HomePage> {
                       crossAxisCount: 2,
                       children: [
                         popularItem(
-                            name: 'SelRoti',
+                            name: AppLocalizations.of(context)
+                                .translate('SelRoti'),
                             image: 'assets/images/selroti.png',
                             price: 'Rs.200'),
                         popularItem(
-                            name: 'Phini',
+                            name:
+                                AppLocalizations.of(context).translate('Phini'),
                             image: 'assets/images/phini.png',
                             price: 'Rs.300'),
                         popularItem(
-                            name: 'Batuk',
+                            name:
+                                AppLocalizations.of(context).translate('Batuk'),
                             image: 'assets/images/batuk.png',
                             price: 'Rs.60'),
                         popularItem(
-                            name: 'Chukauni',
+                            name: AppLocalizations.of(context)
+                                .translate('Chukauni'),
                             image: 'assets/images/chukauni.png',
                             price: 'Rs.50'),
                       ],
@@ -464,11 +486,11 @@ class _LoginPageState extends State<HomePage> {
             ),
             ListTile(
               onTap: () {},
-              leading: Icon(
+              leading: const Icon(
                 Icons.feedback,
                 color: Colors.black,
               ),
-              title: Text('Feedback'),
+              title: const Text('Feedback'),
             ),
             const ListTile(
               leading: Icon(
@@ -527,7 +549,7 @@ class CustomSearch extends SearchDelegate {
         onPressed: () {
           close(context, null);
         },
-        icon: Icon(Icons.arrow_back_ios));
+        icon: const Icon(Icons.arrow_back_ios));
   }
 
   @override

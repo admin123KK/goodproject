@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:goodproject/app_localization.dart';
 import 'package:goodproject/functions/esea_page.dart';
 import 'package:goodproject/items/cart.dart';
 
@@ -147,11 +147,11 @@ class _ChukauniPageState extends State<ChukauniPage> {
                         const SizedBox(
                           height: 20,
                         ),
-                        const Padding(
+                        Padding(
                           padding: EdgeInsets.symmetric(horizontal: 33),
                           child: Text(
-                            'Chukauni',
-                            style: TextStyle(
+                            AppLocalizations.of(context).translate('Chukauni'),
+                            style: const TextStyle(
                                 fontFamily: 'Mooli',
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold),

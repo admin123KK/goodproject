@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:goodproject/app_localization.dart';
 import 'package:goodproject/functions/esea_page.dart';
 import 'package:goodproject/items/cart.dart';
 
@@ -148,11 +149,11 @@ class _SelRotiPageState extends State<SelRotiPage> {
                       const SizedBox(
                         height: 20,
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 30),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30),
                         child: Text(
-                          'SelRoti',
-                          style: TextStyle(
+                          AppLocalizations.of(context).translate('SelRoti'),
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontFamily: 'Mooli',
                               fontSize: 35),
