@@ -160,7 +160,7 @@ class _BatukPageState extends State<BatukPage> {
                             padding: EdgeInsets.symmetric(horizontal: 25),
                             child: Text(
                               AppLocalizations.of(context).translate('Batuk'),
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontFamily: 'Mooli',
                                   fontWeight: FontWeight.bold,
                                   fontSize: 38),
@@ -199,13 +199,14 @@ class _BatukPageState extends State<BatukPage> {
                               ),
                             ),
                           ),
-                          const Row(
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 30),
                                 child: Text(
-                                  '3 star Rating',
+                                  AppLocalizations.of(context)
+                                      .translate('StarRatings'),
                                   style: TextStyle(color: Colors.orange),
                                 ),
                               ),
@@ -214,8 +215,9 @@ class _BatukPageState extends State<BatukPage> {
                                 child: Row(
                                   children: [
                                     Text(
-                                      'Rs.60',
-                                      style: TextStyle(
+                                      AppLocalizations.of(context)
+                                          .translate('Rs60'),
+                                      style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 25,
                                           color: Color.fromARGB(255, 2, 99, 6)),
@@ -225,33 +227,37 @@ class _BatukPageState extends State<BatukPage> {
                               ),
                             ],
                           ),
-                          const Row(
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 22),
-                                child: Text('8 /piece set '),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 22),
+                                child: Text(AppLocalizations.of(context)
+                                    .translate('/perPiece')),
                               ),
                             ],
                           ),
                           const SizedBox(
                             height: 15,
                           ),
-                          const Padding(
+                          Padding(
                             padding: EdgeInsets.symmetric(horizontal: 30),
                             child: Text(
-                              'Description',
-                              style: TextStyle(
+                              AppLocalizations.of(context)
+                                  .translate('Descriptions'),
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 16),
                             ),
                           ),
                           const SizedBox(
                             height: 9,
                           ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 30),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 30),
                             child: Text(
-                              "It's a crispy, layered pastry made from refined wheat flour, sugar, ghee (clarified butter), and spices like cardamom and nutmeg.  After frying, it's dipped in sugar syrup flavored with cardamom and rose water to add sweetness and aroma. Batuk Khaja is often enjoyed during festivals, celebrations, and special occasions as a delightful treat symbolizing happiness and festivity in Nepali culture. ",
+                              AppLocalizations.of(context)
+                                  .translate('explain4'),
                               textAlign: TextAlign.justify,
                             ),
                           ),
@@ -266,26 +272,26 @@ class _BatukPageState extends State<BatukPage> {
                         color: Colors.grey,
                       ),
                     ),
-                    const Row(
+                    Row(
                       children: [
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 30),
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
                           child: Text(
-                            "Customize your Order",
-                            style: TextStyle(
+                            AppLocalizations.of(context).translate('customize'),
+                            style: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 16),
                           ),
                         ),
                       ],
                     ),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Padding(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 30, vertical: 10),
                           child: Text(
-                            "No of set you want",
+                            AppLocalizations.of(context).translate('noPiece'),
                           ),
                         ),
                       ],
@@ -378,7 +384,8 @@ class _BatukPageState extends State<BatukPage> {
                                         color: Color(0xFF91AD13)),
                                     borderRadius: BorderRadius.circular(9),
                                   ),
-                                  labelText: 'Share Location',
+                                  labelText: AppLocalizations.of(context)
+                                      .translate('shareLocation'),
                                   labelStyle: TextStyle(
                                       color: Colors.grey[800], fontSize: 14)),
                             ),
@@ -395,8 +402,11 @@ class _BatukPageState extends State<BatukPage> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 33),
                           child: Text(
-                            'Total costs: ${_calculateAmountTotal()}',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            AppLocalizations.of(context)
+                                .translate('total_costs')
+                                .replaceAll('{cost}',
+                                    _calculateAmountTotal().toString()),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
                         Padding(
@@ -412,10 +422,12 @@ class _BatukPageState extends State<BatukPage> {
                                 color: const Color(0xFF91AD13),
                                 borderRadius: BorderRadius.circular(9),
                               ),
-                              child: const Center(
+                              child: Center(
                                 child: Text(
-                                  '+Add to Cart',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  AppLocalizations.of(context)
+                                      .translate('cart'),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ),
@@ -452,7 +464,12 @@ class _BatukPageState extends State<BatukPage> {
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Text(
-                                        'Total amounts : Rs.${_calculateAmountTotal()}',
+                                        AppLocalizations.of(context)
+                                            .translate('total_amount')
+                                            .replaceAll(
+                                                '{amount}',
+                                                _calculateAmountTotal()
+                                                    .toString()),
                                         style: const TextStyle(
                                           color:
                                               Color.fromARGB(255, 28, 139, 31),
@@ -463,7 +480,8 @@ class _BatukPageState extends State<BatukPage> {
                                       const SizedBox(
                                         height: 10,
                                       ),
-                                      const Text('Pay with'),
+                                      Text(AppLocalizations.of(context)
+                                          .translate('payWith')),
                                       Divider(
                                         thickness: 0.5,
                                         color: Colors.grey[600],
@@ -499,7 +517,8 @@ class _BatukPageState extends State<BatukPage> {
                                           ),
                                         ],
                                       ),
-                                      const Text('OR')
+                                      Text(AppLocalizations.of(context)
+                                          .translate('or'))
                                     ],
                                   ),
                                   actions: <Widget>[
@@ -507,9 +526,10 @@ class _BatukPageState extends State<BatukPage> {
                                       onPressed: () {
                                         Navigator.pop(context);
                                       },
-                                      child: const Text(
-                                        'Confirm Cash on Delivery ',
-                                        style: TextStyle(
+                                      child: Text(
+                                        AppLocalizations.of(context)
+                                            .translate('confirmCash'),
+                                        style: const TextStyle(
                                             color: Color.fromARGB(
                                                 255, 28, 139, 31),
                                             fontWeight: FontWeight.bold),
@@ -519,9 +539,11 @@ class _BatukPageState extends State<BatukPage> {
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
-                                        child: const Text(
-                                          'Cancel',
-                                          style: TextStyle(color: Colors.black),
+                                        child: Text(
+                                          AppLocalizations.of(context)
+                                              .translate('cancel'),
+                                          style: const TextStyle(
+                                              color: Colors.black),
                                         ))
                                   ],
                                 );
@@ -530,14 +552,14 @@ class _BatukPageState extends State<BatukPage> {
                       },
                       child: Container(
                         height: 33,
-                        width: 100,
+                        width: 120,
                         decoration: BoxDecoration(
                           color: Color(0xFF91AD13),
                           borderRadius: BorderRadius.circular(26),
                         ),
-                        child: const Center(
+                        child: Center(
                           child: Text(
-                            'Order Now',
+                            AppLocalizations.of(context).translate('OrderNow'),
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),

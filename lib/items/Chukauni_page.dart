@@ -182,22 +182,25 @@ class _ChukauniPageState extends State<ChukauniPage> {
                                         print(rating);
                                       },
                                     ),
-                                    const Text(
-                                      '3 Star Rating',
+                                    Text(
+                                      AppLocalizations.of(context)
+                                          .translate('StarRatings'),
                                       style: TextStyle(color: Colors.orange),
                                     ),
                                   ],
                                 ),
-                                const Column(
+                                Column(
                                   children: [
                                     Text(
-                                      'Rs.50',
-                                      style: TextStyle(
+                                      AppLocalizations.of(context)
+                                          .translate('Rs_50'),
+                                      style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Color.fromARGB(255, 2, 99, 6),
                                           fontSize: 27),
                                     ),
-                                    Text('   /per set '),
+                                    Text(AppLocalizations.of(context)
+                                        .translate('/perPiece')),
                                   ],
                                 ),
                               ],
@@ -207,21 +210,22 @@ class _ChukauniPageState extends State<ChukauniPage> {
                         const SizedBox(
                           height: 9,
                         ),
-                        const Padding(
+                        Padding(
                           padding: EdgeInsets.symmetric(horizontal: 30),
                           child: Text(
-                            "Description",
-                            style: TextStyle(
+                            AppLocalizations.of(context)
+                                .translate('Descriptions'),
+                            style: const TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                         ),
                         const SizedBox(
                           height: 7,
                         ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 30),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
                           child: Text(
-                            "Chukauni is a traditional Nepali dish, particularly popular in the Newari community of Nepal. It is made from boiled potatoes, typically cut into cubes, and then mixed with a spicy yogurt-based sauce. The sauce is usually flavored with mustard oil, fenugreek seeds, turmeric, and other spices.It's known for its tangy and spicy taste, making it a favorite among many Nepali food lovers.",
+                            AppLocalizations.of(context).translate('explain3'),
                             textAlign: TextAlign.justify,
                           ),
                         ),
@@ -238,22 +242,24 @@ class _ChukauniPageState extends State<ChukauniPage> {
                         const SizedBox(
                           height: 7,
                         ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 30),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
                           child: Text(
-                            "Customize you Order",
-                            style: TextStyle(
+                            AppLocalizations.of(context).translate('customize'),
+                            style: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 16),
                           ),
                         ),
                         const SizedBox(
                           height: 4,
                         ),
-                        const Row(
+                        Row(
                           children: [
                             Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 30),
-                              child: Text("No of set you want"),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 30),
+                              child: Text(AppLocalizations.of(context)
+                                  .translate('noPiece')),
                             ),
                           ],
                         ),
@@ -349,7 +355,8 @@ class _ChukauniPageState extends State<ChukauniPage> {
                                         borderSide: BorderSide(
                                             color: Color(0xFF91AD13)),
                                       ),
-                                      labelText: 'Share Location',
+                                      labelText: AppLocalizations.of(context)
+                                          .translate('shareLocation'),
                                       labelStyle: const TextStyle(
                                           fontSize: 14, color: Colors.black)),
                                 ),
@@ -364,7 +371,10 @@ class _ChukauniPageState extends State<ChukauniPage> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 30, vertical: 20),
                               child: Text(
-                                'Total costs: Rs.${_calculateAmountTotal()} ',
+                                AppLocalizations.of(context)
+                                    .translate('total_costs')
+                                    .replaceAll('{cost}',
+                                        _calculateAmountTotal().toString()),
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 15),
                               ),
@@ -382,10 +392,11 @@ class _ChukauniPageState extends State<ChukauniPage> {
                                   decoration: BoxDecoration(
                                       color: const Color(0xFF91AD13),
                                       borderRadius: BorderRadius.circular(9)),
-                                  child: const Center(
+                                  child: Center(
                                     child: Text(
-                                      '+ Add to Cart',
-                                      style: TextStyle(
+                                      AppLocalizations.of(context)
+                                          .translate('cart'),
+                                      style: const TextStyle(
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
@@ -432,7 +443,12 @@ class _ChukauniPageState extends State<ChukauniPage> {
                                               mainAxisSize: MainAxisSize.min,
                                               children: [
                                                 Text(
-                                                  'Total amounts: Rs.${_calculateAmountTotal()}',
+                                                  AppLocalizations.of(context)
+                                                      .translate('total_amount')
+                                                      .replaceAll(
+                                                          '{amount}',
+                                                          _calculateAmountTotal()
+                                                              .toString()),
                                                   style: const TextStyle(
                                                       color: Color.fromARGB(
                                                           255, 28, 139, 31),
@@ -443,7 +459,9 @@ class _ChukauniPageState extends State<ChukauniPage> {
                                                 const SizedBox(
                                                   height: 20,
                                                 ),
-                                                const Text('Pay with'),
+                                                Text(
+                                                    AppLocalizations.of(context)
+                                                        .translate('payWith')),
                                                 Divider(
                                                   thickness: 0.5,
                                                   color: Colors.grey[600],
@@ -477,7 +495,9 @@ class _ChukauniPageState extends State<ChukauniPage> {
                                                     ),
                                                   ],
                                                 ),
-                                                const Text('OR')
+                                                Text(
+                                                    AppLocalizations.of(context)
+                                                        .translate('or'))
                                               ],
                                             ),
                                             actions: <Widget>[
@@ -485,9 +505,10 @@ class _ChukauniPageState extends State<ChukauniPage> {
                                                 onPressed: () {
                                                   Navigator.pop(context);
                                                 },
-                                                child: const Text(
-                                                  'Confirm Cash on delivery',
-                                                  style: TextStyle(
+                                                child: Text(
+                                                  AppLocalizations.of(context)
+                                                      .translate('confirmCash'),
+                                                  style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       color: Color.fromARGB(
@@ -498,9 +519,10 @@ class _ChukauniPageState extends State<ChukauniPage> {
                                                 onPressed: () {
                                                   Navigator.pop(context);
                                                 },
-                                                child: const Text(
-                                                  'Cancel',
-                                                  style: TextStyle(
+                                                child: Text(
+                                                  AppLocalizations.of(context)
+                                                      .translate('cancel'),
+                                                  style: const TextStyle(
                                                       color: Colors.black),
                                                 ),
                                               ),
@@ -515,14 +537,15 @@ class _ChukauniPageState extends State<ChukauniPage> {
                                   child: Container(
                                     alignment: Alignment.center,
                                     height: 33,
-                                    width: 100,
+                                    width: 120,
                                     decoration: BoxDecoration(
                                       color: const Color(0xFF91AD13),
                                       borderRadius: BorderRadius.circular(27),
                                     ),
-                                    child: const Text(
-                                      'Order Now',
-                                      style: TextStyle(
+                                    child: Text(
+                                      AppLocalizations.of(context)
+                                          .translate('OrderNow'),
+                                      style: const TextStyle(
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),

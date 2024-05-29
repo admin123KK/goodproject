@@ -152,7 +152,7 @@ class _PhiniPageState extends State<PhiniPage> {
                             height: 20,
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 25),
+                            padding: const EdgeInsets.symmetric(horizontal: 25),
                             child: Text(
                               AppLocalizations.of(context).translate('Phini'),
                               style: const TextStyle(
@@ -188,27 +188,31 @@ class _PhiniPageState extends State<PhiniPage> {
                                           print(rating);
                                         },
                                       ),
-                                      const Text(
-                                        '4 Star Rating',
-                                        style: TextStyle(color: Colors.orange),
+                                      Text(
+                                        AppLocalizations.of(context)
+                                            .translate('StarRatings'),
+                                        style: const TextStyle(
+                                            color: Colors.orange),
                                       )
                                     ],
                                   ),
-                                  const Column(
+                                  Column(
                                     children: [
                                       Padding(
-                                        padding:
-                                            EdgeInsets.symmetric(horizontal: 4),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 4),
                                         child: Text(
-                                          'Rs.95',
-                                          style: TextStyle(
+                                          AppLocalizations.of(context)
+                                              .translate('Rs_95'),
+                                          style: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color:
                                                   Color.fromARGB(255, 2, 99, 6),
                                               fontSize: 27),
                                         ),
                                       ),
-                                      Text("/per piece"),
+                                      Text(AppLocalizations.of(context)
+                                          .translate('/perPiece')),
                                     ],
                                   ),
                                 ],
@@ -218,13 +222,14 @@ class _PhiniPageState extends State<PhiniPage> {
                           const SizedBox(
                             height: 14,
                           ),
-                          const Padding(
+                          Padding(
                             padding: EdgeInsets.symmetric(horizontal: 27),
                             child: Row(
                               children: [
                                 Text(
-                                  ('Description'),
-                                  style: TextStyle(
+                                  (AppLocalizations.of(context)
+                                      .translate('Descriptions')),
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16),
                                 ),
@@ -234,10 +239,11 @@ class _PhiniPageState extends State<PhiniPage> {
                           const SizedBox(
                             height: 4,
                           ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 27),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 27),
                             child: Text(
-                              "Phini Roti is also a popular traditional sweet dish in Nepali cuisine. In Nepal, it is known as 'Phini' or 'Phini Roti'and is made similarly to the Indian version. It consists of a thin, lacy pancake made from a batter of wheat flour, ghee (clarified butter), and sugar, cooked on a flat griddle until crispy and golden. Phini Roti is often enjoyed as a dessert or snack, especially during festive occasions and celebrations in Nepali culture.",
+                              AppLocalizations.of(context)
+                                  .translate('explain2'),
                               textAlign: TextAlign.justify,
                             ),
                           ),
@@ -251,20 +257,22 @@ class _PhiniPageState extends State<PhiniPage> {
                               color: Colors.grey,
                             ),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 27),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 27),
                             child: Text(
-                              'Customize you Order',
-                              style: TextStyle(
+                              AppLocalizations.of(context)
+                                  .translate('customize'),
+                              style: const TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),
                           ),
                           const SizedBox(
                             height: 7,
                           ),
-                          const Padding(
+                          Padding(
                             padding: EdgeInsets.symmetric(horizontal: 27),
-                            child: Text('No of piece you want'),
+                            child: Text(AppLocalizations.of(context)
+                                .translate('noPiece')),
                           ),
                           const SizedBox(
                             height: 9,
@@ -365,7 +373,8 @@ class _PhiniPageState extends State<PhiniPage> {
                                                 color: Color(0xFF91AD13)),
                                             borderRadius:
                                                 BorderRadius.circular(9)),
-                                        labelText: 'Share Location',
+                                        labelText: AppLocalizations.of(context)
+                                            .translate('shareLocation'),
                                         labelStyle: TextStyle(
                                             color: Colors.grey[800],
                                             fontSize: 15)),
@@ -384,7 +393,10 @@ class _PhiniPageState extends State<PhiniPage> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 33),
                                 child: Text(
-                                  'Total costs: ${_calculateAmountTotal()}',
+                                  AppLocalizations.of(context)
+                                      .translate('total_costs')
+                                      .replaceAll('{cost}',
+                                          _calculateAmountTotal().toString()),
                                   style: const TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.bold),
@@ -403,10 +415,11 @@ class _PhiniPageState extends State<PhiniPage> {
                                     decoration: BoxDecoration(
                                         color: Color(0xFF91AD13),
                                         borderRadius: BorderRadius.circular(9)),
-                                    child: const Center(
+                                    child: Center(
                                         child: Text(
-                                      '+ Add to Cart',
-                                      style: TextStyle(
+                                      AppLocalizations.of(context)
+                                          .translate('cart'),
+                                      style: const TextStyle(
                                           fontWeight: FontWeight.bold),
                                     )),
                                   ),
@@ -448,7 +461,12 @@ class _PhiniPageState extends State<PhiniPage> {
                                               mainAxisSize: MainAxisSize.min,
                                               children: [
                                                 Text(
-                                                  'Total amounts: Rs.${_calculateAmountTotal()}',
+                                                  AppLocalizations.of(context)
+                                                      .translate('total_amount')
+                                                      .replaceAll(
+                                                          '{amount}',
+                                                          _calculateAmountTotal()
+                                                              .toString()),
                                                   style: const TextStyle(
                                                       color: Color.fromARGB(
                                                           255, 28, 139, 31),
@@ -459,7 +477,9 @@ class _PhiniPageState extends State<PhiniPage> {
                                                 const SizedBox(
                                                   height: 20,
                                                 ),
-                                                const Text('Pay with'),
+                                                Text(
+                                                    AppLocalizations.of(context)
+                                                        .translate('payWith')),
                                                 Divider(
                                                   thickness: 0.5,
                                                   color: Colors.grey[600],
@@ -495,7 +515,9 @@ class _PhiniPageState extends State<PhiniPage> {
                                                     ),
                                                   ],
                                                 ),
-                                                const Text('OR'),
+                                                Text(
+                                                    AppLocalizations.of(context)
+                                                        .translate('or')),
                                               ],
                                             ),
                                             actions: <Widget>[
@@ -503,9 +525,10 @@ class _PhiniPageState extends State<PhiniPage> {
                                                 onPressed: () {
                                                   Navigator.pop(context);
                                                 },
-                                                child: const Text(
-                                                  'Confirm  Cash on delivery',
-                                                  style: TextStyle(
+                                                child: Text(
+                                                  AppLocalizations.of(context)
+                                                      .translate('confirmCash'),
+                                                  style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       color: Color.fromARGB(
@@ -516,9 +539,10 @@ class _PhiniPageState extends State<PhiniPage> {
                                                 onPressed: () {
                                                   Navigator.pop(context);
                                                 },
-                                                child: const Text(
-                                                  'Cancel',
-                                                  style: TextStyle(
+                                                child: Text(
+                                                  AppLocalizations.of(context)
+                                                      .translate('cancel'),
+                                                  style: const TextStyle(
                                                       color: Colors.black),
                                                 ),
                                               )
@@ -530,13 +554,14 @@ class _PhiniPageState extends State<PhiniPage> {
                                 child: Container(
                                   alignment: Alignment.center,
                                   height: 34,
-                                  width: 95,
+                                  width: 125,
                                   decoration: BoxDecoration(
                                       color: const Color(0xFF91AD13),
                                       borderRadius: BorderRadius.circular(16)),
-                                  child: const Text(
-                                    'Order Now',
-                                    style: TextStyle(
+                                  child: Text(
+                                    AppLocalizations.of(context)
+                                        .translate('OrderNow'),
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 15),
                                   ),

@@ -189,16 +189,17 @@ class _SelRotiPageState extends State<SelRotiPage> {
                                 Text(
                                   AppLocalizations.of(context)
                                       .translate('StarRatings'),
-                                  style: TextStyle(color: Colors.orange),
+                                  style: const TextStyle(color: Colors.orange),
                                 ),
                               ],
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                const Text(
-                                  'Rs.60',
-                                  style: TextStyle(
+                                Text(
+                                  AppLocalizations.of(context)
+                                      .translate('Rs_60'),
+                                  style: const TextStyle(
                                       fontSize: 27,
                                       fontWeight: FontWeight.bold,
                                       color: Color.fromARGB(255, 2, 99, 6)),
