@@ -186,23 +186,25 @@ class _SelRotiPageState extends State<SelRotiPage> {
                                 const SizedBox(
                                   height: 4,
                                 ),
-                                const Text(
-                                  '3 Star Ratings',
+                                Text(
+                                  AppLocalizations.of(context)
+                                      .translate('StarRatings'),
                                   style: TextStyle(color: Colors.orange),
                                 ),
                               ],
                             ),
-                            const Column(
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                Text(
+                                const Text(
                                   'Rs.60',
                                   style: TextStyle(
                                       fontSize: 27,
                                       fontWeight: FontWeight.bold,
                                       color: Color.fromARGB(255, 2, 99, 6)),
                                 ),
-                                Text("/per piece")
+                                Text(AppLocalizations.of(context)
+                                    .translate('/perPiece'))
                               ],
                             ),
                           ],
@@ -211,23 +213,24 @@ class _SelRotiPageState extends State<SelRotiPage> {
                       const SizedBox(
                         height: 14,
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 33,
                         ),
                         child: Text(
-                          "Description",
-                          style: TextStyle(
+                          AppLocalizations.of(context)
+                              .translate('Descriptions'),
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16),
                         ),
                       ),
                       const SizedBox(
                         height: 7,
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 33),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 33),
                         child: Text(
-                          "Selroti is a traditional Nepali snack that holds a special place in the hearts and taste buds of many.This golden-brown, ring-shaped delicacy is made from rice flour batter mixed with sugar, milk, and sometimes spices like cardamom. The batter is deep-fried until it forms a crispy exterior while remaining soft and fluffy inside. Selroti is often enjoyed during festivals, celebrations, or as a tea-time treat.",
+                          AppLocalizations.of(context).translate('explain'),
                           textAlign: TextAlign.justify,
                         ),
                       ),
@@ -241,23 +244,24 @@ class _SelRotiPageState extends State<SelRotiPage> {
                     thickness: 1.5,
                   ),
                 ),
-                const Row(
+                Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: Text(
-                        'Customize your Order',
-                        style: TextStyle(
+                        AppLocalizations.of(context).translate('customize'),
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16),
                       ),
                     ),
                   ],
                 ),
-                const Row(
+                Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 30),
-                      child: Text('No of piece you want'),
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: Text(
+                          AppLocalizations.of(context).translate('noPiece')),
                     ),
                   ],
                 ),
@@ -346,7 +350,8 @@ class _SelRotiPageState extends State<SelRotiPage> {
                                     color: Color(0xFF91AD13),
                                   ),
                                   borderRadius: BorderRadius.circular(7)),
-                              labelText: 'Share Location',
+                              labelText: AppLocalizations.of(context)
+                                  .translate('shareLocation'),
                               labelStyle: TextStyle(
                                   color: Colors.grey[900], fontSize: 14)),
                         ),
@@ -363,7 +368,10 @@ class _SelRotiPageState extends State<SelRotiPage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 33),
                       child: Text(
-                        'Total costs: ${_calculateTotalAmount()}',
+                        AppLocalizations.of(context)
+                            .translate('total_costs')
+                            .replaceAll(
+                                '{cost}', _calculateTotalAmount().toString()),
                         style: const TextStyle(
                             fontSize: 15, fontWeight: FontWeight.bold),
                       ),
@@ -372,7 +380,7 @@ class _SelRotiPageState extends State<SelRotiPage> {
                     //   width: 90,
                     // ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
                       child: InkWell(
                         onTap: () {
                           addToCart();
@@ -384,10 +392,10 @@ class _SelRotiPageState extends State<SelRotiPage> {
                             color: Color(0xFF91AD13),
                             borderRadius: BorderRadius.circular(9),
                           ),
-                          child: const Center(
+                          child: Center(
                               child: Text(
-                            '+ Add to Cart',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            AppLocalizations.of(context).translate('cart'),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                           )),
                         ),
                       ),
@@ -426,7 +434,12 @@ class _SelRotiPageState extends State<SelRotiPage> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text(
-                                  'Total amount : Rs.${_calculateTotalAmount()}',
+                                  AppLocalizations.of(context)
+                                      .translate(
+                                        'total_amount',
+                                      )
+                                      .replaceAll('{amount}',
+                                          _calculateTotalAmount().toString()),
                                   style: const TextStyle(
                                       color: Color.fromARGB(255, 28, 139, 31),
                                       fontSize: 20,
@@ -435,7 +448,8 @@ class _SelRotiPageState extends State<SelRotiPage> {
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                const Text('Pay with'),
+                                Text(AppLocalizations.of(context)
+                                    .translate('payWith')),
                                 Row(
                                   children: [
                                     Expanded(
@@ -476,7 +490,8 @@ class _SelRotiPageState extends State<SelRotiPage> {
                                     ),
                                   ],
                                 ),
-                                const Text('OR'),
+                                Text(AppLocalizations.of(context)
+                                    .translate('OR')),
                               ],
                             ),
                             actions: <Widget>[
@@ -484,9 +499,10 @@ class _SelRotiPageState extends State<SelRotiPage> {
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                child: const Text(
-                                  'Confirm Cash on Delivery',
-                                  style: TextStyle(
+                                child: Text(
+                                  AppLocalizations.of(context)
+                                      .translate('confirmCash'),
+                                  style: const TextStyle(
                                     color: Color.fromARGB(255, 28, 139, 31),
                                   ),
                                 ),
@@ -495,8 +511,9 @@ class _SelRotiPageState extends State<SelRotiPage> {
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                child: const Text(
-                                  'Cancel',
+                                child: Text(
+                                  AppLocalizations.of(context)
+                                      .translate('cancel'),
                                   style: TextStyle(color: Colors.black),
                                 ),
                               ),
@@ -508,14 +525,14 @@ class _SelRotiPageState extends State<SelRotiPage> {
                   },
                   child: Container(
                     height: 36,
-                    width: 100,
+                    width: 120,
                     decoration: BoxDecoration(
                       color: const Color(0xFF91AD13),
                       borderRadius: BorderRadius.circular(27),
                     ),
-                    child: const Center(
+                    child: Center(
                       child: Text(
-                        'Order Now',
+                        AppLocalizations.of(context).translate('OrderNow'),
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),

@@ -76,6 +76,22 @@
   "Batuk":"Batuk",
   "Chukauni":"Chukauni",
   "Momo": "Momo",
-  "Chowmein": "Chowmein"
+  "Chowmein": "Chowmein",
+
+"StarRatings": "Star Ratings",
+"Rs":"Rs",
+"/perPiece":"/per piece",
+"Descriptions":"Description",
+"explain":"Selroti is a traditional Nepali snack that holds a special place in the hearts and taste buds of many.This golden-brown, ring-shaped delicacy is made from rice flour batter mixed with sugar, milk, and sometimes spices like cardamom. The batter is deep-fried until it forms a crispy exterior while remaining soft and fluffy inside. Selroti is often enjoyed during festivals, celebrations, or as a tea-time treat",
+"customize":"Customize your order",
+"noPiece":"No of piece you want",
+"shareLocation":"Share Location",
+"total_costs":"Total Cost : Rs.{cost}",
+"cart":"+ Add to Cart",
+"total_amount": "Total Amount : Rs.{amount}",
+"payWith":"Pay with",
+"confirmCash":"Confirm cash on Delivery",
+"cancel":"Cancel",
+"OrderNow":"Order Now"
 
 }

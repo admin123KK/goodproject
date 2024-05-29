@@ -148,7 +148,7 @@ class _ChukauniPageState extends State<ChukauniPage> {
                           height: 20,
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 33),
+                          padding: const EdgeInsets.symmetric(horizontal: 33),
                           child: Text(
                             AppLocalizations.of(context).translate('Chukauni'),
                             style: const TextStyle(
