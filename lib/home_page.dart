@@ -9,6 +9,7 @@ import 'package:goodproject/items/Phini_page.dart';
 import 'package:goodproject/items/Selroti.dart';
 import 'package:goodproject/items/cart.dart';
 import 'package:goodproject/my_orderpage.dart';
+import 'package:goodproject/setting_page.dart';
 import 'package:goodproject/verifypages/location_page.dart';
 import 'package:goodproject/verifypages/login_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -250,7 +251,7 @@ class _LoginPageState extends State<HomePage> {
         ],
         title: Text(
           AppLocalizations.of(context).translate('khajaGhar'),
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
             fontFamily: 'Mooli',
@@ -463,8 +464,12 @@ class _LoginPageState extends State<HomePage> {
               },
               title: const Text('Location'),
             ),
-            const ListTile(
-              leading: Icon(
+            ListTile(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SettingPage()));
+              },
+              leading: const Icon(
                 Icons.settings,
                 color: Colors.black,
               ),

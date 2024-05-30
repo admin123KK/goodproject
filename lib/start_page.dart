@@ -33,7 +33,7 @@ class _StartPageState extends State<StartPage> {
                 Text(
                   AppLocalizations.of(context)!
                       .translate('title'), // Access AppLocalizations directly
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: 'Mooli',
                     fontWeight: FontWeight.bold,
                     fontSize: 23,
@@ -60,7 +60,7 @@ class _StartPageState extends State<StartPage> {
                       child: Text(
                         AppLocalizations.of(context)!.translate(
                             'signup'), // Access AppLocalizations directly
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontFamily: 'Mooli',

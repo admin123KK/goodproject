@@ -29,16 +29,31 @@ class _WelcomePageState extends State<WelcomePage> {
                       fontSize: 30,
                       fontFamily: 'Mooli'),
                 ),
+                // const SizedBox(
+                //   height: 20,
+                // ),
+                const Text(
+                  'Welcome ',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 40,
+                      fontFamily: 'Mooli'),
+                ),
+                // const Image(
+                //   image: AssetImage(
+                //     'assets/images/welcome.png',
+                //   ),
+                // ),
                 const SizedBox(
-                  height: 20,
+                  height: 90,
                 ),
                 const Image(
                   image: AssetImage(
-                    'assets/images/welcome.png',
+                    'assets/images/khajaghar.png',
                   ),
                 ),
                 const SizedBox(
-                  height: 300,
+                  height: 120,
                 ),
                 ElevatedButton(
                   onPressed: () {

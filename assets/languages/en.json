@@ -101,6 +101,9 @@
 "payWith":"Pay with",
 "confirmCash":"Confirm cash on Delivery",
 "cancel":"Cancel",
-"OrderNow":"Order Now"
+"OrderNow":"Order Now",
+
+"changeLanguage": "Change Language"
+
 
 }
