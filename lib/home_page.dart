@@ -174,20 +174,20 @@ class _LoginPageState extends State<HomePage> {
           return AlertDialog(
             title: const Text(
               'Logout',
-              style: TextStyle(fontFamily: 'Mooli'),
+              style: const TextStyle(fontFamily: 'Mooli'),
             ),
-            content: const Text(
-              'Are you sure you want to logout?',
-              style: TextStyle(color: Colors.red, fontFamily: 'Mooli'),
+            content: Text(
+              AppLocalizations.of(context).translate('areYou'),
+              style: const TextStyle(color: Colors.red, fontFamily: 'Mooli'),
             ),
             actions: <Widget>[
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: const Text(
-                  'Cancel',
-                  style: TextStyle(
+                child: Text(
+                  AppLocalizations.of(context).translate('cancel'),
+                  style: const TextStyle(
                     color: Color(0xFF91AD13),
                   ),
                 ),
@@ -473,7 +473,7 @@ class _LoginPageState extends State<HomePage> {
                 Icons.settings,
                 color: Colors.black,
               ),
-              title: Text('Settings'),
+              title: const Text('Settings'),
             ),
             ListTile(
               leading: const Icon(

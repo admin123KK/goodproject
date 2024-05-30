@@ -171,7 +171,7 @@ class _OrderPageState extends State<OrderPage> {
                       borderRadius: BorderRadius.circular(27),
                       color: const Color(0xFF91AD13),
                     ),
-                    child: Center(
+                    child: const Center(
                         child: Text(
                       'Check Live Location ',
                       style: TextStyle(fontWeight: FontWeight.bold),
@@ -194,7 +194,7 @@ Widget _buildIcon(IconData icon, String status, bool isCurrent) {
         style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            fontFamily: 'MOoli',
+            fontFamily: 'Mooli',
             color: isCurrent ? Color(0xFF91AD13) : Colors.black),
       )
     ],

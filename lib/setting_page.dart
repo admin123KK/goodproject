@@ -40,7 +40,11 @@ class _SettingPageState extends State<SettingPage> {
             Container(
               alignment: Alignment.topLeft,
               child: Text(
-                AppLocalizations.of(context).translate('changeLanugage'),
+                AppLocalizations.of(context).translate(
+                  'changeLanguage',
+                ),
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
             ),
             const SizedBox(
