@@ -53,6 +53,20 @@ class _SelRotiPageState extends State<SelRotiPage> {
     }
   }
 
+  Future<void> cashOrder() async {
+    try {
+      FirebaseFirestore.instance.collection('cashPay').add({
+        'itemName': 'SelRoti',
+        'quantity': _quantity,
+        'totalCost': _calculateTotalAmount(),
+        'dateTime': DateTime.now(),
+      });
+      print('order sucess in cash');
+    } catch (e) {
+      print('order is $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -492,12 +506,13 @@ class _SelRotiPageState extends State<SelRotiPage> {
                                   ],
                                 ),
                                 Text(AppLocalizations.of(context)
-                                    .translate('OR')),
+                                    .translate('or')),
                               ],
                             ),
                             actions: <Widget>[
                               TextButton(
                                 onPressed: () {
+                                  cashOrder();
                                   Navigator.pop(context);
                                 },
                                 child: Text(

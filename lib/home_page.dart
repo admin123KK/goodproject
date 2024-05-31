@@ -140,7 +140,8 @@ class _LoginPageState extends State<HomePage> {
               ListTile(
                 leading: Text(
                   name,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 15),
                 ),
                 trailing: Text(
                   price,

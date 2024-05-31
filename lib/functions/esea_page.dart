@@ -20,7 +20,7 @@ class Esewa {
             callbackUrl:
                 'https://esewa.com.np/mobile/transaction?txnRefId={refId} ',
           ),
-          onPaymentSuccess: (EsewaPaymentSuccessResult result) {
+          onPaymentSuccess: (EsewaPaymentSuccessResult result) async {
             debugPrint('Sucess');
             verify(result);
           },

@@ -3,7 +3,7 @@
   "description": "Authentic food is not just a feast for the palate; it's a journey that whispers the tales of tradition, history, and the timeless artistry of flavors.",
   "signup": "SignUp",
   "login": "Login",
-  "or": "or",
+  "or": "OR",
 
   "creates": "Create Account",
   "LoginAccount" :"Login Account",
@@ -68,7 +68,7 @@
 
   "khajaGhar" :"Khaja Ghar",
   "wyouLike": "What you like to have?",
-  "categories": "Categoires",
+  "categories": "Categories",
   "Popular":"Popular",
   "all": "All",
   "SelRoti": "SelRoti",

@@ -53,6 +53,20 @@ class _ChukauniPageState extends State<ChukauniPage> {
     }
   }
 
+  Future<void> processOrder() async {
+    try {
+      await FirebaseFirestore.instance.collection('cashPay').add({
+        'itemName': 'Chukauni',
+        'quantity': _quantity,
+        'totalCost': _calculateAmountTotal(),
+        'dateTime': DateTime.now(),
+      });
+      print('Order cash successful');
+    } catch (e) {
+      print('order error $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -503,6 +517,7 @@ class _ChukauniPageState extends State<ChukauniPage> {
                                             actions: <Widget>[
                                               TextButton(
                                                 onPressed: () {
+                                                  processOrder();
                                                   Navigator.pop(context);
                                                 },
                                                 child: Text(

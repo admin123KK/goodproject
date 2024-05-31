@@ -102,7 +102,7 @@ class _VerifictionPageState extends State<VerifictionPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.all(10.0),
+                                  padding: EdgeInsets.all(10.0),
                                   child: Container(
                                     height: 75,
                                     width: 75,

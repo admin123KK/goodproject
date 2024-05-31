@@ -56,6 +56,20 @@ class _BatukPageState extends State<BatukPage> {
     }
   }
 
+  Future<void> processOrder() async {
+    try {
+      await FirebaseFirestore.instance.collection('cashPay').add({
+        'itemName': 'Batuk',
+        'quantity': _quantity,
+        'totalCost': _calculateAmountTotal(),
+        'dateTime': DateTime.now()
+      });
+      print('Order Sucess on cash');
+    } catch (e) {
+      print('Order error $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -524,6 +538,7 @@ class _BatukPageState extends State<BatukPage> {
                                   actions: <Widget>[
                                     TextButton(
                                       onPressed: () {
+                                        processOrder();
                                         Navigator.pop(context);
                                       },
                                       child: Text(
@@ -554,7 +569,7 @@ class _BatukPageState extends State<BatukPage> {
                         height: 33,
                         width: 120,
                         decoration: BoxDecoration(
-                          color: Color(0xFF91AD13),
+                          color: const Color(0xFF91AD13),
                           borderRadius: BorderRadius.circular(26),
                         ),
                         child: Center(

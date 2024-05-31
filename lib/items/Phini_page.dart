@@ -53,6 +53,20 @@ class _PhiniPageState extends State<PhiniPage> {
     }
   }
 
+  Future<void> processOrder() async {
+    try {
+      await FirebaseFirestore.instance.collection('cashPay').add({
+        'itemName': 'Phini',
+        'quantity': _quantity,
+        'totalCost': _calculateAmountTotal(),
+        'dateTime': DateTime.now(),
+      });
+      print('Order cash Sucess');
+    } catch (e) {
+      print('Error in order $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -523,6 +537,7 @@ class _PhiniPageState extends State<PhiniPage> {
                                             actions: <Widget>[
                                               TextButton(
                                                 onPressed: () {
+                                                  processOrder();
                                                   Navigator.pop(context);
                                                 },
                                                 child: Text(
