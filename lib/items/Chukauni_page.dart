@@ -62,6 +62,17 @@ class _ChukauniPageState extends State<ChukauniPage> {
         'dateTime': DateTime.now(),
       });
       print('Order cash successful');
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text(
+          'Congratulations !! You order is placed',
+          style: TextStyle(
+            color: Color(0xFF91AD13),
+          ),
+        ),
+        backgroundColor: Colors.black,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+      ));
     } catch (e) {
       print('order error $e');
     }

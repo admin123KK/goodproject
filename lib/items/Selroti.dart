@@ -62,6 +62,15 @@ class _SelRotiPageState extends State<SelRotiPage> {
         'dateTime': DateTime.now(),
       });
       print('order sucess in cash');
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text(
+          'Congratulations !! Your order is placed',
+          style: TextStyle(color: Color(0xFF91AD13)),
+        ),
+        backgroundColor: Colors.black,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+      ));
     } catch (e) {
       print('order is $e');
     }

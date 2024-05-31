@@ -62,6 +62,18 @@ class _PhiniPageState extends State<PhiniPage> {
         'dateTime': DateTime.now(),
       });
       print('Order cash Sucess');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text(
+            "Congratualations !! Your order is placed",
+            style: TextStyle(color: Color(0xFF91AD13)),
+          ),
+          backgroundColor: Colors.black,
+          behavior: SnackBarBehavior.floating,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        ),
+      );
     } catch (e) {
       print('Error in order $e');
     }

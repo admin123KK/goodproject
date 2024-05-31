@@ -65,6 +65,17 @@ class _BatukPageState extends State<BatukPage> {
         'dateTime': DateTime.now()
       });
       print('Order Sucess on cash');
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text(
+          'Congratulations !! Your order is placecd',
+          style: TextStyle(
+            color: Color(0xFF91AD13),
+          ),
+        ),
+        backgroundColor: Colors.black,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+      ));
     } catch (e) {
       print('Order error $e');
     }
