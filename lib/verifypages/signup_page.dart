@@ -127,7 +127,8 @@ class _SignUpState extends State<SignUp> {
                                     decoration: InputDecoration(
                                       hintText: AppLocalizations.of(context)
                                           .translate('enterfullName'),
-                                      hintStyle: TextStyle(color: Colors.grey),
+                                      hintStyle:
+                                          const TextStyle(color: Colors.grey),
                                       labelText: AppLocalizations.of(context)
                                           .translate('fullName'),
                                       labelStyle:

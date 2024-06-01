@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:goodproject/app_localization.dart';
@@ -62,7 +63,9 @@ class _BatukPageState extends State<BatukPage> {
         'itemName': 'Batuk',
         'quantity': _quantity,
         'totalCost': _calculateAmountTotal(),
-        'dateTime': DateTime.now()
+        'dateTime': DateTime.now(),
+        'Email': FirebaseAuth.instance.currentUser?.email,
+        'Name': FirebaseAuth.instance.currentUser?.displayName
       });
       print('Order Sucess on cash');
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

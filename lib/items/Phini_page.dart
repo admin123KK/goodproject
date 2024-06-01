@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:goodproject/app_localization.dart';
@@ -60,6 +61,8 @@ class _PhiniPageState extends State<PhiniPage> {
         'quantity': _quantity,
         'totalCost': _calculateAmountTotal(),
         'dateTime': DateTime.now(),
+        'Email': FirebaseAuth.instance.currentUser?.email,
+        'Name': FirebaseAuth.instance.currentUser?.displayName
       });
       print('Order cash Sucess');
       ScaffoldMessenger.of(context).showSnackBar(

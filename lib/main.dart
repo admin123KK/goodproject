@@ -1,6 +1,8 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:goodproject/app_localization.dart';
+import 'package:goodproject/firebase_options.dart';
 import 'package:goodproject/home_page.dart';
 import 'package:goodproject/items/Batuk_page.dart';
 import 'package:goodproject/items/Chukauni_page.dart';
@@ -16,9 +18,9 @@ import 'package:goodproject/verifypages/verifcation_page.dart';
 import 'package:goodproject/welcome_page.dart';
 import 'package:provider/provider.dart';
 
-void main() {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(ChangeNotifierProvider(
     create: (context) => LanguageProvider(),
     child: const MyApp(),
