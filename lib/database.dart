@@ -13,7 +13,7 @@ class DatabaseMethods {
     return await FirebaseFirestore.instance.collection('UserInfo').snapshots();
   }
 
-  // Future<Stream<QuerySnapshot>> getEmployeeDetailss() async {
-  //   return await FirebaseFirestore.instance.collection('cashPay').snapshots();
-  // }
+  Future<Stream<QuerySnapshot>> getUserNotifications() async {
+    return await FirebaseFirestore.instance.collection('cashPay').snapshots();
+  }
 }

@@ -9,6 +9,7 @@ import 'package:goodproject/items/Chukauni_page.dart';
 import 'package:goodproject/items/Phini_page.dart';
 import 'package:goodproject/items/Selroti.dart';
 import 'package:goodproject/items/cart.dart';
+import 'package:goodproject/items/notification_page.dart';
 import 'package:goodproject/langugages_provider.dart';
 import 'package:goodproject/start_page.dart';
 import 'package:goodproject/verifypages/login_page.dart';
@@ -77,6 +78,7 @@ class _MyAppState extends State<MyApp> {
           'PhiniPage/': (context) => const PhiniPage(),
           'BatukPage/': (context) => const BatukPage(),
           'ChukauniPage/': (context) => const ChukauniPage(),
+          'NotficationPage/': (context) => const NotificationPage()
         });
   }
 }
