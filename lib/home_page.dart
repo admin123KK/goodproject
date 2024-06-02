@@ -7,7 +7,6 @@ import 'package:goodproject/items/Batuk_page.dart';
 import 'package:goodproject/items/Chukauni_page.dart';
 import 'package:goodproject/items/Phini_page.dart';
 import 'package:goodproject/items/Selroti.dart';
-import 'package:goodproject/items/cart.dart';
 import 'package:goodproject/my_orderpage.dart';
 import 'package:goodproject/setting_page.dart';
 import 'package:goodproject/verifypages/location_page.dart';
@@ -16,7 +15,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
-
   @override
   State<HomePage> createState() => _LoginPageState();
 }
@@ -101,17 +99,17 @@ class _LoginPageState extends State<HomePage> {
     return InkWell(
       onTap: () {
         if (name == AppLocalizations.of(context).translate('SelRoti')) {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => SelRotiPage()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const SelRotiPage()));
         } else if (name == AppLocalizations.of(context).translate('Phini')) {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => PhiniPage()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const PhiniPage()));
         } else if (name == AppLocalizations.of(context).translate('Batuk')) {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => BatukPage()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const BatukPage()));
         } else {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => ChukauniPage()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const ChukauniPage()));
         }
       },
       child: Padding(
@@ -221,31 +219,63 @@ class _LoginPageState extends State<HomePage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         actions: [
-          GestureDetector(
-            onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return const Center(
-                      child: CircularProgressIndicator(
-                        color: Color(0xFF91AD13),
-                      ),
-                    );
-                  });
-              Timer(Duration(seconds: 1), () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => CartPage()),
-                );
-              });
-            },
-            child: const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 18),
-              child: Icon(
-                Icons.shopping_cart_checkout_rounded,
-                color: Colors.black,
-                size: 27,
+          //   GestureDetector(
+          //     onTap: () {
+          //       showDialog(
+          //           context: context,
+          //           builder: (BuildContext context) {
+          //             return const Center(
+          //               child: CircularProgressIndicator(
+          //                 color: Color(0xFF91AD13),
+          //               ),
+          //             );
+          //           });
+          //       Timer(Duration(seconds: 1), () {
+          //         Navigator.pop(context);
+          //         // Navigator.push(
+          //         //   context,
+          //         //   MaterialPageRoute(builder: (context) => CartPage()),
+          //         // );
+          //       });
+          //     },
+          //     child: const Padding(
+          //       padding: EdgeInsets.symmetric(horizontal: 18),
+          //       child: Icon(
+          //         Icons.notifications_active_outlined,
+          //         color: Colors.black,
+          //         size: 29,
+          //       ),
+          //     ),
+          //   ),
+          Padding(
+            padding: EdgeInsets.all(14),
+            child: InkWell(
+              onTap: () {
+                //   showDialog(
+                //       context: context,
+                //       builder: (BuildContext) {
+                //         return const Center(
+                //             child: CircularProgressIndicator(
+                //           color: Colors.green,
+                //         ));
+                //       });
+                //   Timer(Duration(seconds: 1), () {
+                //     Navigator.pop(context);
+                //     Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //             builder: (context) => Notificationpage()));
+                //   });
+              },
+              child: const Badge(
+                label: Text('0'),
+
+                // largeSize: 40,
+                child: Icon(
+                  Icons.notifications_active_outlined,
+                  size: 30,
+                  color: Colors.black,
+                ),
               ),
             ),
           ),

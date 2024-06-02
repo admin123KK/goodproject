@@ -18,6 +18,7 @@ class SelRotiPage extends StatefulWidget {
 class _SelRotiPageState extends State<SelRotiPage> {
   int _quantity = 0;
   double Item_Price = 60;
+  String userName = "";
 
   double _calculateTotalAmount() {
     double totalAmount = _quantity * Item_Price;
@@ -54,6 +55,29 @@ class _SelRotiPageState extends State<SelRotiPage> {
     }
   }
 
+  void initState() {
+    super.initState();
+    fetchUserName();
+  }
+
+  Future<void> fetchUserName() async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance
+            .collection("UserInfo")
+            .doc(user.uid)
+            .get();
+
+        setState(() {
+          userName = userDoc['Name'];
+        });
+      }
+    } catch (e) {
+      print('Error fetching user name: $e');
+    }
+  }
+
   Future<void> cashOrder() async {
     try {
       FirebaseFirestore.instance.collection('cashPay').add({
@@ -62,18 +86,23 @@ class _SelRotiPageState extends State<SelRotiPage> {
         'totalCost': _calculateTotalAmount(),
         'dateTime': DateTime.now(),
         'Email': FirebaseAuth.instance.currentUser?.email,
-        'Name': FirebaseAuth.instance.currentUser?.displayName,
+        'Name': FirebaseAuth.instance.currentUser?.displayName
       });
       print('order sucess in cash');
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text(
-          'Congratulations !! Your order is placed',
-          style: TextStyle(color: Color(0xFF91AD13)),
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text(
+            'Congratulations !! Your order is placed',
+            style: TextStyle(
+              color: Color(0xFF91AD13),
+            ),
+          ),
+          backgroundColor: Colors.black,
+          behavior: SnackBarBehavior.floating,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
         ),
-        backgroundColor: Colors.black,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-      ));
+      );
     } catch (e) {
       print('order is $e');
     }

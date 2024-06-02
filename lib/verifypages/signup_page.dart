@@ -86,7 +86,7 @@ class _SignUpState extends State<SignUp> {
                               Container(
                                 alignment: Alignment.topLeft,
                                 child: Text(
-                                  AppLocalizations.of(context)!
+                                  AppLocalizations.of(context)
                                       .translate('creates'),
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -99,7 +99,7 @@ class _SignUpState extends State<SignUp> {
                                 child: Container(
                                   alignment: Alignment.topLeft,
                                   child: Text(
-                                    AppLocalizations.of(context)!
+                                    AppLocalizations.of(context)
                                         .translate('details'),
                                     style: TextStyle(
                                         fontSize: 13, color: Colors.grey[600]),
@@ -368,8 +368,9 @@ class _SignUpState extends State<SignUp> {
                                       try {
                                         await FirebaseAuth.instance
                                             .createUserWithEmailAndPassword(
-                                                email: email,
-                                                password: password);
+                                          email: email,
+                                          password: password,
+                                        );
                                         final user =
                                             FirebaseAuth.instance.currentUser;
                                         await user?.sendEmailVerification();
