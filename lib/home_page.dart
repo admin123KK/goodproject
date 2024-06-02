@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:goodproject/app_localization.dart';
@@ -7,6 +8,7 @@ import 'package:goodproject/items/Batuk_page.dart';
 import 'package:goodproject/items/Chukauni_page.dart';
 import 'package:goodproject/items/Phini_page.dart';
 import 'package:goodproject/items/Selroti.dart';
+import 'package:goodproject/items/notification_page.dart';
 import 'package:goodproject/my_orderpage.dart';
 import 'package:goodproject/setting_page.dart';
 import 'package:goodproject/verifypages/location_page.dart';
@@ -24,6 +26,7 @@ class _LoginPageState extends State<HomePage> {
   String userName = "";
   String userPhoto = "";
   String greeting = "";
+  int notificationCount = 0;
 
   @override
   void initState() {
@@ -37,6 +40,15 @@ class _LoginPageState extends State<HomePage> {
           updateGreeting();
         });
       }
+    });
+    FirebaseFirestore.instance
+        .collection('cashPay')
+        .snapshots()
+        .listen((snapshot) {
+      setState(() {
+        notificationCount = snapshot.docs
+            .length; // Update notification count based on the number of documents
+      });
     });
   }
 
@@ -62,7 +74,7 @@ class _LoginPageState extends State<HomePage> {
     return Column(
       children: [
         Container(
-          margin: EdgeInsets.only(left: 10),
+          margin: const EdgeInsets.only(left: 10),
           height: 110,
           width: 90,
           decoration: BoxDecoration(
@@ -70,7 +82,7 @@ class _LoginPageState extends State<HomePage> {
               BoxShadow(
                 color: Colors.grey.withOpacity(0.5),
                 spreadRadius: 2,
-                offset: Offset(0, 3),
+                offset: const Offset(0, 3),
                 blurRadius: 10,
               )
             ],
@@ -251,24 +263,24 @@ class _LoginPageState extends State<HomePage> {
             padding: EdgeInsets.all(14),
             child: InkWell(
               onTap: () {
-                //   showDialog(
-                //       context: context,
-                //       builder: (BuildContext) {
-                //         return const Center(
-                //             child: CircularProgressIndicator(
-                //           color: Colors.green,
-                //         ));
-                //       });
-                //   Timer(Duration(seconds: 1), () {
-                //     Navigator.pop(context);
-                //     Navigator.push(
-                //         context,
-                //         MaterialPageRoute(
-                //             builder: (context) => Notificationpage()));
-                //   });
+                showDialog(
+                    context: context,
+                    builder: (BuildContext) {
+                      return const Center(
+                          child: CircularProgressIndicator(
+                        color: Color(0xFF91AD13),
+                      ));
+                    });
+                Timer(Duration(seconds: 1), () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const NotificationPage()));
+                });
               },
-              child: const Badge(
-                label: Text('0'),
+              child: Badge(
+                label: Text(notificationCount.toString()),
 
                 // largeSize: 40,
                 child: Icon(

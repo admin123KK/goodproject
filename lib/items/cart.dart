@@ -101,7 +101,7 @@ class _CartPageState extends State<CartPage> {
               stream: firestore.collection("cart").snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (!snapshot.hasData) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(
                       color: Color(0xFF91AD13),
                     ),
