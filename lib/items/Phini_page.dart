@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -80,6 +81,18 @@ class _PhiniPageState extends State<PhiniPage> {
     } catch (e) {
       print('Error in order $e');
     }
+  }
+
+//trigger notification
+  triggerNotification() {
+    AwesomeNotifications().createNotification(
+        content: NotificationContent(
+      id: 2,
+      channelKey: 'Khaja_App',
+      title: 'Khaja Ghar',
+      body: 'Your Order Phini is placed to the Khaja Ghar',
+      color: const Color(0xFF91AD13),
+    ));
   }
 
   @override
@@ -553,6 +566,11 @@ class _PhiniPageState extends State<PhiniPage> {
                                               TextButton(
                                                 onPressed: () {
                                                   processOrder();
+                                                  Timer(
+                                                      const Duration(
+                                                          seconds: 3), () {
+                                                    return triggerNotification(); //tigger notification fetch
+                                                  });
                                                   Navigator.pop(context);
                                                 },
                                                 child: Text(

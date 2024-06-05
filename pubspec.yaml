@@ -52,6 +52,7 @@ dependencies:
   flutter_localization: ^0.2.0
   intl: ^0.18.1
   badges: ^3.1.2
+  awesome_notifications: ^0.8.2
 
 
 

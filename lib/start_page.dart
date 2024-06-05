@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:goodproject/app_localization.dart';
 import 'package:goodproject/verifypages/login_page.dart';
@@ -18,6 +19,16 @@ class StartPage extends StatefulWidget {
 class _StartPageState extends State<StartPage> {
   @override
   Widget build(BuildContext context) {
+    @override
+    void initState() {
+      AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+        if (!isAllowed) {
+          AwesomeNotifications().requestPermissionToSendNotifications();
+        }
+      });
+      super.initState();
+    }
+
     final languageProvider =
         Provider.of<LanguageProvider>(context); // Access LanguageProvider
 
@@ -45,7 +56,7 @@ class _StartPageState extends State<StartPage> {
                 ),
                 Container(
                   child: Text(
-                    AppLocalizations.of(context)!.translate(
+                    AppLocalizations.of(context).translate(
                         'description'), // Access AppLocalizations directly
                     style: TextStyle(fontSize: 15),
                   ),

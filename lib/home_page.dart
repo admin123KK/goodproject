@@ -31,6 +31,7 @@ class _LoginPageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user != null) {
         setState(() {

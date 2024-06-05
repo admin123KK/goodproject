@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -79,6 +80,18 @@ class _ChukauniPageState extends State<ChukauniPage> {
     } catch (e) {
       print('order error $e');
     }
+  }
+
+  //triggerNotification function
+  triggerNotification() {
+    AwesomeNotifications().createNotification(
+        content: NotificationContent(
+      id: 4,
+      channelKey: 'Khaja_App',
+      title: 'Khaja Ghar',
+      body: 'Your Order Chukauni is placed in the Khaja Ghar',
+      backgroundColor: const Color(0xFF91AD13),
+    ));
   }
 
   @override
@@ -532,6 +545,10 @@ class _ChukauniPageState extends State<ChukauniPage> {
                                               TextButton(
                                                 onPressed: () {
                                                   processOrder();
+                                                  Timer(Duration(seconds: 3),
+                                                      () {
+                                                    return triggerNotification();
+                                                  });
                                                   Navigator.pop(context);
                                                 },
                                                 child: Text(

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -82,6 +83,17 @@ class _BatukPageState extends State<BatukPage> {
     } catch (e) {
       print('Order error $e');
     }
+  }
+
+  //trifferNotification define function
+  triggerNotification() {
+    AwesomeNotifications().createNotification(
+        content: NotificationContent(
+            id: 3,
+            channelKey: 'Khaja_App',
+            title: 'Khaja Ghar',
+            body: 'Your Order Batuk is placed in the Khaja Ghar',
+            color: const Color(0xFF91AD13)));
   }
 
   @override
@@ -553,6 +565,9 @@ class _BatukPageState extends State<BatukPage> {
                                     TextButton(
                                       onPressed: () {
                                         processOrder();
+                                        Timer(const Duration(seconds: 3), () {
+                                          return triggerNotification();
+                                        });
                                         Navigator.pop(context);
                                       },
                                       child: Text(
@@ -589,7 +604,7 @@ class _BatukPageState extends State<BatukPage> {
                         child: Center(
                           child: Text(
                             AppLocalizations.of(context).translate('OrderNow'),
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),

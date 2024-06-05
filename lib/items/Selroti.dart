@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -106,6 +107,19 @@ class _SelRotiPageState extends State<SelRotiPage> {
     } catch (e) {
       print('order is $e');
     }
+  }
+
+//triggerNotification function used
+  triggerNotifications() {
+    AwesomeNotifications().createNotification(
+      content: NotificationContent(
+        id: 1,
+        channelKey: 'Khaja_App',
+        title: 'Khaja Ghar',
+        body: 'Your Order SelRoti is placed in the  Khaja Ghar',
+        backgroundColor: const Color(0xFF91AD13),
+      ),
+    );
   }
 
   @override
@@ -555,6 +569,10 @@ class _SelRotiPageState extends State<SelRotiPage> {
                                 onPressed: () {
                                   cashOrder();
                                   Navigator.pop(context);
+                                  Timer(Duration(seconds: 3), () {
+                                    return triggerNotifications();
+                                  });
+                                  // triggerNotifications();
                                 },
                                 child: Text(
                                   AppLocalizations.of(context)
