@@ -57,7 +57,8 @@ class NotificationPage extends StatelessWidget {
                 itemCount: documents.length,
                 itemBuilder: (context, index) {
                   final data = documents[index].data() as Map<String, dynamic>;
-                  final itemName = data['Name'] ?? 'Unknown';
+                  final itemName = data['itemName'] ?? 'Unknown';
+                  final quantity = data['quantity'] ?? 'Unknown';
                   print("Item Name: $itemName");
 
                   return Card(
@@ -67,7 +68,8 @@ class NotificationPage extends StatelessWidget {
                         'Order Received',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      subtitle: Text('Your Ordered Item $itemName'
+                      subtitle: Text("Your Ordered Item $itemName"
+                          ' total x$quantity'
                           ' is placed on the KhajaGhar'),
                       leading: const Icon(
                         Icons.notifications_on_outlined,
