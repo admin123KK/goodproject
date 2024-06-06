@@ -279,10 +279,9 @@ class _LoginPageState extends State<LoginPage> {
                                           // print(
                                           //     'The email address you enter is incorrect');
                                           print(e.code);
-                                        } else if (e.code ==
-                                            'missing-password') {
+                                        } else if (e.code == 'wrong-password') {
                                           await showErrorDialgo(
-                                              context, 'Missing password');
+                                              context, 'Wrong password');
                                           // print(e.code);
                                           // print('Password is missing sir');
                                         } else if (e.code ==
@@ -469,7 +468,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-Future<void> showErrorDialog(BuildContext, context, String text) {
+Future<void> showErrorDialog(BuildContext context, String text) {
   return showDialog(
       context: context,
       builder: (context) {
