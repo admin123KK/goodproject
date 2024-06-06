@@ -57,8 +57,8 @@ class NotificationPage extends StatelessWidget {
                 itemCount: documents.length,
                 itemBuilder: (context, index) {
                   final data = documents[index].data() as Map<String, dynamic>;
-                  final itemName = data['itemName'] ?? 'Unknown';
-                  final quantity = data['quantity'] ?? 'Unknown';
+                  final itemName = data['itemName'] ?? 'Unknown';     //fetching the itemName
+                  final quantity = data['quantity'] ?? 'Unknown';      //,, the quantity
                   print("Item Name: $itemName");
 
                   return Card(
