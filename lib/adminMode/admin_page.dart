@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:goodproject/adminMode/order_details.dart';
 import 'package:goodproject/verifypages/login_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -98,18 +99,69 @@ class _AdminPageState extends State<AdminPage> {
             const SizedBox(
               height: 15,
             ),
-            Container(
-              alignment: Alignment.topLeft,
-              child: const Row(
-                children: [
-                  Icon(
-                    Icons.bar_chart_rounded,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text('Order Details')
-                ],
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const OrderDetails()));
+              },
+              child: Container(
+                alignment: Alignment.topLeft,
+                child: const Row(
+                  children: [
+                    Icon(
+                      Icons.list_alt,
+                      size: 35,
+                      color: Colors.green,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text('Order Details')
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            InkWell(
+              onTap: () {},
+              child: Container(
+                child: const Row(
+                  children: [
+                    Icon(
+                      Icons.fastfood_rounded,
+                      color: Colors.pink,
+                      size: 30,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(" Create New Item's")
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            InkWell(
+              child: Container(
+                child: const Row(
+                  children: [
+                    Icon(
+                      Icons.delivery_dining,
+                      color: Colors.orange,
+                      size: 35,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text('Manage Order Status')
+                  ],
+                ),
               ),
             ),
           ],
