@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:goodproject/adminMode/admin_notfiy_.dart';
@@ -14,6 +15,19 @@ class AdminPage extends StatefulWidget {
 
 class _AdminPageState extends State<AdminPage> {
   int notificationCount = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseFirestore.instance //notification Counter to update from setstate
+        .collection('cashPay')
+        .snapshots()
+        .listen((snapshot) {
+      setState(() {
+        notificationCount = snapshot.docs.length;
+      });
+    });
+  }
 
   Future<void> _showLogOUtDialog(BuildContext, context) {
     //for the showdialog of the logout
@@ -105,8 +119,10 @@ class _AdminPageState extends State<AdminPage> {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AdminNotify()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AdminNotify()));
                 },
                 child: Container(
                   alignment: Alignment.topRight,

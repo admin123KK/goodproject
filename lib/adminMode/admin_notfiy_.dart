@@ -3,9 +3,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:goodproject/database.dart';
 
-class AdminNotify extends StatelessWidget {
+class AdminNotify extends StatefulWidget {
   const AdminNotify({Key? key}) : super(key: key);
 
+  @override
+  State<AdminNotify> createState() => _AdminNotifyState();
+}
+
+class _AdminNotifyState extends State<AdminNotify> {
   @override
   Widget build(BuildContext context) {
     final User? user = FirebaseAuth.instance.currentUser;
@@ -25,7 +30,7 @@ class AdminNotify extends StatelessWidget {
         centerTitle: true,
       ),
       body: FutureBuilder<Stream<QuerySnapshot>>(
-        future: databaseMethods.getUserNotifications(),
+        future: databaseMethods.getUser(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
