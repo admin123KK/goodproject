@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:goodproject/adminMode/admin_notfiy_.dart';
 import 'package:goodproject/adminMode/order_details.dart';
 import 'package:goodproject/verifypages/login_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -12,6 +13,8 @@ class AdminPage extends StatefulWidget {
 }
 
 class _AdminPageState extends State<AdminPage> {
+  int notificationCount = 0;
+
   Future<void> _showLogOUtDialog(BuildContext, context) {
     //for the showdialog of the logout
     return showDialog(
@@ -41,7 +44,8 @@ class _AdminPageState extends State<AdminPage> {
               TextButton(
                   onPressed: () async {
                     // await _auth.signOut();
-                    GoogleSignIn googleSignIn = GoogleSignIn();
+                    GoogleSignIn googleSignIn =
+                        GoogleSignIn(); //for the signout
                     googleSignIn.disconnect();
                     await FirebaseAuth.instance.signOut();
                     Navigator.pushAndRemoveUntil(
@@ -76,13 +80,14 @@ class _AdminPageState extends State<AdminPage> {
         ),
         actions: [
           IconButton(
-              onPressed: () {
-                _showLogOUtDialog(BuildContext, context);
-              },
-              icon: const Icon(
-                Icons.logout_outlined,
-                color: Colors.black,
-              ))
+            onPressed: () {
+              _showLogOUtDialog(BuildContext, context);
+            },
+            icon: const Icon(
+              Icons.logout_outlined,
+              color: Colors.black,
+            ),
+          ),
         ],
       ),
       body: Padding(
@@ -96,8 +101,31 @@ class _AdminPageState extends State<AdminPage> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
             ),
-            const SizedBox(
-              height: 15,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AdminNotify()));
+                },
+                child: Container(
+                  alignment: Alignment.topRight,
+                  child: notificationCount > 0
+                      ? Badge(
+                          label: Text(notificationCount.toString()),
+                          child: const Icon(
+                            Icons.notifications_active,
+                            color: Colors.black,
+                            size: 27,
+                          ),
+                        )
+                      : const Icon(
+                          Icons.notifications_active,
+                          size: 27,
+                          color: Colors.black,
+                        ),
+                ),
+              ),
             ),
             InkWell(
               onTap: () {
@@ -118,7 +146,7 @@ class _AdminPageState extends State<AdminPage> {
                     SizedBox(
                       width: 10,
                     ),
-                    Text('Order Details')
+                    Text('Order Details'),
                   ],
                 ),
               ),

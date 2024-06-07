@@ -277,19 +277,24 @@ class _LoginPageState extends State<HomePage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => NotificationPage()));
+                          builder: (context) => const NotificationPage()));
                 });
               },
-              child: Badge(
-                label: Text(notificationCount.toString()),
-
-                // largeSize: 40,
-                child: const Icon(
-                  Icons.notifications_active_outlined,
-                  size: 30,
-                  color: Colors.black,
-                ),
-              ),
+              child: Container(
+                  child: notificationCount > 0
+                      ? Badge(
+                          label: Text(notificationCount.toString()),
+                          child: const Icon(
+                            Icons.notifications_active_outlined,
+                            size: 30,
+                            color: Colors.black,
+                          ),
+                        )
+                      : const Icon(
+                          Icons.notifications_active_outlined,
+                          size: 30,
+                          color: Colors.black,
+                        )),
             ),
           ),
         ],
