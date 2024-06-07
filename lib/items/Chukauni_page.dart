@@ -63,7 +63,8 @@ class _ChukauniPageState extends State<ChukauniPage> {
         'totalCost': _calculateAmountTotal(),
         'dateTime': DateTime.now(),
         'Email': FirebaseAuth.instance.currentUser?.email,
-        'Name': FirebaseAuth.instance.currentUser?.displayName
+        'Name': FirebaseAuth.instance.currentUser?.displayName,
+        'seen': false
       });
       print('Order cash successful');
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

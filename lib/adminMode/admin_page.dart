@@ -21,11 +21,25 @@ class _AdminPageState extends State<AdminPage> {
     super.initState();
     FirebaseFirestore.instance //notification Counter to update from setstate
         .collection('cashPay')
+        .where('seen', isEqualTo: false)
         .snapshots()
         .listen((snapshot) {
       setState(() {
         notificationCount = snapshot.docs.length;
       });
+    });
+  }
+
+  void _markNotificationSeen() async {
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('cashPay')
+        .where('seen', isEqualTo: false)
+        .get();
+    for (QueryDocumentSnapshot doc in snapshot.docs) {
+      await doc.reference.update({'seen': true});
+    }
+    setState(() {
+      notificationCount = 0;
     });
   }
 
@@ -118,7 +132,8 @@ class _AdminPageState extends State<AdminPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: GestureDetector(
-                onTap: () {
+                onTap: () async {
+                  _markNotificationSeen();
                   Navigator.push(
                       context,
                       MaterialPageRoute(

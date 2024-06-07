@@ -32,7 +32,7 @@
 
   "confirmPassword": "Confirm Password",
 
-  "orContinueWith": "or Continue With",
+  "orContinueWith": "or continue with",
   "alreadyHaveAccount": "Already have an account?",
   "DontHaveAccount" :"Don't Have Account?",
 
@@ -49,7 +49,7 @@
   "emailAlready": "Email already use try another",
   "weakPassword": "Weak Password",
 
-  "restPassword" : "Reset Password",
+  "resetPassword" : "Reset Password",
   "enterPassword": "Enter email to rest password",
   "checkEmail" :"Check email for new password",
   "sucessBack": "Success? Back to Login",

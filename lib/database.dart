@@ -16,8 +16,4 @@ class DatabaseMethods {
   Future<Stream<QuerySnapshot>> getUserNotifications() async {
     return await FirebaseFirestore.instance.collection('cashPay').snapshots();
   }
-
-  Future<Stream<QuerySnapshot>> getUser() async {
-    return await FirebaseFirestore.instance.collection('cashPay').snapshots();
-  }
 }

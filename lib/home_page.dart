@@ -44,12 +44,26 @@ class _LoginPageState extends State<HomePage> {
     });
     FirebaseFirestore.instance
         .collection('cashPay')
+        .where('seen', isEqualTo: false)
         .snapshots()
         .listen((snapshot) {
       setState(() {
         notificationCount = snapshot.docs
             .length; // Update notification count based on the number of documents
       });
+    });
+  }
+
+  void _markNotificationSeen() async {
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('cashPay')
+        .where('seen', isEqualTo: false)
+        .get();
+    for (QueryDocumentSnapshot doc in snapshot.docs) {
+      await doc.reference.update({'seen': true});
+    }
+    setState(() {
+      notificationCount = 0;
     });
   }
 
@@ -186,7 +200,7 @@ class _LoginPageState extends State<HomePage> {
           return AlertDialog(
             title: const Text(
               'Logout',
-              style: const TextStyle(fontFamily: 'Mooli'),
+              style: TextStyle(fontFamily: 'Mooli'),
             ),
             content: Text(
               AppLocalizations.of(context).translate('areYou'),
@@ -272,7 +286,8 @@ class _LoginPageState extends State<HomePage> {
                         color: Color(0xFF91AD13),
                       ));
                     });
-                Timer(Duration(seconds: 1), () {
+                Timer(const Duration(seconds: 1), () async {
+                  _markNotificationSeen();
                   Navigator.pop(context);
                   Navigator.push(
                       context,
@@ -508,15 +523,19 @@ class _LoginPageState extends State<HomePage> {
                 color: Colors.black,
               ),
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LocationPage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LocationPage()));
               },
               title: const Text('Location'),
             ),
             ListTile(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SettingPage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SettingPage()));
               },
               leading: const Icon(
                 Icons.settings,

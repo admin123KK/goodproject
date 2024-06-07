@@ -30,7 +30,7 @@ class _AdminNotifyState extends State<AdminNotify> {
         centerTitle: true,
       ),
       body: FutureBuilder<Stream<QuerySnapshot>>(
-        future: databaseMethods.getUser(),
+        future: databaseMethods.getUserNotifications(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -75,9 +75,9 @@ class _AdminNotifyState extends State<AdminNotify> {
                         'Order Received',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      subtitle: Text("New Ordered Item $itemName"
+                      subtitle: Text("A new order Item $itemName"
                           ' total x$quantity'
-                          ' has received '),
+                          ' has received. '),
                       leading: const Icon(
                         Icons.notifications_on_outlined,
                         color: Colors.green,

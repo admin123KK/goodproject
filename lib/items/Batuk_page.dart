@@ -66,7 +66,8 @@ class _BatukPageState extends State<BatukPage> {
         'totalCost': _calculateAmountTotal(),
         'dateTime': DateTime.now(),
         'Email': FirebaseAuth.instance.currentUser?.email,
-        'Name': FirebaseAuth.instance.currentUser?.displayName
+        'Name': FirebaseAuth.instance.currentUser?.displayName,
+        'seen': false
       });
       print('Order Sucess on cash');
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

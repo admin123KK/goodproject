@@ -100,12 +100,18 @@ class _StartPageState extends State<StartPage> {
                     ),
                   ),
                 ),
+                const SizedBox(
+                  height: 10,
+                ),
                 Center(
                   child: Text(
-                    AppLocalizations.of(context)!
+                    AppLocalizations.of(context)
                         .translate('or'), // Access AppLocalizations directly
-                    style: TextStyle(fontSize: 17),
+                    style: const TextStyle(fontSize: 17),
                   ),
+                ),
+                const SizedBox(
+                  height: 5,
                 ),
                 Center(
                   child: Container(

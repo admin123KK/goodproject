@@ -87,7 +87,8 @@ class _SelRotiPageState extends State<SelRotiPage> {
         'totalCost': _calculateTotalAmount(),
         'dateTime': DateTime.now(),
         'Email': FirebaseAuth.instance.currentUser?.email,
-        'Name': FirebaseAuth.instance.currentUser?.displayName
+        'Name': FirebaseAuth.instance.currentUser?.displayName,
+        'seen': false
       });
       print('order sucess in cash');
       ScaffoldMessenger.of(context).showSnackBar(

@@ -63,7 +63,8 @@ class _PhiniPageState extends State<PhiniPage> {
         'totalCost': _calculateAmountTotal(),
         'dateTime': DateTime.now(),
         'Email': FirebaseAuth.instance.currentUser?.email,
-        'Name': FirebaseAuth.instance.currentUser?.displayName
+        'Name': FirebaseAuth.instance.currentUser?.displayName,
+        'seen': false
       });
       print('Order cash Sucess');
       ScaffoldMessenger.of(context).showSnackBar(
