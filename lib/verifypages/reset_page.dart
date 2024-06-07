@@ -55,7 +55,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             alignment: Alignment.topLeft,
                             child: Text(
                               AppLocalizations.of(context)
-                                  .translate('emailEnter'),
+                                  .translate('enterPassword'),
                               style: TextStyle(
                                   color: Colors.grey[600], fontSize: 13.5),
                             ),
@@ -74,10 +74,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                               decoration: InputDecoration(
                                   hintText: AppLocalizations.of(context)
                                       .translate('enterYourMail'),
+                                  hintStyle: TextStyle(color: Colors.grey[600]),
                                   labelText: AppLocalizations.of(context)
                                       .translate('email'),
-                                  labelStyle: const TextStyle(
-                                    color: Colors.black,
+                                  labelStyle: TextStyle(
+                                    color: Colors.grey[600],
                                   ),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(15),
@@ -130,7 +131,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                               ),
                               style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all(
-                                  Color(0xFF91AD13),
+                                  const Color(0xFF91AD13),
                                 ),
                               ),
                             ),
@@ -138,7 +139,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         ),
                         Row(
                           children: [
-                            Expanded(
+                            const Expanded(
                               child: Divider(
                                 thickness: 0.5,
                                 color: Colors.grey,

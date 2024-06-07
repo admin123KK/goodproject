@@ -55,12 +55,14 @@ class _LoginPageState extends State<HomePage> {
   }
 
   void _markNotificationSeen() async {
-    QuerySnapshot snapshot = await FirebaseFirestore.instance
+    QuerySnapshot snapshot = await FirebaseFirestore
+        .instance //notification seen and chnage the counter star form begin
         .collection('cashPay')
         .where('seen', isEqualTo: false)
         .get();
     for (QueryDocumentSnapshot doc in snapshot.docs) {
-      await doc.reference.update({'seen': true});
+      await doc.reference
+          .update({'seen': true}); //have to change in the upper side also
     }
     setState(() {
       notificationCount = 0;

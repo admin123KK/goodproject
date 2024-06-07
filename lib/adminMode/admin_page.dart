@@ -21,7 +21,7 @@ class _AdminPageState extends State<AdminPage> {
     super.initState();
     FirebaseFirestore.instance //notification Counter to update from setstate
         .collection('cashPay')
-        .where('seen', isEqualTo: false)
+        // .where('seen', isEqualTo: false)
         .snapshots()
         .listen((snapshot) {
       setState(() {
@@ -30,18 +30,18 @@ class _AdminPageState extends State<AdminPage> {
     });
   }
 
-  void _markNotificationSeen() async {
-    QuerySnapshot snapshot = await FirebaseFirestore.instance
-        .collection('cashPay')
-        .where('seen', isEqualTo: false)
-        .get();
-    for (QueryDocumentSnapshot doc in snapshot.docs) {
-      await doc.reference.update({'seen': true});
-    }
-    setState(() {
-      notificationCount = 0;
-    });
-  }
+  // void _markNotificationSeen() async {
+  //   QuerySnapshot snapshot = await FirebaseFirestore.instance
+  //       .collection('cashPay')
+  //       .where('seen', isEqualTo: true)
+  //       .get();
+  //   for (QueryDocumentSnapshot doc in snapshot.docs) {
+  //     await doc.reference.update({'seen': true});
+  //   }
+  //   setState(() {
+  //     notificationCount = 0;
+  //   });
+  // }
 
   Future<void> _showLogOUtDialog(BuildContext, context) {
     //for the showdialog of the logout
@@ -133,7 +133,7 @@ class _AdminPageState extends State<AdminPage> {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: GestureDetector(
                 onTap: () async {
-                  _markNotificationSeen();
+                  // _markNotificationSeen();
                   Navigator.push(
                       context,
                       MaterialPageRoute(

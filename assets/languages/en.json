@@ -50,9 +50,9 @@
   "weakPassword": "Weak Password",
 
   "resetPassword" : "Reset Password",
-  "enterPassword": "Enter email to rest password",
+  "enterPassword": "Enter email to reset password",
   "checkEmail" :"Check email for new password",
-  "sucessBack": "Success? Back to Login",
+  "successBack": "Success? Back to Login",
 
   "verificationCode" :  "Verification Code",
   "OTP": "We have sent OTP to your email address",
