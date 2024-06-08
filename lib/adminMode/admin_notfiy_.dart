@@ -66,6 +66,7 @@ class _AdminNotifyState extends State<AdminNotify> {
                       data['itemName'] ?? 'Unknown'; //fetching the itemName
                   final quantity =
                       data['quantity'] ?? 'Unknown'; //,, the quantity
+                  final userName = data['Name'] ?? 'Unknown';
                   print("Item Name: $itemName");
 
                   return Card(
@@ -77,7 +78,7 @@ class _AdminNotifyState extends State<AdminNotify> {
                       ),
                       subtitle: Text("A new order Item $itemName"
                           ' total x$quantity'
-                          ' has received. '),
+                          ' has received from user $userName. '),
                       leading: const Icon(
                         Icons.notifications_on_outlined,
                         color: Colors.green,

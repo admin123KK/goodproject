@@ -53,6 +53,15 @@ class _PhiniPageState extends State<PhiniPage> {
     } catch (e) {
       print('Error adding item  $e');
     }
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        backgroundColor: Colors.black,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        content: const Center(
+            child: Text(
+          'Sucessfully added to  cart !!',
+          style: TextStyle(color: Color(0xFF91AD13)),
+        ))));
   }
 
   Future<void> processOrder() async {

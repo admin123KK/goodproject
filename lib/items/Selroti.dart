@@ -50,7 +50,21 @@ class _SelRotiPageState extends State<SelRotiPage> {
         'quantity': _quantity,
         'totalCost': _calculateTotalAmount()
       });
-      print('added to cart sucessufly');
+      print('added to cart sucessfully');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          behavior: SnackBarBehavior.floating,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(19)),
+          backgroundColor: Colors.black,
+          content: const Center(
+            child: Text(
+              'Successfully  added to cart !!',
+              style: TextStyle(color: Color(0xFF91AD13)),
+            ),
+          ),
+        ),
+      );
     } catch (e) {
       print('Error add item $e');
     }

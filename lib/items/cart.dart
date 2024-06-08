@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  double totalCosts = 0; // Changed to double
+  double totalCosts = 0;
   String userName = "";
 
   @override
@@ -30,65 +31,69 @@ class _CartPageState extends State<CartPage> {
     }
   }
 
-  Future<void> _editUser(String userId) async {
-    // String newName = "";
-    String editItems = "";
-    await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text(
-            'Update Cart',
-            style: TextStyle(fontFamily: "Mooli", fontWeight: FontWeight.bold),
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                onChanged: (value) {
-                  editItems = value;
-                },
-                decoration:
-                    InputDecoration(labelText: 'No of Items'), //firestore deals
-              )
-            ],
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text(
-                'Cancel',
-                style: TextStyle(color: Colors.black),
-              ),
+  Future<void> updateQuantity(
+      String userId, int currentQuantity, bool increment) async {
+    DocumentSnapshot userDoc =
+        await firestore.collection('cart').doc(userId).get();
+    double itemCost = userDoc['totalCost'] / userDoc['quantity'];
+    int newQuantity = increment ? currentQuantity + 1 : currentQuantity - 1;
+    double newTotalCost = newQuantity * itemCost;
+
+    if (newQuantity > 0) {
+      await firestore.collection('cart').doc(userId).update({
+        'quantity': newQuantity,
+        'totalCost': newTotalCost,
+      });
+    }
+  }
+
+  Future<void> cashOrder() async {
+    try {
+      QuerySnapshot querySnapshot = await firestore.collection('cart').get();
+      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        await firestore.collection('cashPay').add({
+          'itemName': data['itemName'],
+          'quantity': data['quantity'],
+          'totalCost': data['totalCost'],
+          'dateTime': DateTime.now(),
+          'Email': FirebaseAuth.instance.currentUser?.email,
+          'Name': FirebaseAuth.instance.currentUser?.displayName,
+          'seen': false,
+        });
+      }
+      print('Order success in cash');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text(
+            'Congratulations !! Your order is placed',
+            style: TextStyle(
+              color: Color(0xFF91AD13),
             ),
-            TextButton(
-              onPressed: () async {
-                await firestore.collection('cart').doc(userId).update({
-                  // 'itemName': newName,
-                  'quantity': int.parse(editItems)
-                });
-                Navigator.pop(context);
-              },
-              child: const Text(
-                'Save',
-                style: TextStyle(
-                    color: Color(0xFF91AD13), fontWeight: FontWeight.bold),
-              ),
-            )
-          ],
-        );
-      },
+          ),
+          backgroundColor: Colors.black,
+          behavior: SnackBarBehavior.floating,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        ),
+      );
+    } catch (e) {
+      print('Order error: $e');
+    }
+  }
+
+  void triggerNotifications() {
+    AwesomeNotifications().createNotification(
+      content: NotificationContent(
+        id: 1,
+        channelKey: 'Khaja_App',
+        title: 'Khaja Ghar',
+        body:
+            'Your multiple cart items order has been placed in the Khaja Ghar',
+        backgroundColor: const Color(0xFF91AD13),
+      ),
     );
   }
-  //For updating the overall amounts in firestore testing
-  // Future<void> updateTotalCost(double cost) async {
-  //   await firestore
-  //       .collection('totalCost')
-  //       .doc('amount')
-  //       .set({'totalAmount': cost});
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -118,49 +123,69 @@ class _CartPageState extends State<CartPage> {
                           itemCount: snapshot.data!.docs.length,
                           itemBuilder: (context, index) {
                             DocumentSnapshot user = snapshot.data!.docs[index];
-                            return Card(
-                              child: ListTile(
-                                title: Text(
-                                  user['itemName'] ?? '',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                subtitle: Row(
-                                  children: [
-                                    Text(
-                                        'No of item: ${user['quantity'].toString()}' ??
-                                            ''),
-                                    const SizedBox(
-                                      width: 20,
-                                    ),
-                                    Text(
-                                        'Total Costs: ${(user['totalCost'] ?? 0)}'
-                                        ''),
-                                  ],
-                                ), // Convert quantity to String
-                                trailing: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    IconButton(
-                                      onPressed: () {
-                                        _editUser(user.id);
-                                      },
-                                      icon: Icon(Icons.edit),
-                                      color: Colors.black,
-                                    ),
-                                    IconButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          // Perform deletion from Firestore
-                                          firestore
-                                              .collection('cart')
-                                              .doc(user.id)
-                                              .delete();
-                                        });
-                                      },
-                                      icon: const Icon(Icons.delete),
-                                      color: Colors.red,
-                                    ),
-                                  ],
+                            return Container(
+                              height: 100,
+                              child: Card(
+                                child: ListTile(
+                                  title: Text(
+                                    user['itemName'] ?? '',
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  subtitle: Row(
+                                    children: [
+                                      Text(
+                                          'No of items: ${user['quantity'].toString()}' ??
+                                              ''),
+                                      const SizedBox(width: 25),
+                                      Flexible(
+                                        flex: 4,
+                                        child: Text(
+                                          'Total Cost : Rs.${user['totalCost'].toString()}' ??
+                                              '',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ],
+                                  ), // Convert quantity to String
+
+                                  trailing: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      IconButton(
+                                        onPressed: () {
+                                          updateQuantity(
+                                              user.id, user['quantity'], false);
+                                        },
+                                        icon: const Icon(Icons.remove),
+                                        color: Colors.black,
+                                        iconSize: 20,
+                                      ), // Updated: Minus Button
+                                      IconButton(
+                                        onPressed: () {
+                                          updateQuantity(
+                                              user.id, user['quantity'], true);
+                                        },
+                                        icon: const Icon(Icons.add),
+                                        color: Colors.black,
+                                        iconSize: 20,
+                                      ), // Updated: Plus Button
+                                      IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            // Perform deletion from Firestore
+                                            firestore
+                                                .collection('cart')
+                                                .doc(user.id)
+                                                .delete();
+                                          });
+                                        },
+                                        icon: const Icon(Icons.delete),
+                                        color: Colors.red,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             );
@@ -207,7 +232,8 @@ class _CartPageState extends State<CartPage> {
                                           );
                                         },
                                       );
-                                      Future.delayed(Duration(seconds: 1), () {
+                                      Future.delayed(const Duration(seconds: 1),
+                                          () {
                                         Navigator.pop(context);
                                         showDialog(
                                           context: context,
@@ -281,7 +307,9 @@ class _CartPageState extends State<CartPage> {
                                               actions: <Widget>[
                                                 TextButton(
                                                   onPressed: () {
+                                                    triggerNotifications();
                                                     Navigator.pop(context);
+                                                    cashOrder();
                                                   },
                                                   child: const Text(
                                                     'Confirm Cash on Delivery',
@@ -375,7 +403,7 @@ class _CartPageState extends State<CartPage> {
             ),
           ),
           const Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
+            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 40),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
