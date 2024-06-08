@@ -51,6 +51,7 @@ class _BatukPageState extends State<BatukPage> {
         'itemName': 'Batuk',
         'quantity': _quantity,
         'totalCost': _calculateAmountTotal(),
+        'Email': FirebaseAuth.instance.currentUser?.email
       });
       print('added to cart successfully');
     } catch (e) {

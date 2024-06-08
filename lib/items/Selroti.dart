@@ -48,7 +48,8 @@ class _SelRotiPageState extends State<SelRotiPage> {
       FirebaseFirestore.instance.collection('cart').add({
         'itemName': 'SelRoti',
         'quantity': _quantity,
-        'totalCost': _calculateTotalAmount()
+        'totalCost': _calculateTotalAmount(),
+        'Email': FirebaseAuth.instance.currentUser?.email
       });
       print('added to cart sucessfully');
       ScaffoldMessenger.of(context).showSnackBar(

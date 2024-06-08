@@ -31,6 +31,14 @@ class _CartPageState extends State<CartPage> {
     }
   }
 
+  Future<void> deleteCartItem(String itemId) async {
+    try {
+      await FirebaseFirestore.instance.collection('cart').doc(itemId).delete();
+    } catch (e) {
+      print('Error deleting cart item: $e');
+    }
+  }
+
   Future<void> updateQuantity(
       String userId, int currentQuantity, bool increment) async {
     DocumentSnapshot userDoc =
@@ -173,12 +181,15 @@ class _CartPageState extends State<CartPage> {
                                       ), // Updated: Plus Button
                                       IconButton(
                                         onPressed: () {
+                                          // setState(() {
+                                          //   // Perform deletion from Firestore
+                                          //   firestore
+                                          //       .collection('cart')
+                                          //       .doc(user.id)
+                                          //       .delete();
+                                          // });
                                           setState(() {
-                                            // Perform deletion from Firestore
-                                            firestore
-                                                .collection('cart')
-                                                .doc(user.id)
-                                                .delete();
+                                            deleteCartItem(user.id);
                                           });
                                         },
                                         icon: const Icon(Icons.delete),
