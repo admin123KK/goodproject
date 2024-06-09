@@ -27,12 +27,12 @@ class _AdminModeState extends State<AdminMode> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    _email.dispose();
-    _password.dispose();
-    super.initState();
-  }
+  // @override
+  // void dispose() {
+  //   _email.dispose();
+  //   _password.dispose();
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {

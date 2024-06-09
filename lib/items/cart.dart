@@ -32,6 +32,7 @@ class _CartPageState extends State<CartPage> {
   }
 
   Future<void> deleteCartItem(String itemId) async {
+    //another methods to delete the cart items with firestore
     try {
       await FirebaseFirestore.instance.collection('cart').doc(itemId).delete();
     } catch (e) {
@@ -41,7 +42,7 @@ class _CartPageState extends State<CartPage> {
 
   Future<void> updateQuantity(
       String userId, int currentQuantity, bool increment) async {
-    DocumentSnapshot userDoc =
+    DocumentSnapshot userDoc = //working on increseing and decreasing the items
         await firestore.collection('cart').doc(userId).get();
     double itemCost = userDoc['totalCost'] / userDoc['quantity'];
     int newQuantity = increment ? currentQuantity + 1 : currentQuantity - 1;
@@ -151,7 +152,7 @@ class _CartPageState extends State<CartPage> {
                                         child: Text(
                                           'Total Cost : Rs.${user['totalCost'].toString()}' ??
                                               '',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
@@ -401,13 +402,15 @@ class _CartPageState extends State<CartPage> {
               padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
               child: Row(
                 children: [
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(Icons.arrow_back_ios),
-                    iconSize: 30,
-                    color: Colors.black,
+                  GestureDetector(
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(Icons.arrow_back_ios),
+                      iconSize: 30,
+                      color: Colors.black,
+                    ),
                   ),
                 ],
               ),
