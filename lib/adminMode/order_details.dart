@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class OrderDetails extends StatefulWidget {
   const OrderDetails({Key? key});
@@ -28,6 +29,11 @@ class _CartPageState extends State<OrderDetails> {
         userName = user.displayName ?? "";
       });
     }
+  }
+
+  String formatDateTime(Timestamp timestamp) {
+    DateTime dateTime = timestamp.toDate();
+    return DateFormat('yyyy/MM/dd | hh:mm a').format(dateTime);
   }
 
   Future<void> updateQuantity(
@@ -113,7 +119,7 @@ class _CartPageState extends State<OrderDetails> {
                                           ),
                                           Text(
                                             '${user['itemName']}',
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontFamily: 'Mooli',
                                                 fontWeight: FontWeight.bold),
                                           ),
@@ -137,8 +143,8 @@ class _CartPageState extends State<OrderDetails> {
                                       ),
                                       const SizedBox(width: 25),
                                       Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                        // mainAxisAlignment:
+                                        //     MainAxisAlignment.end,
                                         children: [
                                           const Text(
                                             'Total Cost :',
@@ -153,7 +159,20 @@ class _CartPageState extends State<OrderDetails> {
                                                 color: Colors.green,
                                                 fontWeight: FontWeight.bold,
                                                 fontFamily: 'Mooli'),
-                                          )
+                                          ),
+                                          const SizedBox(
+                                            width: 20,
+                                          ),
+                                          const Text(
+                                            'Time :',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black,
+                                                fontFamily: 'Mooli'),
+                                          ),
+                                          Text(
+                                              ' ${formatDateTime(user['dateTime'])}' ??
+                                                  '')
                                         ],
                                       ),
                                     ],
