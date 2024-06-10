@@ -248,7 +248,7 @@ class _CartPageState extends State<OrderDetails> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: const Icon(Icons.arrow_back_ios),
+                      icon: Icon(Icons.arrow_back),
                       iconSize: 30,
                       color: Colors.black,
                     ),

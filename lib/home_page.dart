@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:goodproject/adminMode/create_newItems.dart';
+import 'package:goodproject/adminMode/test_page.dart';
 import 'package:goodproject/app_localization.dart';
 import 'package:goodproject/items/Batuk_page.dart';
 import 'package:goodproject/items/Chukauni_page.dart';
@@ -568,7 +570,10 @@ class _LoginPageState extends State<HomePage> {
               },
             ),
             ListTile(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ItemPage()));
+              },
               leading: const Icon(
                 Icons.feedback,
                 color: Colors.black,
@@ -582,7 +587,11 @@ class _LoginPageState extends State<HomePage> {
               ),
               title: Text('Help'),
             ),
-            const ListTile(
+            ListTile(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CreateNew()));
+              },
               leading: Icon(
                 Icons.share,
                 color: Colors.black,

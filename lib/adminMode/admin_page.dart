@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:goodproject/adminMode/admin_notfiy_.dart';
+import 'package:goodproject/adminMode/create_newItems.dart';
 import 'package:goodproject/adminMode/order_details.dart';
 import 'package:goodproject/verifypages/login_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -186,7 +187,10 @@ class _AdminPageState extends State<AdminPage> {
               height: 15,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CreateNew()));
+              },
               child: Container(
                 child: const Row(
                   children: [

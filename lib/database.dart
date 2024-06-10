@@ -16,4 +16,31 @@ class DatabaseMethods {
   Future<Stream<QuerySnapshot>> getUserNotifications() async {
     return await FirebaseFirestore.instance.collection('cashPay').snapshots();
   }
+
+  // Add methods for handling other collections
+  Future<void> addItem(Map<String, dynamic> itemData, String id) async {
+    return await FirebaseFirestore.instance
+        .collection("items")
+        .doc(id)
+        .set(itemData);
+  }
+
+  Future<void> updateItem(String id, Map<String, dynamic> updatedData,
+      Map<String, String> itemData) async {
+    return await FirebaseFirestore.instance
+        .collection("items")
+        .doc(id)
+        .update(updatedData);
+  }
+
+  Future<void> deleteItem(String id) async {
+    return await FirebaseFirestore.instance
+        .collection("items")
+        .doc(id)
+        .delete();
+  }
+
+  Stream<QuerySnapshot> getItems() {
+    return FirebaseFirestore.instance.collection('items').snapshots();
+  }
 }
