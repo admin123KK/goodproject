@@ -3,6 +3,8 @@ import 'package:goodproject/app_localization.dart';
 import 'package:goodproject/database.dart';
 import 'package:shimmer/shimmer.dart';
 
+import 'item_details_page.dart';
+
 class ItemPage extends StatefulWidget {
   const ItemPage({Key? key}) : super(key: key);
 
@@ -98,91 +100,113 @@ class _ItemPageState extends State<ItemPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
+        const Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
             'Popular',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
-        SizedBox(
-          height: 500,
-          child: ListView.builder(
-            scrollDirection: Axis.vertical,
-            itemCount: items.length,
-            itemBuilder: (context, index) {
-              final item = items[index];
-              return GestureDetector(
-                onTap: () {
-                  if (item['name'] != null &&
-                      item['image'] != null &&
-                      item['price'] != null &&
-                      item['description'] != null) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => ItemPage()));
-                    // Navigate to detail page when an item is tapped
-                    // Handle the case when required properties are null
-                  }
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        height: 255,
-                        width: 175,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(18),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 3,
-                                offset: Offset(0, 3),
-                                blurRadius: 10)
-                          ],
+        SingleChildScrollView(
+          child: SizedBox(
+            height: 500,
+            child: GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 8.0,
+                mainAxisSpacing: 8,
+                childAspectRatio: 0.75,
+              ),
+              scrollDirection: Axis.vertical,
+              itemCount: items.length,
+              itemBuilder: (context, index) {
+                final item = items[index];
+                return GestureDetector(
+                  onTap: () {
+                    if (item['name'] != null &&
+                        item['image'] != null &&
+                        item['price'] != null &&
+                        item['description'] != null) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ItemDetailPage(
+                            name: item['name'],
+                            image: item['image'],
+                            price: item['price'],
+                            description: item['description'],
+                          ),
                         ),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 20),
-                              child: ClipOval(
-                                child: Image.network(
-                                  item['image'],
-                                  fit: BoxFit.cover,
-                                  width: 130,
-                                  height: 130,
-                                ),
-                              ),
+                      );
+                      // Navigate to detail page when an item is tapped
+                      // Handle the case when required properties are null
+                    } else {}
+                  },
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            alignment: Alignment.center,
+                            height: 255,
+                            width: 175,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(18),
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 3,
+                                    offset: Offset(0, 3),
+                                    blurRadius: 10)
+                              ],
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    item['name'] ?? 'Unnamed Item',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 20),
+                                  child: ClipOval(
+                                    child: Image.network(
+                                      item['image'],
+                                      fit: BoxFit.cover,
+                                      width: 130,
+                                      height: 130,
+                                    ),
                                   ),
-                                  Row(
-                                    children: [Text(item['price'].toString())],
-                                  )
-                                ],
-                              ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        item['name'] ?? 'Unnamed Item',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(item['price'].toString())
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         ),
       ],
