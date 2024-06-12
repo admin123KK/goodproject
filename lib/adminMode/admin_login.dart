@@ -52,7 +52,7 @@ class _AdminModeState extends State<AdminMode> {
               case ConnectionState.done:
                 return SingleChildScrollView(
                   child: Padding(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     child: SafeArea(
                       child: Form(
                         key: _formKey,
@@ -243,6 +243,7 @@ class _AdminModeState extends State<AdminMode> {
                 );
             }
           }),
+      drawer: Drawer(),
     );
   }
 }

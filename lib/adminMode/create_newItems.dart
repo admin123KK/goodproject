@@ -117,7 +117,7 @@ class _CreateNewState extends State<CreateNew> {
             onPressed: () {
               final itemData = {
                 'name': _nameController.text,
-                'price': double.parse(_priceController.text),
+                'price': int.parse(_priceController.text),
                 'description': _descriptionController.text, // Added
                 'image': _imageController.text,
               };

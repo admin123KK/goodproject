@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:goodproject/adminMode/admin_login.dart';
 import 'package:goodproject/app_localization.dart';
 import 'package:goodproject/home_page.dart';
 import 'package:goodproject/verifypages/firebase_options.dart';
@@ -448,7 +447,7 @@ class _LoginPageState extends State<LoginPage> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const AdminMode()));
+                                                  const HomePage()));
                                     },
                                     child: Container(
                                       height: 30,

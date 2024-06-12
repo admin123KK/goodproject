@@ -368,7 +368,7 @@ class _LoginPageState extends State<HomePage> {
                             blurRadius: 10),
                       ]),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
                       children: [
                         const Icon(
