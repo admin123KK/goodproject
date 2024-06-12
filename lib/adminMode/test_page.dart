@@ -178,12 +178,12 @@ class _ItemPageState extends State<ItemPage> {
         ),
         SingleChildScrollView(
           child: SizedBox(
-            height: 530,
+            height: 520,
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                crossAxisSpacing: 8.0,
-                mainAxisSpacing: 8,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
                 childAspectRatio: 0.75,
               ),
               scrollDirection: Axis.vertical,
@@ -253,7 +253,8 @@ class _ItemPageState extends State<ItemPage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        item['name'] ?? 'Unnamed Item',
+                                        AppLocalizations.of(context).translate(
+                                            item['name'].toString() ?? ""),
                                         style: const TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold),
@@ -266,16 +267,17 @@ class _ItemPageState extends State<ItemPage> {
                                               'Rs',
                                             ),
                                             style: const TextStyle(
-                                                fontFamily: 'Mooli',
+                                                // fontFamily: 'Mooli',
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 18,
                                                 color: Colors.green),
                                           ),
                                           Text(
-                                            item['price'].toString(),
-                                            style: TextStyle(
+                                            item['price'].toStringAsFixed(0),
+                                            style: const TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontFamily: 'Mooli',
+                                                // fontFamily: 'Mooli',
+                                                fontSize: 16,
                                                 color: Colors.green),
                                           )
                                         ],

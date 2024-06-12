@@ -117,7 +117,7 @@ class _CreateNewState extends State<CreateNew> {
             onPressed: () {
               final itemData = {
                 'name': _nameController.text,
-                'price': int.parse(_priceController.text),
+                'price': double.parse(_priceController.text),
                 'description': _descriptionController.text, // Added
                 'image': _imageController.text,
               };
@@ -125,7 +125,10 @@ class _CreateNewState extends State<CreateNew> {
                 databaseMethods.addItem(
                     itemData, DateTime.now().millisecondsSinceEpoch.toString());
               } else {
-                // databaseMethods.updateItem(_selectedItemId, itemData);
+                databaseMethods.updateItem(
+                  _selectedItemId,
+                  itemData,
+                );
               }
               Navigator.of(context).pop();
             },

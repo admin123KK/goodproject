@@ -154,7 +154,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(children: [
-          Image.asset(
+          Image.network(
             widget.image,
             fit: BoxFit.cover,
             height: 340,
@@ -203,7 +203,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                                 ),
                               );
                             });
-                        Timer(Duration(seconds: 1), () {
+                        Timer(const Duration(seconds: 1), () {
                           Navigator.pop(context);
                           Navigator.push(
                               context,
@@ -292,16 +292,31 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                Text(
-                                  AppLocalizations.of(context)
-                                      .translate('Rs_60'),
-                                  style: const TextStyle(
-                                      fontSize: 27,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color.fromARGB(255, 2, 99, 6)),
+                                Row(
+                                  children: [
+                                    Text(
+                                      AppLocalizations.of(context)
+                                          .translate('Rs'),
+                                      style: const TextStyle(
+                                          fontSize: 27,
+                                          fontFamily: 'Mooli',
+                                          fontWeight: FontWeight.bold,
+                                          color: Color.fromARGB(255, 2, 99, 6)),
+                                    ),
+                                    Text(
+                                      widget.price.toStringAsFixed(0),
+                                      style: const TextStyle(
+                                          fontFamily: 'Mooli',
+                                          color: Color.fromARGB(255, 2, 99, 6),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 25),
+                                    )
+                                  ],
                                 ),
                                 Text(
-                                    'Price: \$${widget.price.toStringAsFixed(2)}')
+                                    // 'Price: ${widget.price.toStringAsFixed(2)}',
+                                    AppLocalizations.of(context)
+                                        .translate('/perPiece'))
                               ],
                             ),
                           ],
@@ -315,7 +330,8 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                           horizontal: 33,
                         ),
                         child: Text(
-                          widget.description,
+                          AppLocalizations.of(context)
+                              .translate('Descriptions'),
                           style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16),
                         ),
@@ -326,7 +342,8 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 33),
                         child: Text(
-                          AppLocalizations.of(context).translate('explain'),
+                          AppLocalizations.of(context)
+                              .translate(widget.description),
                           textAlign: TextAlign.justify,
                         ),
                       ),
