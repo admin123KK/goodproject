@@ -274,7 +274,9 @@ class _ItemPageState extends State<ItemPage> {
                       );
                       // Navigate to detail page when an item is tapped
                       // Handle the case when required properties are null
-                    } else {}
+                    } else {
+                      print('Something bad check it mate test');
+                    }
                   },
                   child: SingleChildScrollView(
                     child: Padding(
@@ -284,14 +286,14 @@ class _ItemPageState extends State<ItemPage> {
                         children: [
                           Container(
                             alignment: Alignment.center,
-                            height: 255,
+                            height: 235,
                             width: 175,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(18),
                               color: Colors.white,
                               boxShadow: [
                                 BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
+                                    color: Colors.grey.withOpacity(0.6),
                                     spreadRadius: 3,
                                     offset: Offset(0, 3),
                                     blurRadius: 10)
@@ -399,10 +401,10 @@ class _ItemPageState extends State<ItemPage> {
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 4,
-                                offset: Offset(0, 2),
-                                blurRadius: 20)
+                                color: Colors.grey.withOpacity(1),
+                                spreadRadius: 1,
+                                offset: Offset(0, 3),
+                                blurRadius: 10)
                           ],
                           borderRadius: BorderRadius.circular(22),
                           color: Colors.white,
@@ -410,13 +412,12 @@ class _ItemPageState extends State<ItemPage> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(22),
                           child: Image.network(
-                            item['image'] ??
-                                'https://via.placeholder.com/90x110',
+                            item['image'],
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       Text(
                         item['name'] ?? 'Unnamed Item',
                         style: const TextStyle(
