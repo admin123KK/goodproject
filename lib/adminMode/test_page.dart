@@ -1,7 +1,11 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:goodproject/app_localization.dart';
 import 'package:goodproject/database.dart';
+import 'package:goodproject/items/notification_page.dart';
 
 import 'item_details_page.dart';
 
@@ -35,6 +39,28 @@ class _ItemPageState extends State<ItemPage> {
           updateGreeting();
         });
       }
+    });
+    FirebaseFirestore.instance
+        .collection('cashPay')
+        .where('seen', isEqualTo: false)
+        .snapshots()
+        .listen((snapshot) {
+      setState(() {
+        notificationCount = snapshot.docs.length;
+      });
+    });
+  }
+
+  void _markNotificationSeen() async {
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('cashPay')
+        .where('seen', isEqualTo: false)
+        .get();
+    for (QueryDocumentSnapshot doc in snapshot.docs) {
+      await doc.reference.update({'seen': true});
+    }
+    setState(() {
+      notificationCount = 0;
     });
   }
 
@@ -72,6 +98,45 @@ class _ItemPageState extends State<ItemPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(14),
+            child: InkWell(
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const Center(
+                          child: CircularProgressIndicator(
+                        color: Color(0xFF91AD13),
+                      ));
+                    });
+                Timer(const Duration(seconds: 1), () {
+                  _markNotificationSeen();
+                  Navigator.pop(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => NotificationPage()));
+                });
+              },
+              child: Container(
+                  child: notificationCount > 0
+                      ? Badge(
+                          label: Text(notificationCount.toString()),
+                          child: const Icon(
+                            Icons.notifications_active_outlined,
+                            color: Colors.black,
+                            size: 30,
+                          ))
+                      : const Icon(
+                          Icons.notifications_active_outlined,
+                          size: 30,
+                          color: Colors.black,
+                        )),
+            ),
+          ),
+        ],
         centerTitle: true,
         title: Text(
           AppLocalizations.of(context).translate('khajaGhar'),

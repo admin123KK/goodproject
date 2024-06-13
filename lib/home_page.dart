@@ -56,13 +56,13 @@ class _LoginPageState extends State<HomePage> {
     });
   }
 
-  Future<void> deleteCartItem(String itemId) async {
-    try {
-      await FirebaseFirestore.instance.collection('cart').doc(itemId).delete();
-    } catch (e) {
-      print('Error deleting cart item: $e');
-    }
-  }
+  // Future<void> deleteCartItem(String itemId) async {
+  //   try {
+  //     await FirebaseFirestore.instance.collection('cart').doc(itemId).delete();
+  //   } catch (e) {
+  //     print('Error deleting cart item: $e');
+  //   }
+  // }
 
   void _markNotificationSeen() async {
     QuerySnapshot snapshot = await FirebaseFirestore
