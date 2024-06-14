@@ -488,28 +488,73 @@ class _ItemPageState extends State<ItemPage> {
   }
 }
 
-class CustomSearch extends SearchDelegate {
-  List<String> allData = [''];
-  @override
+class CustomSearch extends SearchDelegate<String> {
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
   List<Widget> buildActions(BuildContext context) {
-    return [IconButton(onPressed: () {}, icon: Icon(Icons.clear))];
+    return [
+      IconButton(
+          onPressed: () {
+            query = '';
+          },
+          icon: Icon(Icons.clear))
+    ];
   }
 
   @override
   Widget? buildLeading(BuildContext context) {
-    // TODO: implement buildLeading
-    throw UnimplementedError();
+    return IconButton(
+        onPressed: () {
+          close(context, '');
+        },
+        icon: AnimatedIcon(
+            icon: AnimatedIcons.menu_arrow, progress: transitionAnimation));
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
-    throw UnimplementedError();
+    return Container();
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    // TODO: implement buildSuggestions
-    throw UnimplementedError();
+    return FutureBuilder<QuerySnapshot>(
+        future: firestore.collection('items').get(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+
+          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+            return Center(child: Text('No items found.'));
+          }
+          final List<QueryDocumentSnapshot> docs = snapshot.data!.docs;
+          final List<Map<String, dynamic>> items = docs
+              .map((doc) => doc.data() as Map<String, dynamic>)
+              .where((item) => item['name']
+                  .toString()
+                  .toLowerCase()
+                  .contains(query.toLowerCase()))
+              .toList();
+          return ListView.builder(
+            itemCount: items.length,
+            itemBuilder: (context, index) {
+              final item = items[index];
+              return ListTile(
+                title: Text(item['name']),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ItemDetailPage(
+                              name: item['name'],
+                              image: item['image'],
+                              price: item['price'],
+                              description: item['description'])));
+                },
+              );
+            },
+          );
+        });
   }
 }

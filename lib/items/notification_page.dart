@@ -43,7 +43,10 @@ class NotificationPage extends StatelessWidget {
             stream: snapshot.data!,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
+                return const Center(
+                    child: CircularProgressIndicator(
+                  color: Color(0xFF91AD13),
+                ));
               }
 
               if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
