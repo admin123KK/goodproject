@@ -59,6 +59,18 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
+  void delete() async {
+    await FirebaseFirestore.instance
+        .collection('notification')
+        .get()
+        .then((snapshot) {
+      for (DocumentSnapshot doc in snapshot.docs) {
+        doc.reference.delete();
+        print('delete');
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -267,7 +279,7 @@ class _LoginPageState extends State<LoginPage> {
                                           for (DocumentSnapshot doc
                                               in snapshot.docs) {
                                             doc.reference.delete();
-                                            print('deleted');
+                                            print('deleted cart');
                                           }
                                         });
                                         final userCredential =
@@ -283,6 +295,7 @@ class _LoginPageState extends State<LoginPage> {
                                                       HomePage(),
                                                 ),
                                                 (route) => false);
+                                        delete();
                                       } on FirebaseAuthException catch (e) {
                                         if (e.code == 'invalid-email') {
                                           await showErrorDialgo(

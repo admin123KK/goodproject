@@ -17,6 +17,12 @@ class DatabaseMethods {
     return await FirebaseFirestore.instance.collection('cashPay').snapshots();
   }
 
+  Future<Stream<QuerySnapshot>> getClearNotifications() async {
+    return await FirebaseFirestore.instance
+        .collection('notification')
+        .snapshots();
+  }
+
   // Add methods for handling other collections
   Future<void> addItem(Map<String, dynamic> itemData, String id) async {
     return await FirebaseFirestore.instance

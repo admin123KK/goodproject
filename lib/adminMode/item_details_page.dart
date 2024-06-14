@@ -149,6 +149,19 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
     );
   }
 
+  Future<void> clearNotification() async {
+    FirebaseFirestore.instance.collection('notification').add({
+      'itemName': widget.name,
+      'quantity': _quantity,
+      'price': widget.price,
+      'totalCost': _calculateTotalAmount(),
+      'dateTime': DateTime.now(),
+      'Email': FirebaseAuth.instance.currentUser?.email,
+      "Name": FirebaseAuth.instance.currentUser?.displayName,
+      'seen': false
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -611,6 +624,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                               TextButton(
                                 onPressed: () {
                                   cashOrder();
+                                  clearNotification();
                                   Navigator.pop(context);
                                   Timer(Duration(seconds: 3), () {
                                     return triggerNotifications();
@@ -632,7 +646,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                                 child: Text(
                                   AppLocalizations.of(context)
                                       .translate('cancel'),
-                                  style: TextStyle(color: Colors.black),
+                                  style: const TextStyle(color: Colors.black),
                                 ),
                               ),
                             ],

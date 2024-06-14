@@ -41,7 +41,7 @@ class _ItemPageState extends State<ItemPage> {
       }
     });
     FirebaseFirestore.instance
-        .collection('cashPay')
+        .collection('notification')
         .where('seen', isEqualTo: false)
         .snapshots()
         .listen((snapshot) {
@@ -53,7 +53,7 @@ class _ItemPageState extends State<ItemPage> {
 
   void _markNotificationSeen() async {
     QuerySnapshot snapshot = await FirebaseFirestore.instance
-        .collection('cashPay')
+        .collection('notification')
         .where('seen', isEqualTo: false)
         .get();
     for (QueryDocumentSnapshot doc in snapshot.docs) {

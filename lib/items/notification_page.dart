@@ -25,7 +25,7 @@ class NotificationPage extends StatelessWidget {
         centerTitle: true,
       ),
       body: FutureBuilder<Stream<QuerySnapshot>>(
-        future: databaseMethods.getUserNotifications(),
+        future: databaseMethods.getClearNotifications(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
