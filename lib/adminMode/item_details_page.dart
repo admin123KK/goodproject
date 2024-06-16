@@ -31,6 +31,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   int _quantity = 0;
   double Item_Price = 60;
   String userName = "";
+  double _currentRating = 0;
 
   double _calculateTotalAmount() {
     double totalAmount = _quantity * Item_Price;
@@ -289,6 +290,9 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                                     color: Colors.orange,
                                   ),
                                   onRatingUpdate: (rating) {
+                                    setState(() {
+                                      _currentRating = rating;
+                                    });
                                     print(rating);
                                   },
                                 ),

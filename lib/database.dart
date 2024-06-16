@@ -48,4 +48,35 @@ class DatabaseMethods {
   Stream<QuerySnapshot> getItems() {
     return FirebaseFirestore.instance.collection('items').snapshots();
   }
+
+  Future<void> updateItemRating(String itemId, double newRating) async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    DocumentReference itemRef = firestore.collection('items').doc(itemId);
+
+    await firestore.runTransaction((transaction) async {
+      DocumentSnapshot snapshot = await transaction.get(itemRef);
+      if (!snapshot.exists) {
+        throw Exception("Item does not exist!");
+      }
+
+      double currentRating = snapshot.get('rating');
+      int ratingCount = snapshot.get('ratingCount');
+
+      double updatedRating =
+          ((currentRating * ratingCount) + newRating) / (ratingCount + 1);
+      int updatedRatingCount = ratingCount + 1;
+
+      transaction.update(itemRef, {
+        'rating': updatedRating,
+        'ratingCount': updatedRatingCount,
+      });
+    });
+  }
+
+  Stream<QuerySnapshot> getPopularItems() {
+    return FirebaseFirestore.instance
+        .collection('items')
+        .orderBy('rating', descending: true)
+        .snapshots();
+  }
 }

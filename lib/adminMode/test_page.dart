@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:goodproject/app_localization.dart';
 import 'package:goodproject/database.dart';
 import 'package:goodproject/items/notification_page.dart';
@@ -286,7 +287,7 @@ class _ItemPageState extends State<ItemPage> {
                         children: [
                           Container(
                             alignment: Alignment.center,
-                            height: 235,
+                            height: 250,
                             width: 175,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(18),
@@ -352,6 +353,26 @@ class _ItemPageState extends State<ItemPage> {
                                     ],
                                   ),
                                 ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    RatingBar.builder(
+                                        itemCount: 5,
+                                        itemSize: 27,
+                                        initialRating: 0,
+                                        allowHalfRating: true,
+                                        direction: Axis.horizontal,
+                                        itemBuilder: (context, _) => const Icon(
+                                              Icons.star,
+                                              color: Colors.orange,
+                                            ),
+                                        onRatingUpdate: (rating) {
+                                          setState(() {});
+
+                                          print(rating);
+                                        })
+                                  ],
+                                )
                               ],
                             ),
                           ),
@@ -446,7 +467,7 @@ class _ItemPageState extends State<ItemPage> {
             height: 20,
             width: 150,
             color: Colors.grey,
-            margin: EdgeInsets.symmetric(vertical: 5),
+            margin: const EdgeInsets.symmetric(vertical: 5),
           ),
         ),
         SizedBox(
