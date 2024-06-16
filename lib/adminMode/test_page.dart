@@ -26,6 +26,7 @@ class _ItemPageState extends State<ItemPage> {
   String userEmail = "";
   String userPhoto = "";
   int notificationCount = 0;
+  double _currentRating = 0;
 
   @override
   void initState() {
@@ -367,8 +368,10 @@ class _ItemPageState extends State<ItemPage> {
                                               color: Colors.orange,
                                             ),
                                         onRatingUpdate: (rating) {
-                                          setState(() {});
-
+                                          setState(() {
+                                            _currentRating = rating;
+                                          });
+                                          _currentRating;
                                           print(rating);
                                         })
                                   ],
@@ -387,6 +390,13 @@ class _ItemPageState extends State<ItemPage> {
         ),
       ],
     );
+  }
+
+  void _storingRatingToFireStore(double rating) async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    await firestore.collection('ratings').add({
+      'rating': rating,
+    });
   }
 
   // Widget to build the list of popular items
