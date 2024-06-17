@@ -31,6 +31,48 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   int _quantity = 0;
   double Item_Price = 60;
   String userName = "";
+  double _currentRating = 0;
+
+  void initState() {
+    super.initState();
+    fetchUserName();
+    fetchItemRating();
+  }
+
+  Future<void> fetchItemRating() async {
+    //rating fetch garcha//
+    try {
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('items')
+          .where('name', isEqualTo: widget.name)
+          .get();
+      if (snapshot.docs.isNotEmpty) {
+        setState(() {
+          _currentRating = snapshot.docs[0]['rating'] ?? 0.0;
+        });
+      }
+    } catch (e) {
+      print('error on fetching: $e');
+    }
+  }
+
+  Future<void> updateItemRating(String itemName, double newRating) async {
+    //storing the rating to the items store
+    try {
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('items')
+          .where('name', isEqualTo: itemName)
+          .get();
+      if (snapshot.docs.isNotEmpty) {
+        DocumentReference docRef = snapshot.docs[0].reference;
+        await docRef.update({'rating': newRating});
+      } else {
+        print('itemss not found');
+      }
+    } catch (e) {
+      print('Error updating rating: $e');
+    }
+  }
 
   double _calculateTotalAmount() {
     double totalAmount = _quantity * Item_Price;
@@ -80,11 +122,6 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
     } catch (e) {
       print('Error add item $e');
     }
-  }
-
-  void initState() {
-    super.initState();
-    fetchUserName();
   }
 
   Future<void> fetchUserName() async {
@@ -276,7 +313,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                             Column(
                               children: [
                                 RatingBar.builder(
-                                  initialRating: 3.5,
+                                  initialRating: _currentRating,
                                   minRating: 1,
                                   direction: Axis.horizontal,
                                   allowHalfRating: true,
@@ -289,7 +326,10 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                                     color: Colors.orange,
                                   ),
                                   onRatingUpdate: (rating) {
-                                    print(rating);
+                                    setState(() {
+                                      _currentRating = rating;
+                                    });
+                                    updateItemRating(widget.name, rating);
                                   },
                                 ),
                                 const SizedBox(

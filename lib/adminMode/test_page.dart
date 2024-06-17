@@ -54,6 +54,7 @@ class _ItemPageState extends State<ItemPage> {
   }
 
   void _markNotificationSeen() async {
+    //notification seen unseen bhako cha ki chaina bhaneyra define
     QuerySnapshot snapshot = await FirebaseFirestore.instance
         .collection('notification')
         .where('seen', isEqualTo: false)
@@ -66,20 +67,40 @@ class _ItemPageState extends State<ItemPage> {
     });
   }
 
-  // Function to load items from the database
+  // Function to load items from the database double working withe rating plus items load process
+
   void _loadItems() {
-    databaseMethods.getItems().listen((snapshot) {
+    databaseMethods.getItems().listen((snapshot) async {
+      List<Map<String, dynamic>> tempItems = [];
+      for (var doc in snapshot.docs) {
+        var itemData = doc.data() as Map<String, dynamic>;
+        // Fetch the rating for each item
+        double rating = await _fetchItemRating(doc.id);
+        itemData['rating'] = rating;
+        tempItems.add(itemData);
+      }
+      tempItems.sort((a, b) => b['rating'].compareTo(a['rating']));
       setState(() {
-        items = snapshot.docs
-            .map((doc) => doc.data() as Map<String, dynamic>)
-            .toList();
+        items = tempItems;
         isLoading = false;
       });
     });
   }
 
+  Future<double> _fetchItemRating(String itemId) async {
+    var ratingDoc =
+        await FirebaseFirestore.instance.collection('items').doc(itemId).get();
+    if (ratingDoc.exists &&
+        ratingDoc.data() != null &&
+        ratingDoc.data()!['rating'] != null) {
+      return ratingDoc.data()!['rating'].toDouble();
+    } else {
+      return 0.0;
+    }
+  }
+
   void updateGreeting() {
-    DateTime now = DateTime.now();
+    DateTime now = DateTime.now(); //working with the greeting
     int hour = now.hour;
     if (hour < 12) {
       setState(() {
@@ -360,18 +381,16 @@ class _ItemPageState extends State<ItemPage> {
                                     RatingBar.builder(
                                         itemCount: 5,
                                         itemSize: 27,
-                                        initialRating: 0,
+                                        initialRating: item['rating'] ?? 0,
                                         allowHalfRating: true,
+                                        ignoreGestures: true,
                                         direction: Axis.horizontal,
                                         itemBuilder: (context, _) => const Icon(
                                               Icons.star,
                                               color: Colors.orange,
                                             ),
                                         onRatingUpdate: (rating) {
-                                          setState(() {
-                                            _currentRating = rating;
-                                          });
-                                          _currentRating;
+                                          setState(() {});
                                           print(rating);
                                         })
                                   ],
