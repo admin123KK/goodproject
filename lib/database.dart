@@ -17,6 +17,12 @@ class DatabaseMethods {
     return await FirebaseFirestore.instance.collection('cashPay').snapshots();
   }
 
+  Future<Stream<QuerySnapshot>> getUserLocation() async {
+    return await FirebaseFirestore.instance
+        .collection('userLocations')
+        .snapshots();
+  }
+
   Future<Stream<QuerySnapshot>> getClearNotifications() async {
     return await FirebaseFirestore.instance
         .collection('notification')

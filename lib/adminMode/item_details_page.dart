@@ -5,6 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:goodproject/app_localization.dart';
 import 'package:goodproject/functions/esea_page.dart';
 import 'package:goodproject/items/cart.dart';
@@ -93,6 +95,82 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
       setState(() {
         _quantity--;
       });
+    }
+  }
+
+  Future<void> _getCurrentLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Location services are disabled.'),
+        ),
+      );
+      return;
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Location permissions are denied.'),
+          ),
+        );
+        return;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Location permissions are permanently denied.'),
+        ),
+      );
+      return;
+    }
+
+    try {
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(position.latitude, position.longitude);
+
+      if (placemarks.isNotEmpty) {
+        Placemark place = placemarks[0];
+        String address =
+            '${place.street}, ${place.locality}, ${place.administrativeArea}, ${place.country}';
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.black,
+            behavior: SnackBarBehavior.floating,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
+            content: Text(
+              'Current location Shared: $address',
+              style: const TextStyle(color: Color(0xFF91AD13)),
+            ),
+          ),
+        );
+
+        // Save the location to Firestore if needed
+        await FirebaseFirestore.instance.collection('locations').add({
+          'user': FirebaseAuth.instance.currentUser?.uid,
+          'address': address,
+          'timestamp': FieldValue.serverTimestamp(),
+        });
+      }
+    } catch (e) {
+      print('Error getting location: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error getting location: $e'),
+        ),
+      );
     }
   }
 
@@ -197,6 +275,25 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
       "Name": FirebaseAuth.instance.currentUser?.displayName,
       'seen': false
     });
+  }
+
+  Future<String?> fetchAddress() async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance
+            .collection("userLocations") // Replace with your collection name
+            .doc(user.uid)
+            .get();
+
+        // Assuming 'address' is a field in your Firestore document
+        return userDoc['location'];
+      }
+    } catch (e) {
+      print('Error fetching address: $e');
+      return null;
+    }
+    return null;
   }
 
   @override
@@ -332,9 +429,9 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                                     updateItemRating(widget.name, rating);
                                   },
                                 ),
-                                const SizedBox(
-                                  height: 4,
-                                ),
+                                // const SizedBox(
+                                //   height: 4,
+                                // ),
                                 Text(
                                   AppLocalizations.of(context)
                                       .translate('StarRatings'),
@@ -497,31 +594,40 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                         ),
                       ),
                       const SizedBox(
-                        width: 53,
+                        width: 48,
                       ),
-                      Container(
-                        height: 35,
-                        width: 130,
-                        child: TextFormField(
-                          textAlign: TextAlign.center,
-                          decoration: InputDecoration(
-                              focusColor: const Color(0xFF91AD13),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: Color(0xFF91AD13)),
-                                borderRadius: BorderRadius.circular(9),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Color(0xFF91AD13),
-                                  ),
-                                  borderRadius: BorderRadius.circular(7)),
-                              labelText: AppLocalizations.of(context)
-                                  .translate('shareLocation'),
-                              labelStyle: TextStyle(
-                                  color: Colors.grey[900], fontSize: 14)),
+                      // Container(
+                      //   height: 35,
+                      //   width: 130,
+                      //   child: TextFormField(
+                      //     textAlign: TextAlign.center,
+                      //     decoration: InputDecoration(
+                      //         focusColor: const Color(0xFF91AD13),
+                      //         focusedBorder: OutlineInputBorder(
+                      //           borderSide:
+                      //               const BorderSide(color: Color(0xFF91AD13)),
+                      //           borderRadius: BorderRadius.circular(9),
+                      //         ),
+                      //         enabledBorder: OutlineInputBorder(
+                      //             borderSide: const BorderSide(
+                      //               color: Color(0xFF91AD13),
+                      //             ),
+                      //             borderRadius: BorderRadius.circular(7)),
+                      //         labelText: AppLocalizations.of(context)
+                      //             .translate('shareLocation'),
+                      //         labelStyle: TextStyle(
+                      //             color: Colors.grey[900], fontSize: 14)),
+                      //   ),
+                      // )
+                      InkWell(
+                        onTap: _getCurrentLocation,
+                        child: const Icon(
+                          Icons.location_pin,
+                          color: Colors.black,
+                          size: 30,
                         ),
-                      )
+                      ),
+                      const Text(' Share Location'),
                     ],
                   ),
                 ),
@@ -555,7 +661,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                           height: 30,
                           width: 100,
                           decoration: BoxDecoration(
-                            color: Color(0xFF91AD13),
+                            color: const Color(0xFF91AD13),
                             borderRadius: BorderRadius.circular(9),
                           ),
                           child: Center(
@@ -572,128 +678,139 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                   height: 45,
                 ),
                 InkWell(
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return const Center(
-                          child: CircularProgressIndicator(
-                            color: Color(0xFF91AD13),
-                          ),
-                        );
-                      },
-                    );
-                    Future.delayed(Duration(seconds: 1), () {
-                      Navigator.pop(context);
+                  onTap: () async {
+                    try {
+                      String? location = await fetchAddress();
                       showDialog(
                         context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: const Text(
-                              'Payement Status ',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 27,
-                                  fontFamily: 'Mooli'),
+                        builder: (context) {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              color: Color(0xFF91AD13),
                             ),
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  AppLocalizations.of(context)
-                                      .translate(
-                                        'total_amount',
-                                      )
-                                      .replaceAll('{amount}',
-                                          _calculateTotalAmount().toString()),
-                                  style: const TextStyle(
-                                      color: Color.fromARGB(255, 28, 139, 31),
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Text(AppLocalizations.of(context)
-                                    .translate('payWith')),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: Divider(
-                                        thickness: 0.5,
-                                        color: Colors.grey[600],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        Esewa esewa = Esewa();
-                                        esewa.pay();
-                                      },
-                                      child: ClipOval(
-                                        child: Image.asset(
-                                          'assets/images/esewa.png',
-                                          width: 45,
-                                          height: 45,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 20,
-                                    ),
-                                    GestureDetector(
-                                      child: ClipOval(
-                                        child: Image.asset(
-                                          'assets/images/khalti.png',
-                                          height: 65,
-                                          width: 65,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Text(AppLocalizations.of(context)
-                                    .translate('or')),
-                              ],
-                            ),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () {
-                                  cashOrder();
-                                  clearNotification();
-                                  Navigator.pop(context);
-                                  Timer(Duration(seconds: 3), () {
-                                    return triggerNotifications();
-                                  });
-                                  // triggerNotifications();
-                                },
-                                child: Text(
-                                  AppLocalizations.of(context)
-                                      .translate('confirmCash'),
-                                  style: const TextStyle(
-                                    color: Color.fromARGB(255, 28, 139, 31),
-                                  ),
-                                ),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text(
-                                  AppLocalizations.of(context)
-                                      .translate('cancel'),
-                                  style: const TextStyle(color: Colors.black),
-                                ),
-                              ),
-                            ],
                           );
                         },
                       );
-                    });
+                      Future.delayed(Duration(seconds: 1), () {
+                        Navigator.pop(context);
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text(
+                                'Payement Status ',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 27,
+                                    fontFamily: 'Mooli'),
+                              ),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    AppLocalizations.of(context)
+                                        .translate(
+                                          'total_amount',
+                                        )
+                                        .replaceAll('{amount}',
+                                            _calculateTotalAmount().toString()),
+                                    style: const TextStyle(
+                                        color: Color.fromARGB(255, 28, 139, 31),
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text('Delivery Location: ${location}'),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(AppLocalizations.of(context)
+                                      .translate('payWith')),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Divider(
+                                          thickness: 0.5,
+                                          color: Colors.grey[600],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          Esewa esewa = Esewa();
+                                          esewa.pay();
+                                        },
+                                        child: ClipOval(
+                                          child: Image.asset(
+                                            'assets/images/esewa.png',
+                                            width: 45,
+                                            height: 45,
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 20,
+                                      ),
+                                      GestureDetector(
+                                        child: ClipOval(
+                                          child: Image.asset(
+                                            'assets/images/khalti.png',
+                                            height: 65,
+                                            width: 65,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Text(AppLocalizations.of(context)
+                                      .translate('or')),
+                                ],
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    cashOrder();
+                                    clearNotification();
+                                    Navigator.pop(context);
+                                    Timer(Duration(seconds: 3), () {
+                                      return triggerNotifications();
+                                    });
+                                    // triggerNotifications();
+                                  },
+                                  child: Text(
+                                    AppLocalizations.of(context)
+                                        .translate('confirmCash'),
+                                    style: const TextStyle(
+                                      color: Color.fromARGB(255, 28, 139, 31),
+                                    ),
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text(
+                                    AppLocalizations.of(context)
+                                        .translate('cancel'),
+                                    style: const TextStyle(color: Colors.black),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      });
+                    } catch (e) {
+                      print('Error displaying payment status dialog: $e');
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Error displaying payment status: $e'),
+                        ),
+                      );
+                    }
                   },
                   child: Container(
                     height: 36,
@@ -705,7 +822,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                     child: Center(
                       child: Text(
                         AppLocalizations.of(context).translate('OrderNow'),
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
@@ -723,67 +840,4 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
 
 
   
-// import 'package:flutter/material.dart';
-
-// class ItemDetailPage extends StatefulWidget {
-//   final String name;
-//   final String image;
-//   final double price;
-//   final String description;
-
-//   const ItemDetailPage({
-//     Key? key,
-//     required this.name,
-//     required this.image,
-//     required this.price,
-//     required this.description,
-//   }) : super(key: key);
-
-//   @override
-//   State<ItemDetailPage> createState() => _ItemDetailPageState();
-// }
-
-// class _ItemDetailPageState extends State<ItemDetailPage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text(widget.name),
-//       ),
-//       body: SingleChildScrollView(
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             Image.network(
-//               widget.image,
-//               width: double.infinity,
-//               height: 200,
-//               fit: BoxFit.cover,
-//             ),
-//             Padding(
-//               padding: const EdgeInsets.all(8.0),
-//               child: Text(
-//                 widget.name,
-//                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-//               ),
-//             ),
-//             Padding(
-//               padding: const EdgeInsets.all(8.0),
-//               child: Text(
-//                 'Price: \$${widget.price.toStringAsFixed(2)}',
-//                 style: TextStyle(fontSize: 18),
-//               ),
-//             ),
-//             Padding(
-//               padding: const EdgeInsets.all(8.0),
-//               child: Text(
-//                 widget.description,
-//                 style: TextStyle(fontSize: 18),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+//
