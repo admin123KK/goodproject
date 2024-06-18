@@ -53,32 +53,54 @@ class _OrderPageState extends State<OrderPage> {
           child: SafeArea(
             child: Column(
               children: [
+                // Container(
+                //   alignment: Alignment.topLeft,
+                //   child: InkWell(
+                //     onTap: () {
+                //       Navigator.pop(context);
+                //     },
+                //     child: const Icon(
+                //       Icons.arrow_back_ios,
+                //       size: 24,
+                //       color: Colors.black,
+                //     ),
+                //   ),
+                // ),
                 Container(
-                    alignment: Alignment.topLeft,
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Icon(
-                        Icons.arrow_back_ios,
-                        size: 24,
-                        color: Colors.black,
-                      ),
-                    )),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Container(
-                    alignment: Alignment.topLeft,
-                    child: const Text(
-                      'Delivery Status',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 33),
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 0,
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Icon(
+                            Icons.arrow_back_ios_outlined,
+                            color: Colors.black,
+                            size: 27,
+                          ),
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Text(
+                            'Delivery Status',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 30),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 43,
+                  ),
                   child: Container(
                     alignment: Alignment.topLeft,
                     child: Text(
@@ -89,25 +111,66 @@ class _OrderPageState extends State<OrderPage> {
                   ),
                 ),
                 Container(
-                  height: 200,
-                  width: 400,
+                  height: 170,
+                  width: 300,
                   child: Image.asset('assets/images/delivery.png'),
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
                       child: const Text(
                         'TimeLine of Your Order',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 25,
+                          fontSize: 22,
                         ),
                       ),
                     ),
                   ],
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 10,
+                ),
+                Row(
+                  children: [
+                    Container(
+                      child: const Row(
+                        children: [
+                          Text(
+                            'Delivery Location :',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Mooli'),
+                          ),
+                          Text(' DeepNagar'),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const Row(
+                  children: [
+                    Text(
+                      'Order Time :',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontFamily: 'Mooli'),
+                    ),
+                    Text('  9.10')
+                  ],
+                ),
+                const Row(
+                  children: [
+                    Text(
+                      'Delivery Time :',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontFamily: 'Mooli'),
+                    ),
+                    Text(' 15 min (Approx)')
+                  ],
+                ),
+                const SizedBox(
+                  height: 15,
                 ),
                 Expanded(
                   child: Container(
@@ -122,15 +185,15 @@ class _OrderPageState extends State<OrderPage> {
                           child: const VerticalDivider(
                               thickness: 2, color: Colors.grey),
                         ),
-                        _buildIcon(
-                            Icons.assignment_turned_in, 'Packed', orderPacked),
+                        _buildIcon(Icons.assignment_turned_in, 'Packed (6 min)',
+                            orderPacked),
                         Container(
                           height: 30,
                           child: const VerticalDivider(
                               color: Colors.grey, thickness: 2),
                         ),
-                        _buildIcon(Icons.delivery_dining_rounded, 'On the way',
-                            orderOnWay),
+                        _buildIcon(Icons.delivery_dining_rounded,
+                            'On the way (10 min)', orderOnWay),
                         Container(
                           height: 30,
                           child: const VerticalDivider(
@@ -165,7 +228,7 @@ class _OrderPageState extends State<OrderPage> {
                     });
                   },
                   child: Container(
-                    height: 27,
+                    height: 30,
                     width: 150,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(27),
@@ -173,7 +236,7 @@ class _OrderPageState extends State<OrderPage> {
                     ),
                     child: const Center(
                         child: Text(
-                      'Check Live Location ',
+                      'Track Live Location ',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     )),
                   ),

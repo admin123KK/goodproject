@@ -28,8 +28,8 @@ class ItemDetailPage extends StatefulWidget {
 }
 
 class _ItemDetailPageState extends State<ItemDetailPage> {
-  int _quantity = 0;
-  double Item_Price = 60;
+  int _quantity = 1;
+  // double Item_Price = 0;
   String userName = "";
   double _currentRating = 0;
 
@@ -75,7 +75,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   }
 
   double _calculateTotalAmount() {
-    double totalAmount = _quantity * Item_Price;
+    double totalAmount = _quantity * widget.price;
     if (_quantity >= 10) {
       totalAmount -= 30;
     }

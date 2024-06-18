@@ -7,7 +7,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:goodproject/app_localization.dart';
 import 'package:goodproject/database.dart';
 import 'package:goodproject/items/notification_page.dart';
-
 import 'item_details_page.dart';
 
 class ItemPage extends StatefulWidget {
@@ -68,7 +67,6 @@ class _ItemPageState extends State<ItemPage> {
   }
 
   // Function to load items from the database double working withe rating plus items load process
-
   void _loadItems() {
     databaseMethods.getItems().listen((snapshot) async {
       List<Map<String, dynamic>> tempItems = [];

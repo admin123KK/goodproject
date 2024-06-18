@@ -4,6 +4,7 @@
   "signup": "SignUp",
   "login": "Login",
   "or": "OR",
+  "AdminMode": "Admin Mode",
 
   "creates": "Create Account",
   "LoginAccount" :"Login Account",

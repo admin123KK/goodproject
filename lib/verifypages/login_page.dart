@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:goodproject/adminMode/admin_login.dart';
 import 'package:goodproject/app_localization.dart';
 import 'package:goodproject/home_page.dart';
 import 'package:goodproject/verifypages/firebase_options.dart';
@@ -460,7 +461,7 @@ class _LoginPageState extends State<LoginPage> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const HomePage()));
+                                                  const AdminMode()));
                                     },
                                     child: Container(
                                       height: 30,
@@ -468,11 +469,12 @@ class _LoginPageState extends State<LoginPage> {
                                       alignment: Alignment.center,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(27),
-                                        color: (Color(0xFF91AD13)),
+                                        color: (const Color(0xFF91AD13)),
                                       ),
-                                      child: const Text(
-                                        'Admin Mode',
-                                        style: TextStyle(
+                                      child: Text(
+                                        AppLocalizations.of(context)
+                                            .translate('AdminMode'),
+                                        style: const TextStyle(
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
