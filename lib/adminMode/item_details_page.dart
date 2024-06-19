@@ -76,6 +76,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
     }
   }
 
+//calculation of the totalCalculated amount
   double _calculateTotalAmount() {
     double totalAmount = _quantity * widget.price;
     if (_quantity >= 10) {
@@ -98,6 +99,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
     }
   }
 
+  //working with the location
   Future<void> _getCurrentLocation() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -159,9 +161,8 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
 
         // Save the location to Firestore if needed
         await FirebaseFirestore.instance.collection('locations').add({
-          'user': FirebaseAuth.instance.currentUser?.uid,
           'address': address,
-          'timestamp': FieldValue.serverTimestamp(),
+          'email': FirebaseAuth.instance.currentUser?.email,
         });
       }
     } catch (e) {
@@ -222,6 +223,16 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
 
   Future<void> cashOrder() async {
     try {
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      List<Placemark> placemark =
+          await placemarkFromCoordinates(position.latitude, position.longitude);
+      String currentAddress = "";
+      if (placemark.isNotEmpty) {
+        Placemark place = placemark[0];
+        currentAddress =
+            '${place.street},${place.locality},${place.administrativeArea}';
+      }
       FirebaseFirestore.instance.collection('cashPay').add({
         'itemName': widget.name,
         'quantity': _quantity,
@@ -229,7 +240,8 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
         'dateTime': DateTime.now(),
         'Email': FirebaseAuth.instance.currentUser?.email,
         'Name': FirebaseAuth.instance.currentUser?.displayName,
-        'seen': false
+        'seen': false,
+        'location': currentAddress
       });
       print('order sucess in cash');
       ScaffoldMessenger.of(context).showSnackBar(
@@ -265,6 +277,16 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   }
 
   Future<void> clearNotification() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    List<Placemark> placemark =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
+    String currentAddress = "";
+    if (placemark.isNotEmpty) {
+      Placemark place = placemark[0];
+      currentAddress =
+          '${place.street},${place.locality},${place.administrativeArea}';
+    }
     FirebaseFirestore.instance.collection('notification').add({
       'itemName': widget.name,
       'quantity': _quantity,
@@ -273,7 +295,8 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
       'dateTime': DateTime.now(),
       'Email': FirebaseAuth.instance.currentUser?.email,
       "Name": FirebaseAuth.instance.currentUser?.displayName,
-      'seen': false
+      'seen': false,
+      'location': currentAddress
     });
   }
 

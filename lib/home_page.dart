@@ -13,6 +13,7 @@ import 'package:goodproject/items/Selroti.dart';
 import 'package:goodproject/items/notification_page.dart';
 import 'package:goodproject/my_orderpage.dart';
 import 'package:goodproject/setting_page.dart';
+import 'package:goodproject/test/resturatnt.dart';
 import 'package:goodproject/verifypages/location_page.dart';
 import 'package:goodproject/verifypages/login_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -580,8 +581,12 @@ class _LoginPageState extends State<HomePage> {
               ),
               title: const Text('Feedback'),
             ),
-            const ListTile(
-              leading: Icon(
+            ListTile(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MapScreen()));
+              },
+              leading: const Icon(
                 Icons.help,
                 color: Colors.black,
               ),
