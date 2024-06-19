@@ -34,11 +34,13 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   // double Item_Price = 0;
   String userName = "";
   double _currentRating = 0;
+  String deliveryLocation = "";
 
   void initState() {
     super.initState();
     fetchUserName();
     fetchItemRating();
+    fetchLocation();
   }
 
   Future<void> fetchItemRating() async {
@@ -284,8 +286,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
     String currentAddress = "";
     if (placemark.isNotEmpty) {
       Placemark place = placemark[0];
-      currentAddress =
-          '${place.street},${place.locality},${place.administrativeArea}';
+      currentAddress = '${place.street}';
     }
     FirebaseFirestore.instance.collection('notification').add({
       'itemName': widget.name,
@@ -317,6 +318,39 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
       return null;
     }
     return null;
+  }
+
+  Future<void> fetchLocation() async {
+    try {
+      // Query the collection to find the document with the desired field
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('notification')
+          .where('location',
+              isNotEqualTo: null) // Adjust this condition as needed
+          .limit(1) // Assuming you want only the first document that matches
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        DocumentSnapshot snapshot = querySnapshot.docs.first;
+        var data = snapshot.data() as Map<String, dynamic>;
+        print('Fetched data: $data'); // Debugging line
+
+        setState(() {
+          deliveryLocation = data['location'] ?? 'Location not available';
+          print('Delivery location set: $deliveryLocation'); // Debugging line
+        });
+      } else {
+        setState(() {
+          deliveryLocation = 'Document does not exist';
+          print('Document does not exist'); // Debugging line
+        });
+      }
+    } catch (e) {
+      print('Error fetching location: $e'); // Debugging line
+      setState(() {
+        deliveryLocation = 'Error fetching location';
+      });
+    }
   }
 
   @override
@@ -742,7 +776,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  Text('Delivery Location: ${location}'),
+                                  Text('Delivery Location :$deliveryLocation'),
                                   const SizedBox(
                                     height: 10,
                                   ),
