@@ -286,7 +286,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
     String currentAddress = "";
     if (placemark.isNotEmpty) {
       Placemark place = placemark[0];
-      currentAddress = '${place.street}';
+      currentAddress = '${place.street},${place.locality}';
     }
     FirebaseFirestore.instance.collection('notification').add({
       'itemName': widget.name,
@@ -299,25 +299,6 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
       'seen': false,
       'location': currentAddress
     });
-  }
-
-  Future<String?> fetchAddress() async {
-    try {
-      User? user = FirebaseAuth.instance.currentUser;
-      if (user != null) {
-        DocumentSnapshot userDoc = await FirebaseFirestore.instance
-            .collection("userLocations") // Replace with your collection name
-            .doc(user.uid)
-            .get();
-
-        // Assuming 'address' is a field in your Firestore document
-        return userDoc['location'];
-      }
-    } catch (e) {
-      print('Error fetching address: $e');
-      return null;
-    }
-    return null;
   }
 
   Future<void> fetchLocation() async {
@@ -684,7 +665,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                           size: 30,
                         ),
                       ),
-                      const Text(' Share Location'),
+                      const Text('Share Location'),
                     ],
                   ),
                 ),
@@ -736,138 +717,131 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                 ),
                 InkWell(
                   onTap: () async {
-                    try {
-                      String? location = await fetchAddress();
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            color: Color(0xFF91AD13),
+                          ),
+                        );
+                      },
+                    );
+                    Future.delayed(Duration(seconds: 1), () {
+                      Navigator.pop(context);
                       showDialog(
                         context: context,
-                        builder: (context) {
-                          return const Center(
-                            child: CircularProgressIndicator(
-                              color: Color(0xFF91AD13),
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text(
+                              'Payement Status ',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 27,
+                                  fontFamily: 'Mooli'),
                             ),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  AppLocalizations.of(context)
+                                      .translate(
+                                        'total_amount',
+                                      )
+                                      .replaceAll('{amount}',
+                                          _calculateTotalAmount().toString()),
+                                  style: const TextStyle(
+                                      color: Color.fromARGB(255, 28, 139, 31),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  'Location Shared ?',
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Text(AppLocalizations.of(context)
+                                    .translate('payWith')),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Divider(
+                                        thickness: 0.5,
+                                        color: Colors.grey[600],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        Esewa esewa = Esewa();
+                                        esewa.pay();
+                                      },
+                                      child: ClipOval(
+                                        child: Image.asset(
+                                          'assets/images/esewa.png',
+                                          width: 45,
+                                          height: 45,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                    GestureDetector(
+                                      child: ClipOval(
+                                        child: Image.asset(
+                                          'assets/images/khalti.png',
+                                          height: 65,
+                                          width: 65,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Text(AppLocalizations.of(context)
+                                    .translate('or')),
+                              ],
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  cashOrder();
+                                  clearNotification();
+                                  Navigator.pop(context);
+                                  Timer(Duration(seconds: 3), () {
+                                    return triggerNotifications();
+                                  });
+                                  // triggerNotifications();
+                                },
+                                child: Text(
+                                  AppLocalizations.of(context)
+                                      .translate('confirmCash'),
+                                  style: const TextStyle(
+                                    color: Color.fromARGB(255, 28, 139, 31),
+                                  ),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text(
+                                  AppLocalizations.of(context)
+                                      .translate('cancel'),
+                                  style: const TextStyle(color: Colors.black),
+                                ),
+                              ),
+                            ],
                           );
                         },
                       );
-                      Future.delayed(Duration(seconds: 1), () {
-                        Navigator.pop(context);
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text(
-                                'Payement Status ',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 27,
-                                    fontFamily: 'Mooli'),
-                              ),
-                              content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    AppLocalizations.of(context)
-                                        .translate(
-                                          'total_amount',
-                                        )
-                                        .replaceAll('{amount}',
-                                            _calculateTotalAmount().toString()),
-                                    style: const TextStyle(
-                                        color: Color.fromARGB(255, 28, 139, 31),
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text('Delivery Location :$deliveryLocation'),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(AppLocalizations.of(context)
-                                      .translate('payWith')),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Divider(
-                                          thickness: 0.5,
-                                          color: Colors.grey[600],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          Esewa esewa = Esewa();
-                                          esewa.pay();
-                                        },
-                                        child: ClipOval(
-                                          child: Image.asset(
-                                            'assets/images/esewa.png',
-                                            width: 45,
-                                            height: 45,
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 20,
-                                      ),
-                                      GestureDetector(
-                                        child: ClipOval(
-                                          child: Image.asset(
-                                            'assets/images/khalti.png',
-                                            height: 65,
-                                            width: 65,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Text(AppLocalizations.of(context)
-                                      .translate('or')),
-                                ],
-                              ),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () {
-                                    cashOrder();
-                                    clearNotification();
-                                    Navigator.pop(context);
-                                    Timer(Duration(seconds: 3), () {
-                                      return triggerNotifications();
-                                    });
-                                    // triggerNotifications();
-                                  },
-                                  child: Text(
-                                    AppLocalizations.of(context)
-                                        .translate('confirmCash'),
-                                    style: const TextStyle(
-                                      color: Color.fromARGB(255, 28, 139, 31),
-                                    ),
-                                  ),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text(
-                                    AppLocalizations.of(context)
-                                        .translate('cancel'),
-                                    style: const TextStyle(color: Colors.black),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      });
-                    } catch (e) {
-                      print('Error displaying payment status dialog: $e');
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Error displaying payment status: $e'),
-                        ),
-                      );
-                    }
+                    });
                   },
                   child: Container(
                     height: 36,
