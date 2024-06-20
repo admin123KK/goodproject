@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:goodproject/verifypages/location_page.dart';
+import 'package:intl/intl.dart';
 
 class OrderPage extends StatefulWidget {
   const OrderPage({super.key});
@@ -17,6 +18,10 @@ class _OrderPageState extends State<OrderPage> {
   bool orderOnWay = false;
   bool orderDeliverd = false;
   String deliveryLocation = "";
+  String orderTime = "";
+  String deliveryTime = "";
+  String packedTime = "";
+  String onwayTime = "";
 
   @override
   void initState() {
@@ -65,7 +70,24 @@ class _OrderPageState extends State<OrderPage> {
 
         setState(() {
           deliveryLocation = data['location'] ?? 'Location not available';
-          print('Delivery location set: $deliveryLocation'); // Debugging line
+          // orderTime = (data['dateTime'] as Timestamp).toDate().toString();
+          Timestamp timestamp = data['dateTime'];
+          DateTime dateTime = timestamp.toDate();
+          orderTime = DateFormat('hh:mm a').format(dateTime);
+          //delivery time
+          DateTime deliveryDateTime = dateTime.add(Duration(minutes: 20));
+          deliveryTime =
+              DateFormat('hh:mm a').format(deliveryDateTime); // orderTime =
+
+          DateTime packedDateTime = dateTime.add(Duration(minutes: 6));
+          packedTime =
+              DateFormat('hh:mm a').format(packedDateTime); // psacked Time =
+
+          DateTime onwayDateTime =
+              dateTime.add(Duration(minutes: 12)); //on the way
+          onwayTime = DateFormat('hh:mm a').format(onwayDateTime);
+          print('Delivery location set: $deliveryLocation');
+          // print('$orderTime'); // Debugging line
         });
       } else {
         setState(() {
@@ -155,7 +177,7 @@ class _OrderPageState extends State<OrderPage> {
                   Container(
                     child: Row(
                       children: [
-                        Text(
+                        const Text(
                           'Delivery Location:',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontFamily: 'Mooli'),
@@ -166,14 +188,14 @@ class _OrderPageState extends State<OrderPage> {
                   ),
                 ],
               ),
-              const Row(
+              Row(
                 children: [
-                  Text(
+                  const Text(
                     'Order Time :',
                     style: TextStyle(
                         fontWeight: FontWeight.bold, fontFamily: 'Mooli'),
                   ),
-                  Text('  9.10')
+                  Text('$orderTime')
                 ],
               ),
               const Row(
@@ -183,7 +205,7 @@ class _OrderPageState extends State<OrderPage> {
                     style: TextStyle(
                         fontWeight: FontWeight.bold, fontFamily: 'Mooli'),
                   ),
-                  Text(' 15 min (Approx)')
+                  Text('18-20 (approx)')
                 ],
               ),
               const SizedBox(height: 15),
@@ -193,28 +215,29 @@ class _OrderPageState extends State<OrderPage> {
                   width: 300,
                   child: Column(
                     children: [
-                      _buildIcon(
-                          Icons.receipt_long_sharp, 'Received ', orderReceived),
+                      _buildIcon(Icons.receipt_long_sharp,
+                          'Received' "( $orderTime)", orderReceived),
                       Container(
                         height: 30,
                         child: const VerticalDivider(
                             thickness: 2, color: Colors.grey),
                       ),
-                      _buildIcon(Icons.assignment_turned_in, 'Packed (6 min)',
-                          orderPacked),
+                      _buildIcon(Icons.assignment_turned_in,
+                          'Packed ' " ($packedTime)", orderPacked),
                       Container(
                         height: 30,
                         child: const VerticalDivider(
                             color: Colors.grey, thickness: 2),
                       ),
                       _buildIcon(Icons.delivery_dining_rounded,
-                          'On the way (10 min)', orderOnWay),
+                          'On the way' " ($onwayTime)", orderOnWay),
                       Container(
                         height: 30,
                         child: const VerticalDivider(
                             thickness: 2, color: Colors.grey),
                       ),
-                      _buildIcon(Icons.done, 'Deliverd', orderDeliverd),
+                      _buildIcon(Icons.done, 'Deliverd' " ($deliveryTime)",
+                          orderDeliverd),
                     ],
                   ),
                 ),
@@ -269,7 +292,7 @@ Widget _buildIcon(IconData icon, String status, bool isCurrent) {
       Text(
         status,
         style: TextStyle(
-            fontSize: 20,
+            fontSize: 18,
             fontWeight: FontWeight.bold,
             fontFamily: 'Mooli',
             color: isCurrent ? const Color(0xFF91AD13) : Colors.black),

@@ -433,7 +433,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 30),
                         child: Text(
-                          widget.name,
+                          AppLocalizations.of(context).translate(widget.name),
                           style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontFamily: 'Mooli',
@@ -665,7 +665,8 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                           size: 30,
                         ),
                       ),
-                      const Text('Share Location'),
+                      Text(AppLocalizations.of(context)
+                          .translate('Share Location')),
                     ],
                   ),
                 ),
@@ -756,7 +757,8 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  'Location Shared ?',
+                                  AppLocalizations.of(context)
+                                      .translate('App Location'),
                                   style: TextStyle(color: Colors.red),
                                 ),
                                 const SizedBox(

@@ -7,6 +7,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:goodproject/app_localization.dart';
 import 'package:goodproject/database.dart';
 import 'package:goodproject/items/notification_page.dart';
+
 import 'item_details_page.dart';
 
 class ItemPage extends StatefulWidget {
@@ -467,7 +468,7 @@ class _ItemPageState extends State<ItemPage> {
                       ),
                       const SizedBox(height: 5),
                       Text(
-                        item['name'] ?? 'Unnamed Item',
+                        AppLocalizations.of(context).translate(item['name']),
                         style: const TextStyle(
                           fontFamily: 'Mooli',
                         ),
@@ -589,7 +590,8 @@ class CustomSearch extends SearchDelegate<String> {
             itemBuilder: (context, index) {
               final item = items[index];
               return ListTile(
-                title: Text(item['name']),
+                title:
+                    Text(AppLocalizations.of(context).translate(item['name'])),
                 onTap: () {
                   Navigator.push(
                       context,
