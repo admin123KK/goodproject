@@ -758,7 +758,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                                 ),
                                 Text(
                                   AppLocalizations.of(context)
-                                      .translate('App Location'),
+                                      .translate('ShareLocation'),
                                   style: TextStyle(color: Colors.red),
                                 ),
                                 const SizedBox(

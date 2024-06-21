@@ -14,6 +14,7 @@ import 'package:goodproject/items/notification_page.dart';
 import 'package:goodproject/my_orderpage.dart';
 import 'package:goodproject/setting_page.dart';
 import 'package:goodproject/test/resturatnt.dart';
+import 'package:goodproject/test/riders_app.dart';
 import 'package:goodproject/verifypages/location_page.dart';
 import 'package:goodproject/verifypages/login_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -597,12 +598,27 @@ class _LoginPageState extends State<HomePage> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => CreateNew()));
               },
-              leading: Icon(
+              leading: const Icon(
                 Icons.share,
                 color: Colors.black,
               ),
-              title: Text(
+              title: const Text(
                 'Share',
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+            ListTile(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const RidersApp()));
+              },
+              leading: const Icon(
+                Icons.motorcycle,
+                size: 33,
+                color: Colors.black,
+              ),
+              title: const Text(
+                "Riders Mode",
                 style: TextStyle(color: Colors.black),
               ),
             ),
@@ -619,7 +635,7 @@ class _LoginPageState extends State<HomePage> {
               onTap: () {
                 _showLogOUtDialog(BuildContext, context);
               },
-            )
+            ),
           ],
         ),
       ),

@@ -37,7 +37,7 @@ class _OrderPageState extends State<OrderPage> {
         orderPacked = true;
       });
 
-      Timer(Duration(seconds: 3), () {
+      Timer(Duration(seconds: 7), () {
         setState(() {
           orderPacked = false;
           orderOnWay = true;
@@ -74,7 +74,7 @@ class _OrderPageState extends State<OrderPage> {
           Timestamp timestamp = data['dateTime'];
           DateTime dateTime = timestamp.toDate();
           orderTime = DateFormat('hh:mm a').format(dateTime);
-          //delivery time
+          //delivery time//recived
           DateTime deliveryDateTime = dateTime.add(Duration(minutes: 20));
           deliveryTime =
               DateFormat('hh:mm a').format(deliveryDateTime); // orderTime =
@@ -195,7 +195,7 @@ class _OrderPageState extends State<OrderPage> {
                     style: TextStyle(
                         fontWeight: FontWeight.bold, fontFamily: 'Mooli'),
                   ),
-                  Text('$orderTime')
+                  Text(' $orderTime')
                 ],
               ),
               const Row(
@@ -205,7 +205,7 @@ class _OrderPageState extends State<OrderPage> {
                     style: TextStyle(
                         fontWeight: FontWeight.bold, fontFamily: 'Mooli'),
                   ),
-                  Text('18-20 (approx)')
+                  Text(' 18-20 (approx)')
                 ],
               ),
               const SizedBox(height: 15),
@@ -288,7 +288,8 @@ class _OrderPageState extends State<OrderPage> {
 Widget _buildIcon(IconData icon, String status, bool isCurrent) {
   return Column(
     children: [
-      Icon(icon, size: 50, color: isCurrent ? Color(0xFF91AD13) : Colors.black),
+      Icon(icon,
+          size: 50, color: isCurrent ? const Color(0xFF91AD13) : Colors.black),
       Text(
         status,
         style: TextStyle(
