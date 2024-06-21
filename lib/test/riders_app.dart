@@ -97,6 +97,10 @@ class _RidersAppState extends State<RidersApp> {
     }
   }
 
+  Stream<QuerySnapshot> getOrderItemStream() {
+    return FirebaseFirestore.instance.collection('notification').snapshots();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,16 +117,20 @@ class _RidersAppState extends State<RidersApp> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           children: [
             Image.asset(
               'assets/images/delivery.png',
               height: 200,
             ),
-            const SizedBox(height: 20),
+            Text('(Order Details)',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 23,
+                )),
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
                   'Delivery Location :',
@@ -132,36 +140,88 @@ class _RidersAppState extends State<RidersApp> {
                 Text(' $deliveryLocation'),
               ],
             ),
+            SizedBox(
+              height: 5,
+            ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
                   'Order Time :',
                   style: TextStyle(
-                      fontWeight: FontWeight.bold, fontFamily: 'Mooli'),
+                      fontFamily: 'Mooli', fontWeight: FontWeight.bold),
                 ),
-                Text(' $orderTime'),
+                Text(' $orderTime')
               ],
             ),
-            const Row(
-              children: [
-                Text(
-                  'Order Items :',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold, fontFamily: 'Mooli'),
-                ),
-                Text(''),
-                SizedBox(
-                  width: 29,
-                ),
-                Text('Order Qunatity'),
-                SizedBox(
-                  width: 29,
-                ),
-                const Text('Total Cost ')
-              ],
-            ),
-            const SizedBox(
-              height: 10,
+            Container(
+              height: 90,
+              width: 430,
+              child: StreamBuilder<QuerySnapshot>(
+                stream: getOrderItemStream(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (snapshot.hasError) {
+                    return const Center(child: Text('Error fetching data'));
+                  }
+                  final orders = snapshot.data?.docs ?? [];
+                  return ListView.builder(
+                    itemCount: orders.length,
+                    itemBuilder: (context, index) {
+                      final orderData =
+                          orders[index].data() as Map<String, dynamic>;
+                      final itemName = orderData['itemName'] ?? 'N/A';
+                      final quantity = orderData['quantity'] ?? 'N/A';
+                      final totalCost = orderData['totalCost'] ?? 'N/A';
+                      final userName = orderData['Name'] ?? 'N/A';
+                      final cashPay = orderData['cashPay'] ?? 'Online paid';
+
+                      return ListTile(
+                        title: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Item :$itemName'),
+                          ],
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Quantity: $quantity'),
+                          ],
+                        ),
+                        trailing: Column(
+                          children: [
+                            Text(
+                              'Delivery To: $userName',
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                  fontSize: 13),
+                            ),
+                            Text(
+                              'CashPay : $cashPay',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 13),
+                            ),
+                            const SizedBox(
+                              height: 1,
+                            ),
+                            Text(
+                              'Total Cost: $totalCost',
+                              style: const TextStyle(
+                                color: Colors.green,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
             ),
             TextField(
               controller: _searchController,

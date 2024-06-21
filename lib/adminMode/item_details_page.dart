@@ -297,7 +297,8 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
       'Email': FirebaseAuth.instance.currentUser?.email,
       "Name": FirebaseAuth.instance.currentUser?.displayName,
       'seen': false,
-      'location': currentAddress
+      'location': currentAddress,
+      'cashPay': true
     });
   }
 
@@ -666,7 +667,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                         ),
                       ),
                       Text(AppLocalizations.of(context)
-                          .translate('Share Location')),
+                          .translate('ShareLocation')),
                     ],
                   ),
                 ),
