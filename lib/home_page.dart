@@ -13,7 +13,7 @@ import 'package:goodproject/items/Selroti.dart';
 import 'package:goodproject/items/notification_page.dart';
 import 'package:goodproject/my_orderpage.dart';
 import 'package:goodproject/setting_page.dart';
-import 'package:goodproject/test/resturatnt.dart';
+import 'package:goodproject/test/location.dart';
 import 'package:goodproject/test/riders_app.dart';
 import 'package:goodproject/verifypages/location_page.dart';
 import 'package:goodproject/verifypages/login_page.dart';
@@ -524,7 +524,11 @@ class _LoginPageState extends State<HomePage> {
                           'https://images.unsplash.com/photo-1613425293967-16ae72140466?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8M'),
                       fit: BoxFit.fill)),
             ),
-            const ListTile(
+            ListTile(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MapScreen()));
+              },
               leading: Icon(
                 Icons.home,
                 color: Colors.black,

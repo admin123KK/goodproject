@@ -223,40 +223,40 @@ class _RidersAppState extends State<RidersApp> {
                 },
               ),
             ),
-            TextField(
-              controller: _searchController,
-              decoration: const InputDecoration(
-                labelText: 'Search Delivery Details',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _startDelivery,
-              child: Text('Start Delivery'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF91AD13),
-              ),
-            ),
-            const SizedBox(height: 20),
-            Expanded(
-              child: _currentLocation == null
-                  ? const Center(child: CircularProgressIndicator())
-                  : GoogleMap(
-                      initialCameraPosition: CameraPosition(
-                        target: LatLng(
-                          _currentLocation!.latitude!,
-                          _currentLocation!.longitude!,
-                        ),
-                        zoom: 15,
-                      ),
-                      onMapCreated: (controller) {
-                        _mapController = controller;
-                      },
-                      myLocationEnabled: true,
-                      myLocationButtonEnabled: true,
-                    ),
-            ),
+            // TextField(
+            //   controller: _searchController,
+            //   decoration: const InputDecoration(
+            //     labelText: 'Search Delivery Details',
+            //     border: OutlineInputBorder(),
+            //   ),
+            // ),
+            // const SizedBox(height: 20),
+            // ElevatedButton(
+            //   onPressed: _startDelivery,
+            //   child: Text('Start Delivery'),
+            //   style: ElevatedButton.styleFrom(
+            //     backgroundColor: const Color(0xFF91AD13),
+            //   ),
+            // ),
+            // const SizedBox(height: 20),
+            // Expanded(
+            //   child: _currentLocation == null
+            //       ? const Center(child: CircularProgressIndicator())
+            //       : GoogleMap(
+            //           initialCameraPosition: CameraPosition(
+            //             target: LatLng(
+            //               _currentLocation!.latitude!,
+            //               _currentLocation!.longitude!,
+            //             ),
+            //             zoom: 15,
+            //           ),
+            //           onMapCreated: (controller) {
+            //             _mapController = controller;
+            //           },
+            //           myLocationEnabled: true,
+            //           myLocationButtonEnabled: true,
+            //         ),
+            // ),
           ],
         ),
       ),
