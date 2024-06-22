@@ -13,8 +13,8 @@ import 'package:goodproject/items/Selroti.dart';
 import 'package:goodproject/items/notification_page.dart';
 import 'package:goodproject/my_orderpage.dart';
 import 'package:goodproject/setting_page.dart';
-import 'package:goodproject/test/location.dart';
 import 'package:goodproject/test/riders_app.dart';
+import 'package:goodproject/test/testin_location.dart';
 import 'package:goodproject/verifypages/location_page.dart';
 import 'package:goodproject/verifypages/login_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -527,7 +527,7 @@ class _LoginPageState extends State<HomePage> {
             ListTile(
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MapScreen()));
+                    MaterialPageRoute(builder: (context) => LocationPagee()));
               },
               leading: Icon(
                 Icons.home,
@@ -589,7 +589,7 @@ class _LoginPageState extends State<HomePage> {
             ListTile(
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MapScreen()));
+                    MaterialPageRoute(builder: (context) => RidersApp()));
               },
               leading: const Icon(
                 Icons.help,
@@ -614,7 +614,7 @@ class _LoginPageState extends State<HomePage> {
             ListTile(
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const RidersApp()));
+                    MaterialPageRoute(builder: (context) => RidersApp()));
               },
               leading: const Icon(
                 Icons.motorcycle,
