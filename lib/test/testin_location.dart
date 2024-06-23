@@ -1,53 +1,99 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:http/http.dart' as http;
 import 'package:location/location.dart';
 
-class LocationPagee extends StatefulWidget {
-  const LocationPagee({super.key});
+class LocationePage extends StatefulWidget {
+  const LocationePage({Key? key}) : super(key: key);
 
   @override
-  State<LocationPagee> createState() => _LocationPageState();
+  State<LocationePage> createState() => _LocationePageState();
 }
 
 BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
 BitmapDescriptor destinationIcon = BitmapDescriptor.defaultMarker;
 BitmapDescriptor currentIcon = BitmapDescriptor.defaultMarker;
 
-class _LocationPageState extends State<LocationPagee> {
-  static LatLng sourceLocation = LatLng(27.69242341891831, 83.46309766111746);
-  LatLng destinationLocation = LatLng(27.6798201836189, 83.46561867425898);
+class _LocationePageState extends State<LocationePage> {
+  LatLng sourceLocation = LatLng(27.69242341891831, 83.46309766111746);
+  LatLng initialDestinationLocation = LatLng(27.69242341891831,
+      83.46309766111746); // Initial location fetched from Firestore
+  LatLng destinationLocation = LatLng(27.69242341891831,
+      83.46309766111746); // Initialize destination same as source
 
   LocationData? currentLocation;
+  Location location = Location();
 
   @override
   void initState() {
     super.initState();
-    getCurrentLocation();
-    fetchDestinationLocationFromFirestore();
+    fetchCurrentLocation();
     setCustomMarkerIcon();
   }
 
-  void getCurrentLocation() async {
-    Location location = Location();
-    LocationData locationData = await location.getLocation();
-    setState(() {
-      currentLocation = locationData;
-    });
+  Future<void> fetchCurrentLocation() async {
+    try {
+      // Fetch initial destination location from Firestore
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('notification')
+          .doc('location') // Replace with your document ID
+          .get();
+
+      if (snapshot.exists) {
+        var data = snapshot.data() as Map<String, dynamic>;
+        String locationName = data['location'];
+
+        // Fetch coordinates from geocoding API based on location name
+        LatLng? coords = await getCoordinatesFromPlaceCode(locationName);
+        if (coords != null) {
+          setState(() {
+            initialDestinationLocation = coords;
+            destinationLocation = coords;
+          });
+        } else {
+          print("Failed to convert place code to coordinates.");
+        }
+      } else {
+        print('Document does not exist');
+      }
+
+      // Optionally fetch current device location
+      location.onLocationChanged.listen((LocationData newLoc) {
+        setState(() {
+          currentLocation = newLoc;
+        });
+      });
+    } catch (e) {
+      print('Error fetching current location: $e');
+    }
   }
 
-  void fetchDestinationLocationFromFirestore() async {
-    DocumentSnapshot snapshot = await FirebaseFirestore.instance
-        .collection('notification')
-        .doc('location')
-        .get();
+  Future<LatLng?> getCoordinatesFromPlaceCode(String placeCode) async {
+    final apiKey =
+        'AIzaSyBD6CkJ6n9blu72_AfP_vx9lO0tvsUYc8s'; // Replace with your API key
+    final url =
+        'https://maps.googleapis.com/maps/api/geocode/json?address=$placeCode&key=$apiKey';
 
-    if (snapshot.exists) {
-      GeoPoint geoPoint = snapshot['location'];
-      setState(() {
-        destinationLocation = LatLng(geoPoint.latitude, geoPoint.longitude);
-      });
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        if (data['results'].isNotEmpty) {
+          final location = data['results'][0]['geometry']['location'];
+          return LatLng(location['lat'], location['lng']);
+        } else {
+          print("No results found for the place code.");
+        }
+      } else {
+        print("Error fetching coordinates: ${response.statusCode}");
+      }
+    } catch (e) {
+      print("Error during geocoding request: $e");
     }
+    return null;
   }
 
   void setCustomMarkerIcon() {
@@ -64,8 +110,9 @@ class _LocationPageState extends State<LocationPagee> {
       destinationIcon = icons;
     });
     BitmapDescriptor.fromAssetImage(
-            ImageConfiguration.empty, 'assets/images/deliverybike.png')
-        .then((icons) {
+      ImageConfiguration.empty,
+      'assets/images/deliverybike.png',
+    ).then((icons) {
       currentIcon = icons;
     });
   }
@@ -75,20 +122,19 @@ class _LocationPageState extends State<LocationPagee> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF91AD13),
-        title: const Text(
+        title: Text(
           'Delivery Location',
           style: TextStyle(fontFamily: 'Mooli'),
         ),
         centerTitle: true,
       ),
-      body: currentLocation == null
-          ? const Center(
-              child: Text('Loading....'),
+      body: destinationLocation == null
+          ? Center(
+              child: CircularProgressIndicator(),
             )
           : GoogleMap(
               initialCameraPosition: CameraPosition(
-                target: LatLng(
-                    currentLocation!.latitude!, currentLocation!.longitude!),
+                target: initialDestinationLocation,
                 zoom: 15,
               ),
               markers: {
@@ -99,18 +145,27 @@ class _LocationPageState extends State<LocationPagee> {
                   icon: sourceIcon,
                 ),
                 Marker(
-                  markerId: MarkerId('currentLocation'),
-                  position: LatLng(
-                      currentLocation!.latitude!, currentLocation!.longitude!),
-                  icon: destinationIcon,
-                  infoWindow: InfoWindow(title: 'Khaja on the way'),
-                ),
-                Marker(
                   markerId: MarkerId('destinationLocation'),
                   position: destinationLocation,
                   icon: currentIcon,
-                  infoWindow: InfoWindow(title: "Delivery Location"),
+                  infoWindow: InfoWindow(title: 'Delivery Location'),
+                  draggable: true,
+                  onDragEnd: (LatLng newLocation) {
+                    setState(() {
+                      destinationLocation = newLocation;
+                    });
+                  },
                 ),
+                if (currentLocation != null)
+                  Marker(
+                    markerId: MarkerId('currentLocation'),
+                    position: LatLng(
+                      currentLocation!.latitude!,
+                      currentLocation!.longitude!,
+                    ),
+                    infoWindow: InfoWindow(title: 'Current Location'),
+                    icon: destinationIcon,
+                  ),
               },
             ),
     );

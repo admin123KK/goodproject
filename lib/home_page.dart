@@ -527,7 +527,7 @@ class _LoginPageState extends State<HomePage> {
             ListTile(
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LocationPagee()));
+                    MaterialPageRoute(builder: (context) => LocationePage()));
               },
               leading: Icon(
                 Icons.home,
