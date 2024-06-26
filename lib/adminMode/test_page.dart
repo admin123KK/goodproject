@@ -7,6 +7,12 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:goodproject/app_localization.dart';
 import 'package:goodproject/database.dart';
 import 'package:goodproject/items/notification_page.dart';
+import 'package:goodproject/my_orderpage.dart';
+import 'package:goodproject/setting_page.dart';
+import 'package:goodproject/test/riders_app.dart';
+import 'package:goodproject/verifypages/location_page.dart';
+import 'package:goodproject/verifypages/login_page.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'item_details_page.dart';
 
@@ -26,7 +32,6 @@ class _ItemPageState extends State<ItemPage> {
   String userEmail = "";
   String userPhoto = "";
   int notificationCount = 0;
-  double _currentRating = 0;
 
   @override
   void initState() {
@@ -242,6 +247,143 @@ class _ItemPageState extends State<ItemPage> {
             ],
           ),
         ),
+      ),
+      drawer: Drawer(
+        surfaceTintColor: Colors.green,
+        child: ListView(children: [
+          UserAccountsDrawerHeader(
+            accountName: Text(userName),
+            accountEmail: Text(userEmail),
+            currentAccountPicture: CircleAvatar(
+              backgroundImage: NetworkImage(userPhoto),
+            ),
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: NetworkImage(
+                    'https://images.unsplash.com/photo-1613425293967-16ae72140466?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8M',
+                  ),
+                  fit: BoxFit.fill),
+            ),
+          ),
+          InkWell(
+            child: ListTile(
+              onTap: () {},
+              leading: const Icon(
+                Icons.home,
+                color: Colors.black,
+                size: 27,
+              ),
+              title: const Text(
+                'Home',
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const LocationPage()));
+            },
+            child: const ListTile(
+              leading: Icon(
+                Icons.location_on_outlined,
+                color: Colors.black,
+                size: 27,
+              ),
+              title: Text(
+                'Location',
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const SettingPage()));
+            },
+            child: const ListTile(
+              leading: Icon(
+                Icons.settings,
+                color: Colors.black,
+                size: 27,
+              ),
+              title: Text(
+                'Setting',
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const OrderPage()));
+            },
+            child: const ListTile(
+              leading: Icon(
+                Icons.dining_outlined,
+                color: Colors.black,
+                size: 27,
+              ),
+              title: Text(
+                'My Order',
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: () {},
+            child: const ListTile(
+              leading: Icon(
+                Icons.feedback_outlined,
+                color: Colors.black,
+                size: 27,
+              ),
+              title: Text(
+                'Feedback',
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const RidersApp()));
+            },
+            child: const ListTile(
+              leading: Icon(
+                Icons.motorcycle,
+                color: Colors.black,
+                size: 27,
+              ),
+              title: Text(
+                'Setting',
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              _showLogOUtDialog(BuildContext, context);
+            },
+            child: const ListTile(
+              leading: Icon(
+                Icons.logout,
+                color: Colors.red,
+                size: 27,
+              ),
+              title: Text(
+                'Logout',
+                style: TextStyle(
+                  color: Colors.red,
+                ),
+              ),
+            ),
+          ),
+        ]),
       ),
     );
   }
@@ -607,4 +749,52 @@ class CustomSearch extends SearchDelegate<String> {
           );
         });
   }
+}
+
+Future<void> _showLogOUtDialog(BuildContext, context) {
+  return showDialog(
+      context: context,
+      builder: (BuildContext) {
+        return AlertDialog(
+          title: const Text(
+            'Logout',
+            style: TextStyle(fontFamily: 'Mooli'),
+          ),
+          content: Text(
+            AppLocalizations.of(context).translate('areYou'),
+            style: const TextStyle(color: Colors.red, fontFamily: 'Mooli'),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                AppLocalizations.of(context).translate('cancel'),
+                style: const TextStyle(
+                  color: Color(0xFF91AD13),
+                ),
+              ),
+            ),
+            TextButton(
+                onPressed: () async {
+                  // await _auth.signOut();
+
+                  GoogleSignIn googleSignIn = GoogleSignIn();
+                  googleSignIn.disconnect();
+                  await FirebaseAuth.instance.signOut();
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginPage(),
+                      ),
+                      (route) => false);
+                },
+                child: const Text(
+                  'Logout',
+                  style: TextStyle(color: Colors.red),
+                ))
+          ],
+        );
+      });
 }

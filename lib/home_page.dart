@@ -519,10 +519,11 @@ class _LoginPageState extends State<HomePage> {
                 ),
               ),
               decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: NetworkImage(
-                          'https://images.unsplash.com/photo-1613425293967-16ae72140466?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8M'),
-                      fit: BoxFit.fill)),
+                image: DecorationImage(
+                    image: NetworkImage(
+                        'https://images.unsplash.com/photo-1613425293967-16ae72140466?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8M'),
+                    fit: BoxFit.fill),
+              ),
             ),
             ListTile(
               onTap: () {
