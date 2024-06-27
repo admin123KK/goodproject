@@ -22,6 +22,7 @@ class Esewa {
           ),
           onPaymentSuccess: (EsewaPaymentSuccessResult result) async {
             debugPrint('Sucess');
+
             verify(result);
           },
           onPaymentFailure: () {

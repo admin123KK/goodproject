@@ -223,46 +223,141 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
     }
   }
 
-  Future<void> cashOrder() async {
+  // Future<void> cashOrder() async {
+  //   try {
+  //     Position position = await Geolocator.getCurrentPosition(
+  //         desiredAccuracy: LocationAccuracy.high);
+  //     List<Placemark> placemark =
+  //         await placemarkFromCoordinates(position.latitude, position.longitude);
+  //     String currentAddress = "";
+  //     if (placemark.isNotEmpty) {
+  //       Placemark place = placemark[0];
+  //       currentAddress =
+  //           '${place.street},${place.locality},${place.administrativeArea}';
+  //     }
+  //     FirebaseFirestore.instance.collection('cashPay').add({
+  //       'itemName': widget.name,
+  //       'quantity': _quantity,
+  //       'totalCost': _calculateTotalAmount(),
+  //       'dateTime': DateTime.now(),
+  //       'Email': FirebaseAuth.instance.currentUser?.email,
+  //       'Name': FirebaseAuth.instance.currentUser?.displayName,
+  //       'seen': false,
+  //       'location': currentAddress
+  //     });
+  //     print('order sucess in cash');
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: const Text(
+  //           'Congratulations !! Your order is placed',
+  //           style: TextStyle(
+  //             color: Color(0xFF91AD13),
+  //           ),
+  //         ),
+  //         backgroundColor: Colors.black,
+  //         behavior: SnackBarBehavior.floating,
+  //         shape:
+  //             RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+  //       ),
+  //     );
+  //   } catch (e) {
+  //     print('order is $e');
+  //   }
+  // }
+  void cashOrder() async {
+    try {
+      // Simulate payment completion (replace with actual logic)
+      bool paymentCompleted = await simulatePaymentCompletion();
+
+      if (paymentCompleted) {
+        String currentAddress = await getCurrentAddress();
+        // Payment completed successfully, store order in Firestore
+        await FirebaseFirestore.instance.collection('cashOrder').add({
+          'orderType': 'cash',
+          'itemName': widget.name,
+          'quantity': _quantity,
+          'totalCost': _calculateTotalAmount(),
+          'dateTime': DateTime.now(),
+          'Email': FirebaseAuth.instance.currentUser?.email,
+          'Name': FirebaseAuth.instance.currentUser?.displayName,
+          'seen': false,
+          'location': currentAddress
+          // Other fields specific to cash orders
+        });
+
+        print('Order successfully placed (cash)');
+        // Show success message or handle UI updates
+      } else {
+        // Payment not completed, handle accordingly (optional)
+        print('Payment not completed for cash order');
+        // Show error message or handle UI updates
+      }
+    } catch (e) {
+      print('Error placing order (cash): $e');
+    }
+  }
+
+// Function to handle online order
+  void onlineOrder() async {
+    try {
+      // Simulate payment completion (replace with actual logic)
+      bool paymentCompleted = await simulatePaymentCompletion();
+
+      if (paymentCompleted) {
+        String currentAddress = await getCurrentAddress();
+        // Payment completed successfully, store order in Firestore
+        await FirebaseFirestore.instance.collection('onlineOrder').add({
+          'orderType': 'esewa',
+          'itemName': widget.name,
+          'quantity': _quantity,
+          'totalCost': _calculateTotalAmount(),
+          'dateTime': DateTime.now(),
+          'Email': FirebaseAuth.instance.currentUser?.email,
+          'Name': FirebaseAuth.instance.currentUser?.displayName,
+          'seen': false,
+          'location': currentAddress
+          // Other fields specific to online orders
+        });
+
+        print('Order successfully placed (online)');
+        // Show success message or handle UI updates
+      } else {
+        // Payment not completed, handle accordingly (optional)
+        print('Payment not completed for online order');
+        // Show error message or handle UI updates
+      }
+    } catch (e) {
+      print('Error placing order (online): $e');
+    }
+  }
+
+  Future<String> getCurrentAddress() async {
     try {
       Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
-      List<Placemark> placemark =
-          await placemarkFromCoordinates(position.latitude, position.longitude);
-      String currentAddress = "";
-      if (placemark.isNotEmpty) {
-        Placemark place = placemark[0];
-        currentAddress =
-            '${place.street},${place.locality},${place.administrativeArea}';
-      }
-      FirebaseFirestore.instance.collection('cashPay').add({
-        'itemName': widget.name,
-        'quantity': _quantity,
-        'totalCost': _calculateTotalAmount(),
-        'dateTime': DateTime.now(),
-        'Email': FirebaseAuth.instance.currentUser?.email,
-        'Name': FirebaseAuth.instance.currentUser?.displayName,
-        'seen': false,
-        'location': currentAddress
-      });
-      print('order sucess in cash');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text(
-            'Congratulations !! Your order is placed',
-            style: TextStyle(
-              color: Color(0xFF91AD13),
-            ),
-          ),
-          backgroundColor: Colors.black,
-          behavior: SnackBarBehavior.floating,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-        ),
+        desiredAccuracy: LocationAccuracy.high,
       );
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
+      if (placemarks.isNotEmpty) {
+        Placemark place = placemarks[0];
+        return '${place.street}, ${place.locality}, ${place.administrativeArea}';
+      } else {
+        return 'Unknown';
+      }
     } catch (e) {
-      print('order is $e');
+      print('Error getting current address: $e');
+      return 'Unknown';
     }
+  }
+
+// Simulate payment completion function (replace with actual logic)
+  Future<bool> simulatePaymentCompletion() async {
+    // Simulate delay for payment completion
+    await Future.delayed(Duration(seconds: 2));
+    // Simulate success (return true) or failure (return false)
+    return true; // Change to false to simulate failed payment
   }
 
 //triggerNotification function used
@@ -635,29 +730,6 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                       const SizedBox(
                         width: 48,
                       ),
-                      // Container(
-                      //   height: 35,
-                      //   width: 130,
-                      //   child: TextFormField(
-                      //     textAlign: TextAlign.center,
-                      //     decoration: InputDecoration(
-                      //         focusColor: const Color(0xFF91AD13),
-                      //         focusedBorder: OutlineInputBorder(
-                      //           borderSide:
-                      //               const BorderSide(color: Color(0xFF91AD13)),
-                      //           borderRadius: BorderRadius.circular(9),
-                      //         ),
-                      //         enabledBorder: OutlineInputBorder(
-                      //             borderSide: const BorderSide(
-                      //               color: Color(0xFF91AD13),
-                      //             ),
-                      //             borderRadius: BorderRadius.circular(7)),
-                      //         labelText: AppLocalizations.of(context)
-                      //             .translate('shareLocation'),
-                      //         labelStyle: TextStyle(
-                      //             color: Colors.grey[900], fontSize: 14)),
-                      //   ),
-                      // )
                       InkWell(
                         onTap: _getCurrentLocation,
                         child: const Icon(
@@ -784,6 +856,8 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                                       onTap: () {
                                         Esewa esewa = Esewa();
                                         esewa.pay();
+                                        onlineOrder();
+                                        Navigator.pop(context);
                                       },
                                       child: ClipOval(
                                         child: Image.asset(
@@ -870,8 +944,6 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   }
 }
 
+// Function to handle cash order
 
-
-
-  
 //

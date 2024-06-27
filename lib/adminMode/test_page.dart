@@ -338,7 +338,7 @@ class _ItemPageState extends State<ItemPage> {
             onTap: () {},
             child: const ListTile(
               leading: Icon(
-                Icons.feedback_outlined,
+                Icons.feedback,
                 color: Colors.black,
                 size: 27,
               ),
@@ -360,7 +360,7 @@ class _ItemPageState extends State<ItemPage> {
                 size: 27,
               ),
               title: Text(
-                'Setting',
+                'Riders Mode',
                 style: TextStyle(color: Colors.black),
               ),
             ),

@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:esewa_flutter_sdk/esewa_config.dart';
 import 'package:esewa_flutter_sdk/esewa_payment.dart';
 import 'package:esewa_flutter_sdk/esewa_payment_success_result.dart';
 import 'package:flutter/services.dart';
+
 import 'constants.dart';
 
 class EsewaFlutterSdk {
@@ -21,8 +23,7 @@ class EsewaFlutterSdk {
     required Function onPaymentFailure,
     required Function onPaymentCancellation,
   }) {
-    _channel.invokeMethod(
-        'initPayment', _buildArgs(esewaConfig, esewaPayment));
+    _channel.invokeMethod('initPayment', _buildArgs(esewaConfig, esewaPayment));
     _channel.setMethodCallHandler((call) async {
       switch (call.method) {
         case PAYMENT_METHOD_SUCCESS:
@@ -33,7 +34,8 @@ class EsewaFlutterSdk {
           } else {
             result = json.decode(call.arguments);
           }
-          final EsewaPaymentSuccessResult paymentResult = EsewaPaymentSuccessResult(
+          final EsewaPaymentSuccessResult paymentResult =
+              EsewaPaymentSuccessResult(
             productId: result["productID"] ?? result["productId"],
             productName: result["productName"],
             totalAmount: result["totalAmount"],
