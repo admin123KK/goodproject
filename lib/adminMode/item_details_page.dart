@@ -223,47 +223,6 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
     }
   }
 
-  // Future<void> cashOrder() async {
-  //   try {
-  //     Position position = await Geolocator.getCurrentPosition(
-  //         desiredAccuracy: LocationAccuracy.high);
-  //     List<Placemark> placemark =
-  //         await placemarkFromCoordinates(position.latitude, position.longitude);
-  //     String currentAddress = "";
-  //     if (placemark.isNotEmpty) {
-  //       Placemark place = placemark[0];
-  //       currentAddress =
-  //           '${place.street},${place.locality},${place.administrativeArea}';
-  //     }
-  //     FirebaseFirestore.instance.collection('cashPay').add({
-  //       'itemName': widget.name,
-  //       'quantity': _quantity,
-  //       'totalCost': _calculateTotalAmount(),
-  //       'dateTime': DateTime.now(),
-  //       'Email': FirebaseAuth.instance.currentUser?.email,
-  //       'Name': FirebaseAuth.instance.currentUser?.displayName,
-  //       'seen': false,
-  //       'location': currentAddress
-  //     });
-  //     print('order sucess in cash');
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: const Text(
-  //           'Congratulations !! Your order is placed',
-  //           style: TextStyle(
-  //             color: Color(0xFF91AD13),
-  //           ),
-  //         ),
-  //         backgroundColor: Colors.black,
-  //         behavior: SnackBarBehavior.floating,
-  //         shape:
-  //             RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-  //       ),
-  //     );
-  //   } catch (e) {
-  //     print('order is $e');
-  //   }
-  // }
   void cashOrder() async {
     try {
       // Simulate payment completion (replace with actual logic)
@@ -856,7 +815,6 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                                       onTap: () {
                                         Esewa esewa = Esewa();
                                         esewa.pay();
-                                        onlineOrder();
                                         Navigator.pop(context);
                                       },
                                       child: ClipOval(
