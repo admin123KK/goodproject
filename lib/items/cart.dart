@@ -2,6 +2,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:goodproject/functions/esea_page.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({Key? key});
@@ -58,17 +59,113 @@ class _CartPageState extends State<CartPage> {
 
   Future<void> cashOrder() async {
     try {
+      String currentAddress = await getCurrentAddress();
       QuerySnapshot querySnapshot = await firestore.collection('cart').get();
       for (QueryDocumentSnapshot doc in querySnapshot.docs) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        await firestore.collection('cashPay').add({
+        await firestore.collection('cashOrder').add({
           'itemName': data['itemName'],
           'quantity': data['quantity'],
           'totalCost': data['totalCost'],
           'dateTime': DateTime.now(),
           'Email': FirebaseAuth.instance.currentUser?.email,
           'Name': FirebaseAuth.instance.currentUser?.displayName,
-          'seen': false,
+          'location': currentAddress
+        });
+      }
+      print('Order success in cash');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text(
+            'Congratulations !! Your order is placed',
+            style: TextStyle(
+              color: Color(0xFF91AD13),
+            ),
+          ),
+          backgroundColor: Colors.black,
+          behavior: SnackBarBehavior.floating,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        ),
+      );
+    } catch (e) {
+      print('Order error: $e');
+    }
+  }
+
+  Future<void> onlineOrder() async {
+    try {
+      String currentAddress = await getCurrentAddress();
+      QuerySnapshot querySnapshot = await firestore.collection('cart').get();
+      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        await firestore.collection('onlineOrder').add({
+          'itemName': data['itemName'],
+          'quantity': data['quantity'],
+          'totalCost': data['totalCost'],
+          'dateTime': DateTime.now(),
+          'Email': FirebaseAuth.instance.currentUser?.email,
+          'Name': FirebaseAuth.instance.currentUser?.displayName,
+          'location': currentAddress
+        });
+      }
+      print('Order success in cash');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text(
+            'Congratulations !! Your order is placed',
+            style: TextStyle(
+              color: Color(0xFF91AD13),
+            ),
+          ),
+          backgroundColor: Colors.black,
+          behavior: SnackBarBehavior.floating,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        ),
+      );
+    } catch (e) {
+      print('Order error: $e');
+    }
+  }
+
+  Future<void> rawOrder() async {
+    try {
+      String currentAddress = await getCurrentAddress();
+      QuerySnapshot querySnapshot = await firestore.collection('cart').get();
+      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        await firestore.collection('rawOrder').add({
+          'itemName': data['itemName'],
+          'quantity': data['quantity'],
+          'totalCost': data['totalCost'],
+          'dateTime': DateTime.now(),
+          'Email': FirebaseAuth.instance.currentUser?.email,
+          'Name': FirebaseAuth.instance.currentUser?.displayName,
+          'location': currentAddress,
+        });
+      }
+      print('Order success in cash');
+    } catch (e) {
+      print('Order error: $e');
+    }
+  }
+
+  Future<void> clearNotification() async {
+    try {
+      String currentAddress = await getCurrentAddress();
+      QuerySnapshot querySnapshot = await firestore.collection('cart').get();
+      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        await firestore.collection('notification').add({
+          'itemName': data['itemName'],
+          'quantity': data['quantity'],
+          'totalCost': data['totalCost'],
+          'dateTime': DateTime.now(),
+          'Email': FirebaseAuth.instance.currentUser?.email,
+          'Name': FirebaseAuth.instance.currentUser?.displayName,
+          'location': currentAddress,
+          'seen': false
         });
       }
       print('Order success in cash');
@@ -234,6 +331,7 @@ class _CartPageState extends State<CartPage> {
                                 children: [
                                   InkWell(
                                     onTap: () {
+                                      rawOrder();
                                       showDialog(
                                         context: context,
                                         builder: (context) {
@@ -291,6 +389,11 @@ class _CartPageState extends State<CartPage> {
                                                             .center,
                                                     children: [
                                                       GestureDetector(
+                                                        onTap: () async {
+                                                          Esewa esewa = Esewa(
+                                                              context: context);
+                                                          await esewa.pay();
+                                                        },
                                                         child: ClipOval(
                                                           child: Image.asset(
                                                             'assets/images/esewa.png',
@@ -319,6 +422,7 @@ class _CartPageState extends State<CartPage> {
                                               actions: <Widget>[
                                                 TextButton(
                                                   onPressed: () {
+                                                    clearNotification();
                                                     triggerNotifications();
                                                     Navigator.pop(context);
                                                     cashOrder();

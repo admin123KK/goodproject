@@ -178,12 +178,16 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   }
 
   Future<void> addToCart() async {
+    String currentAddress = await getCurrentAddress();
     try {
       FirebaseFirestore.instance.collection('cart').add({
         'itemName': widget.name,
         'quantity': _quantity,
         'totalCost': _calculateTotalAmount(),
-        'Email': FirebaseAuth.instance.currentUser?.email
+        'dateTime': DateTime.now(),
+        'Email': FirebaseAuth.instance.currentUser?.email,
+        'Name': FirebaseAuth.instance.currentUser?.displayName,
+        'location': currentAddress
       });
       print('added to cart sucessfully');
       ScaffoldMessenger.of(context).showSnackBar(
@@ -850,7 +854,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                                         Esewa esewa = Esewa(
                                           context: context,
                                         );
-                                        esewa.pay();
+                                        await esewa.pay();
                                         Navigator.pop(context);
                                       },
                                       child: ClipOval(

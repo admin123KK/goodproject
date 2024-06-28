@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -365,6 +366,17 @@ class _SignUpState extends State<SignUp> {
 
                                       final email = _email.text;
                                       final password = _password.text;
+                                      await FirebaseFirestore
+                                          .instance //delted the items in the bucket cart
+                                          .collection('cart')
+                                          .get()
+                                          .then((snapshot) {
+                                        for (DocumentSnapshot doc
+                                            in snapshot.docs) {
+                                          doc.reference.delete();
+                                          print('deleted cart');
+                                        }
+                                      });
                                       try {
                                         await FirebaseAuth.instance
                                             .createUserWithEmailAndPassword(

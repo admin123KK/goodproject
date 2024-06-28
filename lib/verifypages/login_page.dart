@@ -283,6 +283,7 @@ class _LoginPageState extends State<LoginPage> {
                                             print('deleted cart');
                                           }
                                         });
+
                                         final userCredential =
                                             await FirebaseAuth.instance
                                                 .signInWithEmailAndPassword(
@@ -399,6 +400,7 @@ class _LoginPageState extends State<LoginPage> {
                                               ),
                                             );
                                           });
+
                                       signInWithGoogle();
                                     },
                                     child: Container(
