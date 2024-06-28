@@ -551,7 +551,9 @@ class _SelRotiPageState extends State<SelRotiPage> {
                                   children: [
                                     GestureDetector(
                                       onTap: () {
-                                        Esewa esewa = Esewa();
+                                        Esewa esewa = Esewa(
+                                          context: context,
+                                        );
                                         esewa.pay();
                                       },
                                       child: ClipOval(

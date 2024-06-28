@@ -542,7 +542,9 @@ class _PhiniPageState extends State<PhiniPage> {
                                                   children: [
                                                     GestureDetector(
                                                       onTap: () {
-                                                        Esewa esewa = Esewa();
+                                                        Esewa esewa = Esewa(
+                                                          context: context,
+                                                        );
                                                         esewa.pay();
                                                       },
                                                       child: ClipOval(

@@ -10,23 +10,42 @@ import 'package:geolocator/geolocator.dart';
 import 'package:goodproject/constant/esewa.dart';
 
 class Esewa {
-  pay() {
+  final BuildContext context;
+
+  Esewa({required this.context});
+
+  pay() async {
     try {
-      EsewaFlutterSdk.initPayment(
+      // Fetch the first document from the 'rawOrder' collection
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('rawOrder')
+          .limit(1)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
+        String itemName = documentSnapshot['itemName'];
+        String totalCost = documentSnapshot['totalCost'].toString();
+        int quantity = documentSnapshot['quantity'];
+
+        // Initiate Esewa payment with fetched details
+        EsewaFlutterSdk.initPayment(
           esewaConfig: EsewaConfig(
               clientId: kEsewaClientId,
               environment: Environment.test,
               secretId: kEsewaSecretKey),
           esewaPayment: EsewaPayment(
             productId: "1d71jd81",
-            productName: "Sel Roti",
-            productPrice: '60',
+            productName: itemName,
+            productPrice: totalCost,
             callbackUrl:
                 'https://esewa.com.np/mobile/transaction?txnRefId={refId} ',
           ),
           onPaymentSuccess: (EsewaPaymentSuccessResult result) async {
-            debugPrint('Sucess');
-            storeOrderInFirestore();
+            debugPrint('Success');
+            await storeOrderInFirestore(
+                itemName, quantity, double.parse(totalCost));
+            notificationClear(itemName, quantity, double.parse(totalCost));
             verify(result);
           },
           onPaymentFailure: () {
@@ -34,43 +53,69 @@ class Esewa {
           },
           onPaymentCancellation: () {
             debugPrint('Payment Canceled');
-          });
+          },
+        );
+      } else {
+        debugPrint('No items found in Firestore');
+      }
     } catch (e) {
-      debugPrint('Exception');
+      debugPrint('Exception: $e');
     }
   }
 
   verify(EsewaPaymentSuccessResult result) {
-    //To:After succes call this to verify the function
+    // After success call this to verify the function
   }
 }
 
-void storeOrderInFirestore() async {
+Future<void> storeOrderInFirestore(
+    String itemName, int itemQuantity, double totalCost) async {
   try {
-    // Get current address ligcha
-
+    // Get current address
     String currentAddress = await getCurrentAddress();
 
-    // Store onlineOrder data in Firestore keto
+    // Store onlineOrder data in Firestore
     await FirebaseFirestore.instance.collection('onlineOrder').add({
-      'orderType': 'online', // Example, adjust as per your logic
-      'itemName': 'Widget', // Example item name, replace with actual data
-      'quantity': 1, // Example quantity, replace with actual data
-      'totalCost': 100.0, // Example total cost, replace with actual calculation
+      'orderType': 'online',
+      'itemName': itemName,
+      'quantity': itemQuantity,
+      'totalCost': totalCost,
       'dateTime': DateTime.now(),
       'Email': FirebaseAuth.instance.currentUser?.email,
       'Name': FirebaseAuth.instance.currentUser?.displayName,
       'seen': false,
       'location': currentAddress,
     });
-
     print('Order successfully stored in Firestore.');
   } catch (e) {
     print('Error storing order in Firestore: $e');
   }
 }
 
-// Function to get current address (replace with actual geolocation logic)
+Future<void> notificationClear(
+    String itemName, int itemQuantity, double totalCost) async {
+  try {
+    // Get current address
+    String currentAddress = await getCurrentAddress();
+
+    // Store onlineOrder data in Firestore
+    await FirebaseFirestore.instance.collection('notification').add({
+      'orderType': 'online',
+      'itemName': itemName,
+      'quantity': itemQuantity,
+      'totalCost': totalCost,
+      'dateTime': DateTime.now(),
+      'Email': FirebaseAuth.instance.currentUser?.email,
+      'Name': FirebaseAuth.instance.currentUser?.displayName,
+      'seen': false,
+      'location': currentAddress,
+    });
+    print('Order successfully stored in Firestore.');
+  } catch (e) {
+    print('Error storing order in Firestore: $e');
+  }
+}
+
 Future<String> getCurrentAddress() async {
   try {
     Position position = await Geolocator.getCurrentPosition(

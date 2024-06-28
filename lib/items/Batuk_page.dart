@@ -545,7 +545,9 @@ class _BatukPageState extends State<BatukPage> {
                                         children: [
                                           GestureDetector(
                                             onTap: () {
-                                              Esewa esewa = Esewa();
+                                              Esewa esewa = Esewa(
+                                                context: context,
+                                              );
                                               esewa.pay();
                                             },
                                             child: ClipOval(

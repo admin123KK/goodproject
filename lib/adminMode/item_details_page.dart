@@ -290,6 +290,39 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
     }
   }
 
+  void rawOrder() async {
+    try {
+      // Simulate payment completion (replace with actual logic)
+      bool paymentCompleted = await simulatePaymentCompletion();
+
+      if (paymentCompleted) {
+        String currentAddress = await getCurrentAddress();
+        // Payment completed successfully, store order in Firestore
+        await FirebaseFirestore.instance.collection('rawOrder').add({
+          'orderType': 'esewa',
+          'itemName': widget.name,
+          'quantity': _quantity,
+          'totalCost': _calculateTotalAmount(),
+          'dateTime': DateTime.now(),
+          'Email': FirebaseAuth.instance.currentUser?.email,
+          'Name': FirebaseAuth.instance.currentUser?.displayName,
+          'seen': false,
+          'location': currentAddress
+          // Other fields specific to online orders
+        });
+
+        print('Order successfully placed (online)');
+        // Show success message or handle UI updates
+      } else {
+        // Payment not completed, handle accordingly (optional)
+        print('Payment not completed for online order');
+        // Show error message or handle UI updates
+      }
+    } catch (e) {
+      print('Error placing order (online): $e');
+    }
+  }
+
   Future<String> getCurrentAddress() async {
     try {
       Position position = await Geolocator.getCurrentPosition(
@@ -750,6 +783,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                 ),
                 InkWell(
                   onTap: () async {
+                    rawOrder();
                     showDialog(
                       context: context,
                       builder: (context) {
@@ -812,8 +846,10 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     GestureDetector(
-                                      onTap: () {
-                                        Esewa esewa = Esewa();
+                                      onTap: () async {
+                                        Esewa esewa = Esewa(
+                                          context: context,
+                                        );
                                         esewa.pay();
                                         Navigator.pop(context);
                                       },

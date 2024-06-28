@@ -523,9 +523,11 @@ class _ChukauniPageState extends State<ChukauniPage> {
                                                       MainAxisAlignment.center,
                                                   children: [
                                                     GestureDetector(
-                                                      onTap: () {
-                                                        Esewa esewa = Esewa();
-                                                        esewa.pay();
+                                                      onTap: () async {
+                                                        Esewa esewa = Esewa(
+                                                          context: context,
+                                                        );
+                                                        await esewa.pay();
                                                       },
                                                       child: ClipOval(
                                                         child: Image.asset(
