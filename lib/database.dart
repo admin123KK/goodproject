@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class DatabaseMethods {
   Future<void> addEmployeeDetails(
@@ -21,10 +22,29 @@ class DatabaseMethods {
     return FirebaseFirestore.instance.collection('userLocations').snapshots();
   }
 
-  Future<Stream<QuerySnapshot>> getClearNotifications() async {
+  Future<Stream<QuerySnapshot>> getClearrNotifications() async {
     return await FirebaseFirestore.instance
         .collection('notification')
         .snapshots();
+  }
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Future<Stream<QuerySnapshot>> getClearNotifications() async {
+    User? user = _auth.currentUser;
+
+    if (user != null) {
+      String userName = user.displayName ?? user.email ?? '';
+
+      return _firestore
+          .collection('notification')
+          // .doc(user.uid)
+          .where('Name', isEqualTo: userName)
+          .snapshots();
+    } else {
+      throw Exception("User not logged in");
+    }
   }
 
   // Add methods for handling other collections

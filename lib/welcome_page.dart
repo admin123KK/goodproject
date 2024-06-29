@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:goodproject/start_page.dart';
 
@@ -67,6 +68,16 @@ class _WelcomePageState extends State<WelcomePage> {
                         );
                       },
                     );
+                    FirebaseFirestore
+                        .instance //delted the items in the bucket cart
+                        .collection('rawOrder')
+                        .get()
+                        .then((snapshot) {
+                      for (DocumentSnapshot doc in snapshot.docs) {
+                        doc.reference.delete();
+                        print('deleted cart');
+                      }
+                    });
                     Timer(Duration(seconds: 1), () {
                       Navigator.of(context).pop();
                       Navigator.pushAndRemoveUntil(

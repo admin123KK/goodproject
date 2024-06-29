@@ -61,9 +61,9 @@ class NotificationPage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final data = documents[index].data() as Map<String, dynamic>;
                   final itemName =
-                      data['itemName'] ?? 'Unknown'; //fetching the itemName
+                      data['itemName'] ?? 'Unknown'; // Fetching the itemName
                   final quantity =
-                      data['quantity'] ?? 'Unknown'; //,, the quantity
+                      data['quantity'] ?? 'Unknown'; // Fetching the quantity
                   print("Item Name: $itemName");
 
                   return Card(
@@ -75,15 +75,11 @@ class NotificationPage extends StatelessWidget {
                       ),
                       subtitle: Text("Your ordered Item $itemName"
                           ' total x$quantity'
-                          ' has been  placed at KhajaGhar'),
+                          ' has been placed at KhajaGhar'),
                       leading: const Icon(
                         Icons.notifications_on_outlined,
                         color: Colors.green,
                       ),
-                      // trailing: const Icon(
-                      //   Icons.arrow_forward_ios,
-                      //   color: Colors.green,
-                      // ),
                     ),
                   );
                 },

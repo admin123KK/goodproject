@@ -247,7 +247,18 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
           'location': currentAddress
           // Other fields specific to cash orders
         });
-
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: const Text(
+            'Congratulations !! Your order is placecd',
+            style: TextStyle(
+              color: Color(0xFF91AD13),
+            ),
+          ),
+          backgroundColor: Colors.black,
+          behavior: SnackBarBehavior.floating,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        ));
         print('Order successfully placed (cash)');
         // Show success message or handle UI updates
       } else {
@@ -892,7 +903,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                                   Timer(Duration(seconds: 3), () {
                                     return triggerNotifications();
                                   });
-                                  // triggerNotifications();
+                                  triggerNotifications();
                                 },
                                 child: Text(
                                   AppLocalizations.of(context)
