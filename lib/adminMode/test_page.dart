@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:goodproject/adminMode/shimmer.dart';
 import 'package:goodproject/app_localization.dart';
 import 'package:goodproject/database.dart';
 import 'package:goodproject/items/notification_page.dart';
@@ -242,7 +243,9 @@ class _ItemPageState extends State<ItemPage> {
                       fontWeight: FontWeight.bold, fontSize: 17),
                 ),
               ),
-              isLoading ? _buildShimmerLoader() : _buildPopularItemsList(),
+              isLoading
+                  ? Shimmer(child: _buildShimmerLoader())
+                  : Shimmer(child: _buildPopularItemsList()),
               isLoading ? _buildShimmerLoader() : _itemsList(),
             ],
           ),
