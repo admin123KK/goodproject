@@ -30,7 +30,7 @@ class _AdminNotifyState extends State<AdminNotify> {
         centerTitle: true,
       ),
       body: FutureBuilder<Stream<QuerySnapshot>>(
-        future: databaseMethods.getClearNotifications(),
+        future: databaseMethods.getadminNotifications(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());

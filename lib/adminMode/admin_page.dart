@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:goodproject/adminMode/admin_notfiy_.dart';
 import 'package:goodproject/adminMode/create_newItems.dart';
 import 'package:goodproject/adminMode/order_details.dart';
+import 'package:goodproject/test/testdata.dart';
 import 'package:goodproject/verifypages/login_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -21,7 +22,7 @@ class _AdminPageState extends State<AdminPage> {
   void initState() {
     super.initState();
     FirebaseFirestore.instance //notification Counter to update from setstate
-        .collection('cashPay')
+        .collection('adminData')
         // .where('seen', isEqualTo: false)
         .snapshots()
         .listen((snapshot) {
@@ -33,7 +34,7 @@ class _AdminPageState extends State<AdminPage> {
 
   // void _markNotificationSeen() async {
   //   QuerySnapshot snapshot = await FirebaseFirestore.instance
-  //       .collection('cashPay')
+  //       .collection('cashOrder')
   //       .where('seen', isEqualTo: true)
   //       .get();
   //   for (QueryDocumentSnapshot doc in snapshot.docs) {
@@ -211,6 +212,12 @@ class _AdminPageState extends State<AdminPage> {
               height: 15,
             ),
             InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => DataAnalysisPage()));
+              },
               child: Container(
                 child: const Row(
                   children: [

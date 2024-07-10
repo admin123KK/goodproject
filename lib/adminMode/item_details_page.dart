@@ -305,6 +305,39 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
     }
   }
 
+  void adminDataCollection() async {
+    try {
+      // Simulate payment completion (replace with actual logic)
+      bool paymentCompleted = await simulatePaymentCompletion();
+
+      if (paymentCompleted) {
+        String currentAddress = await getCurrentAddress();
+        // Payment completed successfully, store order in Firestore
+        await FirebaseFirestore.instance.collection('adminData').add({
+          'orderType': 'cash',
+          'itemName': widget.name,
+          'quantity': _quantity,
+          'totalCost': _calculateTotalAmount(),
+          'dateTime': DateTime.now(),
+          'Email': FirebaseAuth.instance.currentUser?.email,
+          'Name': FirebaseAuth.instance.currentUser?.displayName,
+          'seen': false,
+          'location': currentAddress
+          // Other fields specific to online orders
+        });
+
+        print('Order successfully placed (online)');
+        // Show success message or handle UI updates
+      } else {
+        // Payment not completed, handle accordingly (optional)
+        print('Payment not completed for online order');
+        // Show error message or handle UI updates
+      }
+    } catch (e) {
+      print('Error placing order (online): $e');
+    }
+  }
+
   void rawOrder() async {
     try {
       // Simulate payment completion (replace with actual logic)
@@ -898,6 +931,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                               TextButton(
                                 onPressed: () {
                                   cashOrder();
+                                  adminDataCollection();
                                   clearNotification();
                                   Navigator.pop(context);
                                   Timer(Duration(seconds: 3), () {

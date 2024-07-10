@@ -32,19 +32,11 @@ class DatabaseMethods {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<Stream<QuerySnapshot>> getClearNotifications() async {
-    User? user = _auth.currentUser;
+    return await FirebaseFirestore.instance.collection('cashOrder').snapshots();
+  }
 
-    if (user != null) {
-      String userName = user.displayName ?? user.email ?? '';
-
-      return _firestore
-          .collection('notification')
-          // .doc(user.uid)
-          .where('Name', isEqualTo: userName)
-          .snapshots();
-    } else {
-      throw Exception("User not logged in");
-    }
+  Future<Stream<QuerySnapshot>> getadminNotifications() async {
+    return await FirebaseFirestore.instance.collection('adminData').snapshots();
   }
 
   // Add methods for handling other collections

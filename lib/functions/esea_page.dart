@@ -92,6 +92,30 @@ Future<void> storeOrderInFirestore(
   }
 }
 
+Future<void> adminDataCollection(
+    String itemName, int itemQuantity, double totalCost) async {
+  try {
+    // Get current address
+    String currentAddress = await getCurrentAddress();
+
+    // Store onlineOrder data in Firestore
+    await FirebaseFirestore.instance.collection('adminData').add({
+      'orderType': 'esewa',
+      'itemName': itemName,
+      'quantity': itemQuantity,
+      'totalCost': totalCost,
+      'dateTime': DateTime.now(),
+      'Email': FirebaseAuth.instance.currentUser?.email,
+      'Name': FirebaseAuth.instance.currentUser?.displayName,
+      'seen': false,
+      'location': currentAddress,
+    });
+    print('Order successfully stored in Firestore.');
+  } catch (e) {
+    print('Error storing order in Firestore: $e');
+  }
+}
+
 Future<void> notificationClear(
     String itemName, int itemQuantity, double totalCost) async {
   try {

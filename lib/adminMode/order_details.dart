@@ -60,7 +60,7 @@ class _CartPageState extends State<OrderDetails> {
           Padding(
             padding: const EdgeInsets.only(top: 70),
             child: StreamBuilder(
-              stream: firestore.collection("cashPay").snapshots(),
+              stream: firestore.collection("adminData").snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (!snapshot.hasData) {
                   return const Center(
@@ -81,7 +81,7 @@ class _CartPageState extends State<OrderDetails> {
                           itemBuilder: (context, index) {
                             DocumentSnapshot user = snapshot.data!.docs[index];
                             return Container(
-                              height: 110,
+                              height: 130,
                               width: 200,
                               child: Card(
                                 child: ListTile(
@@ -105,7 +105,7 @@ class _CartPageState extends State<OrderDetails> {
                                           ),
                                           Text(
                                             ' ${user['Email']}',
-                                          )
+                                          ),
                                         ],
                                       ),
                                       Row(
@@ -139,6 +139,29 @@ class _CartPageState extends State<OrderDetails> {
                                             style: const TextStyle(
                                                 fontWeight: FontWeight.bold),
                                           ),
+                                          const SizedBox(
+                                            width: 16,
+                                          ),
+                                          const Text(
+                                            'Payment : ',
+                                            style: TextStyle(
+                                                fontFamily: 'Mooli',
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black),
+                                          ),
+                                          Text('${user['orderType']}')
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          const Text(
+                                            'Location :',
+                                            style: TextStyle(
+                                                fontFamily: 'Mooli',
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black),
+                                          ),
+                                          Text('  ${user['location']}')
                                         ],
                                       ),
                                       const SizedBox(width: 25),
@@ -161,7 +184,7 @@ class _CartPageState extends State<OrderDetails> {
                                                 fontFamily: 'Mooli'),
                                           ),
                                           const SizedBox(
-                                            width: 20,
+                                            width: 11,
                                           ),
                                           const Text(
                                             'Time :',
@@ -172,7 +195,7 @@ class _CartPageState extends State<OrderDetails> {
                                           ),
                                           Text(
                                               ' ${formatDateTime(user['dateTime'])}' ??
-                                                  '')
+                                                  ''),
                                         ],
                                       ),
                                     ],
@@ -184,7 +207,7 @@ class _CartPageState extends State<OrderDetails> {
                         ),
                       ),
                       Container(
-                        height: 100,
+                        height: 65,
                         width: double.infinity,
                         decoration: const BoxDecoration(
                           color: Color(0xFF91AD13),
@@ -200,6 +223,13 @@ class _CartPageState extends State<OrderDetails> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              const Icon(
+                                Icons.bar_chart_rounded,
+                                size: 33,
+                              ),
+                              const SizedBox(
+                                width: 20,
+                              ),
                               const Text(
                                 'Total Revenue',
                                 style: TextStyle(

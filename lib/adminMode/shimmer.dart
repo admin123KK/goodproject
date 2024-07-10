@@ -16,7 +16,7 @@ class _ShimmerState extends State<Shimmer> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 2))
+        AnimationController(vsync: this, duration: Duration(seconds: 1))
           ..repeat();
   }
 
@@ -42,7 +42,7 @@ class _ShimmerState extends State<Shimmer> with SingleTickerProviderStateMixin {
                 _controller.value + 1,
               ],
               colors: [
-                Colors.grey.shade300,
+                const Color.fromARGB(255, 224, 224, 224),
                 Colors.grey.shade100,
                 Colors.grey.shade300,
               ],

@@ -245,8 +245,12 @@ class _ItemPageState extends State<ItemPage> {
               ),
               isLoading
                   ? Shimmer(child: _buildShimmerLoader())
-                  : Shimmer(child: _buildPopularItemsList()),
-              isLoading ? _buildShimmerLoader() : _itemsList(),
+                  : _buildPopularItemsList(),
+              isLoading
+                  ? Shimmer(
+                      child: _buildPopularItemsList(),
+                    )
+                  : _itemsList(),
             ],
           ),
         ),
