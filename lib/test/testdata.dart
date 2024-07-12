@@ -64,25 +64,33 @@ class _DataAnalysisPageState extends State<DataAnalysisPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Data Analysis'),
+        backgroundColor: const Color(0xFF91AD13),
+        title: const Text(
+          'KhajaGhar Analysis',
+          style: TextStyle(
+              fontSize: 25, color: Colors.black, fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
       ),
       body: _isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    'Items Ordered',
-                    style:
-                        TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                  Center(
+                    child: const Text(
+                      'Items Ordered',
+                      style: TextStyle(
+                          fontSize: 24.0, fontWeight: FontWeight.bold),
+                    ),
                   ),
                   Expanded(
                     child: SfCartesianChart(
-                      primaryXAxis: CategoryAxis(),
-                      title: ChartTitle(text: 'Item vs Quantity'),
-                      legend: Legend(isVisible: true),
+                      primaryXAxis: const CategoryAxis(),
+                      // title: const ChartTitle(text: 'Item vs Quantity'),
+                      legend: const Legend(isVisible: true),
                       tooltipBehavior: TooltipBehavior(enable: true),
                       series: <CartesianSeries>[
                         // Historical data series
@@ -98,7 +106,7 @@ class _DataAnalysisPageState extends State<DataAnalysisPage> {
                           xValueMapper: (ItemOrder data, _) => data.item,
                           yValueMapper: (ItemOrder data, _) => data.quantity,
                           name: 'Predicted',
-                          markerSettings: MarkerSettings(isVisible: true),
+                          markerSettings: const MarkerSettings(isVisible: true),
                         ),
                       ],
                     ),

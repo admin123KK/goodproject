@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:goodproject/adminMode/admin_login.dart';
+import 'package:goodproject/adminMode/test_page.dart';
 import 'package:goodproject/app_localization.dart';
-import 'package:goodproject/home_page.dart';
 import 'package:goodproject/verifypages/firebase_options.dart';
 import 'package:goodproject/verifypages/signup_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -294,7 +294,7 @@ class _LoginPageState extends State<LoginPage> {
                                             .pushAndRemoveUntil(
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      HomePage(),
+                                                      ItemPage(),
                                                 ),
                                                 (route) => false);
                                         delete();

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:goodproject/adminMode/admin_page.dart';
 import 'package:goodproject/adminMode/shimmer.dart';
 import 'package:goodproject/app_localization.dart';
 import 'package:goodproject/database.dart';
@@ -342,7 +343,10 @@ class _ItemPageState extends State<ItemPage> {
             ),
           ),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => AdminPage()));
+            },
             child: const ListTile(
               leading: Icon(
                 Icons.feedback,
