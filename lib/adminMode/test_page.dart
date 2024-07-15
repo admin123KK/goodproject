@@ -15,7 +15,6 @@ import 'package:goodproject/test/riders_app.dart';
 import 'package:goodproject/verifypages/location_page.dart';
 import 'package:goodproject/verifypages/login_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
 import 'item_details_page.dart';
 
 class ItemPage extends StatefulWidget {

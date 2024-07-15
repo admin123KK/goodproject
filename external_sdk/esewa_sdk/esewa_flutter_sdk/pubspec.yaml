@@ -17,6 +17,13 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+dependency_overrides:
+executables:
+publish_to:
+issue_tracker:
+repository:
+authors:
+  -
 flutter:
   plugin:
     platforms:

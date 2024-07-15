@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:goodproject/app_localization.dart';
@@ -6,7 +7,7 @@ import 'package:goodproject/verifypages/login_page.dart';
 import 'package:provider/provider.dart';
 
 import 'langugages_provider.dart';
-import 'verifypages/signup_page.dart'; // Import Provider
+import 'verifypages/signup_page.dart';
 
 class StartPage extends StatefulWidget {
   const StartPage({Key? key});

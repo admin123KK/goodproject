@@ -63,7 +63,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
         locale: languageProvider.locale,
         supportedLocales: [
-          Locale('en'),
+         Locale('en'),
           Locale('ne'),
         ],
         localizationsDelegates: [
