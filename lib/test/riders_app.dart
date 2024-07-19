@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:location/location.dart';
 
@@ -11,6 +14,10 @@ class RidersApp extends StatefulWidget {
   State<RidersApp> createState() => _RidersAppState();
 }
 
+BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
+BitmapDescriptor destinationIcon = BitmapDescriptor.defaultMarker;
+BitmapDescriptor currentIcon = BitmapDescriptor.defaultMarker;
+
 class _RidersAppState extends State<RidersApp> {
   final TextEditingController _searchController = TextEditingController();
   LocationData? _currentLocation;
@@ -18,31 +25,39 @@ class _RidersAppState extends State<RidersApp> {
   String deliveryLocation = "";
   String orderTime = "";
 
+  LatLng sourceLocation = LatLng(27.69242341891831, 83.46309766111746);
+  LatLng initialDestinationLocation = LatLng(27.69242341891831,
+      83.46309766111746); // Initial location fetched from Firestore
+  LatLng destinationLocation = LatLng(27.69242341891831,
+      83.46309766111746); // Initialize destination same as source
+
+  LocationData? currentLocation;
+  Location location = Location();
+
   @override
   void initState() {
     super.initState();
     _getLocation();
     fetchLocation();
+    fetchCurrentLocation();
+    setCustomMarkerIcon();
   }
 
   Future<void> fetchLocation() async {
     try {
-      // Query the collection to find the document with the desired field
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('notification')
-          .where('location',
-              isNotEqualTo: null) // Adjust this condition as needed
-          .limit(1) // Assuming you want only the first document that matches
+          .where('location', isNotEqualTo: null)
+          .limit(1)
           .get();
 
       if (querySnapshot.docs.isNotEmpty) {
         DocumentSnapshot snapshot = querySnapshot.docs.first;
         var data = snapshot.data() as Map<String, dynamic>;
-        print('Fetched data: $data'); // Debugging line
+        print('Fetched data: $data');
 
         setState(() {
           deliveryLocation = data['location'] ?? 'Location not available';
-          // orderTime = (data['dateTime'] as Timestamp).toDate().toString();
           Timestamp timestamp = data['dateTime'];
           DateTime dateTime = timestamp.toDate();
           orderTime = DateFormat('hh:mm a').format(dateTime);
@@ -50,11 +65,11 @@ class _RidersAppState extends State<RidersApp> {
       } else {
         setState(() {
           deliveryLocation = 'Document does not exist';
-          print('Document does not exist'); // Debugging line
+          print('Document does not exist');
         });
       }
     } catch (e) {
-      print('Error fetching location: $e'); // Debugging line
+      print('Error fetching location: $e');
       setState(() {
         deliveryLocation = 'Error fetching location';
       });
@@ -86,9 +101,87 @@ class _RidersAppState extends State<RidersApp> {
     setState(() {});
   }
 
+  Future<void> fetchCurrentLocation() async {
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('notification')
+          .doc('location') // Replace with your document ID
+          .get();
+
+      if (snapshot.exists) {
+        var data = snapshot.data() as Map<String, dynamic>;
+        String locationName = data['location'];
+
+        LatLng? coords = await getCoordinatesFromPlaceCode(locationName);
+        if (coords != null) {
+          setState(() {
+            initialDestinationLocation = coords;
+            destinationLocation = coords;
+          });
+        } else {
+          print("Failed to convert place code to coordinates.");
+        }
+      } else {
+        print('Document does not exist');
+      }
+
+      location.onLocationChanged.listen((LocationData newLoc) {
+        setState(() {
+          currentLocation = newLoc;
+        });
+      });
+    } catch (e) {
+      print('Error fetching current location: $e');
+    }
+  }
+
+  Future<LatLng?> getCoordinatesFromPlaceCode(String placeCode) async {
+    final apiKey = 'AIzaSyBD6CkJ6n9blu72_AfP_vx9lO0tvsUYc8s';
+    final url =
+        'https://maps.googleapis.com/maps/api/geocode/json?address=$placeCode&key=$apiKey';
+
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        if (data['results'].isNotEmpty) {
+          final location = data['results'][0]['geometry']['location'];
+          return LatLng(location['lat'], location['lng']);
+        } else {
+          print("No results found for the place code.");
+        }
+      } else {
+        print("Error fetching coordinates: ${response.statusCode}");
+      }
+    } catch (e) {
+      print("Error during geocoding request: $e");
+    }
+    return null;
+  }
+
+  void setCustomMarkerIcon() {
+    BitmapDescriptor.fromAssetImage(
+      ImageConfiguration.empty,
+      'assets/images/store.png',
+    ).then((icon) {
+      sourceIcon = icon;
+    });
+    BitmapDescriptor.fromAssetImage(
+      ImageConfiguration.empty,
+      'assets/images/home.png',
+    ).then((icons) {
+      destinationIcon = icons;
+    });
+    BitmapDescriptor.fromAssetImage(
+      ImageConfiguration.empty,
+      'assets/images/deliverybike.png',
+    ).then((icons) {
+      currentIcon = icons;
+    });
+  }
+
   void _startDelivery() {
     if (_currentLocation != null) {
-      // Implement logic to share the location or start the delivery process
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
             content: Text(
@@ -223,40 +316,54 @@ class _RidersAppState extends State<RidersApp> {
                 },
               ),
             ),
-            // TextField(
-            //   controller: _searchController,
-            //   decoration: const InputDecoration(
-            //     labelText: 'Search Delivery Details',
-            //     border: OutlineInputBorder(),
-            //   ),
-            // ),
-            // const SizedBox(height: 20),
-            // ElevatedButton(
-            //   onPressed: _startDelivery,
-            //   child: Text('Start Delivery'),
-            //   style: ElevatedButton.styleFrom(
-            //     backgroundColor: const Color(0xFF91AD13),
-            //   ),
-            // ),
-            // const SizedBox(height: 20),
-            // Expanded(
-            //   child: _currentLocation == null
-            //       ? const Center(child: CircularProgressIndicator())
-            //       : GoogleMap(
-            //           initialCameraPosition: CameraPosition(
-            //             target: LatLng(
-            //               _currentLocation!.latitude!,
-            //               _currentLocation!.longitude!,
-            //             ),
-            //             zoom: 15,
-            //           ),
-            //           onMapCreated: (controller) {
-            //             _mapController = controller;
-            //           },
-            //           myLocationEnabled: true,
-            //           myLocationButtonEnabled: true,
-            //         ),
-            // ),
+            const SizedBox(height: 20),
+            Expanded(
+              child: destinationLocation == null
+                  ? Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : GoogleMap(
+                      initialCameraPosition: CameraPosition(
+                        target: initialDestinationLocation,
+                        zoom: 15,
+                      ),
+                      markers: {
+                        Marker(
+                          markerId: MarkerId('sourceLocation'),
+                          position: sourceLocation,
+                          infoWindow: InfoWindow(title: 'Khaja GHar'),
+                          icon: sourceIcon,
+                        ),
+                        Marker(
+                          markerId: MarkerId('destinationLocation'),
+                          position: destinationLocation,
+                          icon: currentIcon,
+                          infoWindow: InfoWindow(title: 'Delivery Location'),
+                          draggable: true,
+                          onDragEnd: (LatLng newLocation) {
+                            setState(() {
+                              destinationLocation = newLocation;
+                            });
+                          },
+                        ),
+                        if (currentLocation != null)
+                          Marker(
+                            markerId: MarkerId('currentLocation'),
+                            position: LatLng(
+                              currentLocation!.latitude!,
+                              currentLocation!.longitude!,
+                            ),
+                            infoWindow: InfoWindow(title: 'Current Location'),
+                            icon: destinationIcon,
+                          ),
+                      },
+                      onMapCreated: (controller) {
+                        _mapController = controller;
+                      },
+                      myLocationEnabled: true,
+                      myLocationButtonEnabled: true,
+                    ),
+            ),
           ],
         ),
       ),
