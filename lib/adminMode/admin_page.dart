@@ -229,7 +229,7 @@ class _AdminPageState extends State<AdminPage> {
                     SizedBox(
                       width: 10,
                     ),
-                    Text('Manage Order Status')
+                    Text('KhajaGhar Data Analysis')
                   ],
                 ),
               ),

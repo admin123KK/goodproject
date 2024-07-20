@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:goodproject/app_localization.dart';
 import 'package:goodproject/firebase_options.dart';
-import 'package:goodproject/home_page.dart';
 import 'package:goodproject/items/Batuk_page.dart';
 import 'package:goodproject/items/Chukauni_page.dart';
 import 'package:goodproject/items/Phini_page.dart';
@@ -63,7 +62,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
         locale: languageProvider.locale,
         supportedLocales: [
-         Locale('en'),
+          Locale('en'),
           Locale('ne'),
         ],
         localizationsDelegates: [
@@ -78,7 +77,6 @@ class _MyAppState extends State<MyApp> {
         initialRoute: 'WelcomePage/',
         routes: {
           'Loginpage/': (context) => const LoginPage(),
-          'homepage/': (context) => const HomePage(),
           'WelcomePage/': (context) => const WelcomePage(),
           'StartPage/': (context) => const StartPage(),
           'SignUp/': (context) => const SignUp(),
@@ -89,7 +87,7 @@ class _MyAppState extends State<MyApp> {
           'PhiniPage/': (context) => const PhiniPage(),
           'BatukPage/': (context) => const BatukPage(),
           'ChukauniPage/': (context) => const ChukauniPage(),
-          'NotficationPage/': (context) => const NotificationPage()
+          'NotficationPage/': (context) => const NotificationPage(),
         });
   }
 }
