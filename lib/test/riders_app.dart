@@ -170,13 +170,13 @@ class _RidersAppState extends State<RidersApp> {
       ImageConfiguration.empty,
       'assets/images/home.png',
     ).then((icons) {
-      destinationIcon = icons;
+      currentIcon = icons;
     });
     BitmapDescriptor.fromAssetImage(
       ImageConfiguration.empty,
       'assets/images/deliverybike.png',
     ).then((icons) {
-      currentIcon = icons;
+      destinationIcon = icons;
     });
   }
 

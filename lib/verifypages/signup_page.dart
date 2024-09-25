@@ -22,6 +22,8 @@ class _SignUpState extends State<SignUp> {
   late final TextEditingController _email;
   late final TextEditingController _password;
 
+  TextEditingController _phonenumber = TextEditingController();
+
   bool passToggle = true;
 
   Future signInWithGoogle() async {
@@ -43,6 +45,37 @@ class _SignUpState extends State<SignUp> {
 
     Navigator.of(context)
         .pushNamedAndRemoveUntil('homepage/', (route) => false);
+  }
+
+  String? _validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Enter a passowrd";
+    }
+    if (value.length < 8) {
+      return 'Password must be at least of 8 charactr long';
+    }
+    if (!RegExp(r'[A-Z]').hasMatch(value)) {
+      return 'Password must contain at least one upper  case letter';
+    }
+    if (!RegExp(r'[a-z]').hasMatch(value)) {
+      return 'Password must contain at least one lower case letter';
+    }
+    if (!RegExp(r'\d').hasMatch(value)) {
+      return 'Password must contain at least one number';
+    }
+    if (!RegExp(r'[!@#\$&*~]').hasMatch(value)) {
+      return 'Password must contain at least one special character (e.g., !, @, #)';
+    }
+    return null;
+  }
+
+  String? _validateConfirmPassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Confirm Password ";
+    } else if (_password.text != value) {
+      return "password don't match ";
+    }
+    return null;
   }
 
   @override
@@ -169,6 +202,53 @@ class _SignUpState extends State<SignUp> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
+                                  child: TextFormField(
+                                    controller: _phonenumber,
+                                    keyboardType: TextInputType.phone,
+                                    autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
+                                    cursorColor: Color(0xFF91AD13),
+                                    decoration: const InputDecoration(
+                                      labelText: 'Phone Number',
+                                      prefixIcon: Icon(Icons.phone_outlined),
+                                      labelStyle:
+                                          TextStyle(color: Colors.black),
+                                      hintText: "enter  phone number",
+                                      hintStyle: TextStyle(color: Colors.grey),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0xFF91AD13),
+                                        ),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(15),
+                                        ),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0xFF91AD13),
+                                        ),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(15),
+                                        ),
+                                      ),
+                                    ),
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please enter your number';
+                                      }
+                                      String pattern = r'(^[0-9]{10}$)';
+                                      RegExp regExp = RegExp(pattern);
+                                      if (!regExp.hasMatch(value)) {
+                                        return 'Enter a valid phone number at least 10 digits';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
                                   // height: 55,
                                   // width: 400,
                                   child: TextFormField(
@@ -274,9 +354,8 @@ class _SignUpState extends State<SignUp> {
                                       } else if (value.length < 6) {
                                         return AppLocalizations.of(context)
                                             .translate('pleaseEnter6Character');
-                                      } else {
-                                        return null;
                                       }
+                                      return _validatePassword(value);
                                     },
                                   ),
                                 ),
@@ -289,6 +368,8 @@ class _SignUpState extends State<SignUp> {
                                   child: TextFormField(
                                     cursorColor: Color(0xFF91AD13),
                                     obscureText: passToggle,
+                                    autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
                                     decoration: InputDecoration(
                                       labelText: AppLocalizations.of(context)
                                           .translate('confirmPassword'),
@@ -326,12 +407,12 @@ class _SignUpState extends State<SignUp> {
                                     ),
                                     validator: (value) {
                                       if (value!.isEmpty) {
-                                        return "please enter your password";
+                                        return "please confirm your password";
                                       } else if (value.length < 6) {
                                         return "invalid password";
-                                      } else {
-                                        return null;
                                       }
+                                      return _validateConfirmPassword(
+                                          value); // password matching
                                     },
                                   ),
                                 ),
@@ -350,6 +431,7 @@ class _SignUpState extends State<SignUp> {
                                       Map<String, dynamic> employeeInfoMap = {
                                         "Name": _nameController.text,
                                         "Email": _email.text,
+                                        "Contact": _phonenumber.text,
                                       };
                                       await DatabaseMethods()
                                           .addEmployeeDetails(
