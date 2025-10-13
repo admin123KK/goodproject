@@ -20,7 +20,7 @@ class _CreateNewState extends State<CreateNew> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Admin Control'),
+        title: Text('Admin Contrl'),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: databaseMethods.getItems(),
