@@ -97,7 +97,7 @@ class _CreateNewState extends State<CreateNew> {
             ),
             TextField(
               controller: _descriptionController, // Added
-              decoration: InputDecoration(labelText: 'Description'), // Added
+              decoration: InputDecoration(labelText: 'Descriptions'), // Added
             ),
             TextField(
               controller: _imageController,
